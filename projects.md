@@ -15,7 +15,7 @@ iOS, Desktop. Built with KMP & Jetpack Compose.
 
 Lightweight library with a set of small Kotlin and Android extensions for a better development experience.
 
-### <a href="https://github.com/vladleesi/vladleesi.github.io" target="_blank">Personal website</a>
+### <a href="https://github.com/vladleesi/kotlin-js" target="_blank">Personal website</a>
 
 Personal website developed in Kotlin/JS. Why? I don't know, but it was fun.
 
