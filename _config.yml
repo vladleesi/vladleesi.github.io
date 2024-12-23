@@ -1,29 +1,33 @@
 # Site title and subtitle. This is used in _includes/header.html
 title: Vladislav Kochetov
-subtitle: Personal blog of Vladislav Kochetov
+subtitle: Vladislav Kochetov’s personal blog — Mobile Software Engineer
 description: Mobile Software Engineer
-email: hello@vladleesi.dev
+
 baseurl: "/blog"
 url: "https://vladleesi.dev"
-twitter_username: vladleesi
-github_username: vladleesi
-linkedin_username: vladkochetov
+
+author:
+  name: Vladislav Kochetov
+  email: "hello@vladleesi.dev"
 
 collections:
   projects:
     output: true
 
-menu:
-  - title: "Home"
-    url: "/"
-  - title: "Projects"
-    url: "/projects/"
+header_pages:
+  - about.md
+  - projects.md
 
 # Build settings
 exclude: [ 'bin', 'README.md' ]
 markdown: kramdown
 theme: minima
 minima:
-  skin: dark
+  skin: auto
+  social_links:
+    - { platform: github,  user_url: "https://github.com/vladleesi" }
+    - { platform: linkedin, user_url: "https://www.linkedin.com/in/vladkochetov" }
+    - { platform: devto, user_url: "https://dev.to/vladleesi" }
+    - { platform: x, user_url: "https://twitter.com/vladleesi" }
 plugins:
   - jekyll-feed
