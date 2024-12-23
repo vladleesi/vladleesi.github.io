@@ -21,7 +21,7 @@ header_pages:
 # Build settings
 exclude: [ 'bin', 'README.md' ]
 markdown: kramdown
-theme: minima
+#theme: minima
 minima:
   skin: auto
   social_links:
@@ -29,5 +29,10 @@ minima:
     - { platform: linkedin, user_url: "https://www.linkedin.com/in/vladkochetov" }
     - { platform: devto, user_url: "https://dev.to/vladleesi" }
     - { platform: x, user_url: "https://twitter.com/vladleesi" }
+#plugins:
+#  - jekyll-feed
+
 plugins:
-  - jekyll-feed
+  - jekyll-remote-theme
+
+remote_theme: jekyll/minima
