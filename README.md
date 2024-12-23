@@ -1,1 +1,1 @@
-[![GitHub Pages Deploy](https://github.com/vladleesi/vladleesi.github.io/actions/workflows/gh-pages-deploy.yml/badge.svg)](https://github.com/vladleesi/vladleesi.github.io/actions/workflows/gh-pages-deploy.yml)
+[![GitHub Pages Deploy](https://github.com/vladleesi/vladleesi.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/vladleesi/vladleesi.github.io/actions/workflows/pages/pages-build-deployment)
