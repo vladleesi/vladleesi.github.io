@@ -3,8 +3,7 @@ title: Vladislav Kochetov
 subtitle: Vladislav Kochetov’s personal blog — Mobile Software Engineer
 description: Mobile Software Engineer
 
-baseurl: "/blog"
-url: "https://vladleesi.dev"
+baseurl: ""
 
 author:
   name: Vladislav Kochetov
@@ -31,3 +30,4 @@ minima:
     - { platform: x, user_url: "https://twitter.com/vladleesi" }
 plugins:
   - jekyll-remote-theme
+  - jekyll-feed
