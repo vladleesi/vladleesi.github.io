@@ -1,8 +1,7 @@
 # Site title and subtitle. This is used in _includes/header.html
 title: Vladislav Kochetov
-subtitle: Mobile Software Engineer
-description: >- # this means to ignore newlines until "baseurl:"
-  Personal blog of Vladislav Kochetov
+subtitle: Personal blog of Vladislav Kochetov
+description: Mobile Software Engineer
 email: hello@vladleesi.dev
 baseurl: "/blog"
 url: "https://vladleesi.dev"
