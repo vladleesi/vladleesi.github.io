@@ -15,22 +15,19 @@ iOS, Desktop. Built with KMP & Jetpack Compose.
 
 Lightweight library with a set of small Kotlin and Android extensions for a better development experience.
 
-### <a href="https://github.com/vladleesi/kotlin-js" target="_blank">Personal website</a>
+### <a href="https://github.com/vladleesi/kmp-sharekit" target="_blank">KMP-ShareKit</a>
 
-Personal website developed in Kotlin/JS. Why? I don't know, but it was fun.
+Kotlin multiplatform library that implements content sharing for Android & iOS platforms. Share text, images, and video seamlessly.
+
+### <a href="https://github.com/vladleesi/scanmate" target="_blank">Scanmate</a>
+
+A simple QR code scanner with tactile and audio feedback. You can also save and view previously scanned codes.
 
 ### <a href="https://github.com/vladleesi/factastic" target="_blank">Factastic</a>
 
 Useless facts every day! Here's an example of a multiplatform app with shared UI and network logic built with Kotlin
 Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.
 
-### <a href="https://github.com/vladleesi/yet-another-calculator" target="_blank">Yet Another Calculator (YAC)</a>
-
-Behold, here it is – yet another calculator! This marvel of innovation will calculate stuff, just like countless others
-before it. Built for Android and iOS using Compose Multiplatform.
-
-### <a href="https://github.com/vladleesi/scanmate" target="_blank">Scanmate</a>
-
-A simple QR code scanner with tactile and audio feedback. You can also save and view previously scanned codes.
+___
 
 For more projects, visit my <a href="https://github.com/vladleesi" target="_blank">GitHub profile</a>.
