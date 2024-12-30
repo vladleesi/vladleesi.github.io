@@ -28,6 +28,4 @@ A simple QR code scanner with tactile and audio feedback. You can also save and 
 Useless facts every day! Here's an example of a multiplatform app with shared UI and network logic built with Kotlin
 Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.
 
-___
-
 For more projects, visit my <a href="https://github.com/vladleesi" target="_blank">GitHub profile</a>.
