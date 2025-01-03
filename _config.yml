@@ -1,7 +1,7 @@
 # Site title and subtitle. This is used in _includes/header.html
 title: Vladislav Kochetov
 subtitle: >
-  Vladislav Kochetov’s blog: Insights on Android development, tech, and side projects.
+  Personal site of Vladislav Kochetov: Insights on Android development, tech, and side projects.
 description: Mobile Software Engineer
 
 baseurl: ""
@@ -22,6 +22,7 @@ header_pages:
 exclude: [ 'bin', 'README.md' ]
 markdown: kramdown
 remote_theme: jekyll/minima
+theme: minima
 minima:
   skin: auto
   social_links:
@@ -30,5 +31,5 @@ minima:
     - { platform: devto, user_url: "https://dev.to/vladleesi" }
     - { platform: x, user_url: "https://twitter.com/vladleesi" }
 plugins:
-  - jekyll-remote-theme
+#  - jekyll-remote-theme
   - jekyll-feed
