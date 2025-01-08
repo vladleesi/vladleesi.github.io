@@ -21,7 +21,7 @@ Kotlin multiplatform library that implements content sharing for Android & iOS p
 
 ### <a href="https://github.com/vladleesi/scanmate" target="_blank">Scanmate</a>
 
-A simple QR code scanner with tactile and audio feedback. You can also save and view previously scanned codes.
+A simple Android QR code scanner designed, featuring sound and haptic feedback for improved accessibility.
 
 ### <a href="https://github.com/vladleesi/factastic" target="_blank">Factastic</a>
 
