@@ -21,7 +21,7 @@ header_pages:
 # Build settings
 exclude: [ 'bin', 'README.md' ]
 markdown: kramdown
-remote_theme: "jekyll/minima@master"
+remote_theme: "jekyll/minima@2.5.2"
 minima:
   skin: auto
   social_links:
