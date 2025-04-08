@@ -16,8 +16,8 @@ We require
 macOS, [Android Studio](https://developer.android.com/studio), [Kotlin Multiplatform plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile), [Xcode](https://developer.apple.com/xcode/),
 and a dash of enthusiasm!
 
-> Disclaimer: I aim to focus solely on essential aspects. For the complete code, please refer to the following 
-> [https://github.com/vladleesi/factastic](https://github.com/vladleesi/factastic).
+> Disclaimer: I aim to focus solely on essential aspects. For the complete code, please refer to the following GitHub
+> repository: [https://github.com/vladleesi/factastic](https://github.com/vladleesi/factastic).
 
 So, let's get started!
 
