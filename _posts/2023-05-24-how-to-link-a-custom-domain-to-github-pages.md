@@ -2,7 +2,6 @@
 layout: post
 title: "How to Link a Custom Domain to GitHub Pages"
 date: 2023-05-24
-author: "Vladislav Kochetov"
 categories: [ post ]
 tags: [github, github-pages, domains, custom-domain, website, osdc]
 ---

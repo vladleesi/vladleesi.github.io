@@ -2,7 +2,6 @@
 layout: post
 title: "Accessibility Guidelines for Android Apps"
 date: 2023-07-23
-author: "Vladislav Kochetov"
 categories: [ post ]
 tags: [android, tutorial, UI, development]
 ---

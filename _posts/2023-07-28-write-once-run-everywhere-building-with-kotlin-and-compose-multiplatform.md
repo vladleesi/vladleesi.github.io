@@ -2,7 +2,6 @@
 layout: post
 title: "Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform"
 date: 2023-07-28
-author: "Vladislav Kochetov"
 categories: [ post ]
 tags: [kotlin, android, ios, multiplatform]
 ---

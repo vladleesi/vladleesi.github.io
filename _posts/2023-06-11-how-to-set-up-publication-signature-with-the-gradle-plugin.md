@@ -2,7 +2,6 @@
 layout: post
 title: "How to set up publication signature with the Gradle plugin"
 date: 2023-06-11
-author: "Vladislav Kochetov"
 categories: [ post ]
 tags: [gradle, gpg, signing, nexus]
 ---
