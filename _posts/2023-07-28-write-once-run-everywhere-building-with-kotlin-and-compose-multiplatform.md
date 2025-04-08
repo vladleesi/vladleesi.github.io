@@ -13,16 +13,16 @@ Kotlin Serialization, and Ktor to create an app that runs smoothly on both Andro
 The focus here is on creating a multiplatform app that uses shared network logic and user interface only just on Kotlin.
 
 We require
-macOS, [Android Studio](https://developer.android.com/studio), [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile), [Xcode](https://developer.apple.com/xcode/),
+macOS, [Android Studio](https://developer.android.com/studio), [Kotlin Multiplatform plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile), [Xcode](https://developer.apple.com/xcode/),
 and a dash of enthusiasm!
 
-> Disclaimer: I aim to focus solely on essential aspects. For the complete code, please refer to the following GitHub
-> repository: https://github.com/vladleesi/factastic
+> Disclaimer: I aim to focus solely on essential aspects. For the complete code, please refer to the following 
+> [https://github.com/vladleesi/factastic](https://github.com/vladleesi/factastic).
 
 So, let's get started!
 
-To begin, let's create a multiplatform project in Android Studio by selecting "New Project" and then choosing the "
-Kotlin Multiplatform App" template.
+To begin, let's create a multiplatform project in Android Studio by selecting "New Project" and then choosing the 
+"Kotlin Multiplatform App" template.
 
 ![Creation of new multiplatform project](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wnn34qwg4p77gjuy6gam.png)
 
