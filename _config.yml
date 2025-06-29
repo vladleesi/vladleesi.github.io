@@ -33,6 +33,9 @@ minima:
     - title: dev.to
       icon: dev
       url: "https://dev.to/vladleesi"
+    - title: medium
+      icon: medium
+      url: "https://medium.com/@vladleesi"
     - title: Twitter
       icon: x-twitter
       url: "https://twitter.com/vladleesi"
