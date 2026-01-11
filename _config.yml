@@ -1,7 +1,8 @@
 # Site title and subtitle. This is used in _includes/header.html
 title: Vladislav Kochetov
-subtitle: >
-  Vladislav Kochetov’s personal site — tech insights and projects.
+subtitle: |
+  Personal site of Vladislav Kochetov,
+  tech blog and personal projects.
 description: Mobile Software Engineer
 
 baseurl: ""
