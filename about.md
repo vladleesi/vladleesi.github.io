@@ -15,7 +15,7 @@ software development.
 
 More about [my career is here](https://www.linkedin.com/in/vladkochetov/).
 
-You can download my resume [here](/assets/resume/resume.pdf).
+You can download my resume [here](/assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf.pdf).
 
 I have a wife and an ultra-cute Golden Retriever dog. In my free time, I love video games, and playing drums as a hobby.
 We've lived in both Russia and Mexico, and now I’m preparing for a new chapter as I get ready to move to the USA with my
