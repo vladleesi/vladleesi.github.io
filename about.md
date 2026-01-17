@@ -8,15 +8,16 @@ permalink: /about/
 
 Hi, I'm Vladislav Kochetov!
 
-I'm a **Software Engineer** with a strong passion for **Mobile development**, particularly in Android applications. I
-love exploring new technologies and building projects that push the boundaries of what's possible on mobile platforms.
-In addition to Android, I'm always diving into little side projects that expand my knowledge in various areas of
-software development.
+I’m a **Software Engineer** with 8+ years of experience and a deep focus on **Android** development.
+I care a lot about code quality, developer experience, and building mobile products that are both scalable and pleasant
+to work on.
+Most of my day-to-day work revolves around Android and Kotlin, but I regularly explore new technologies through side
+projects - mainly to sharpen my thinking and stay curious beyond the mobile bubble.
 
-More about [my career is here](https://www.linkedin.com/in/vladkochetov/).
+You can find more details about my professional background on [LinkedIn](https://www.linkedin.com/in/vladkochetov/),  
+or download my resume [here](/assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf).
 
-You can download my resume [here](/assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf).
-
-I have a wife and an ultra-cute Golden Retriever dog. In my free time, I love video games, and playing drums as a hobby.
-We've lived in both Russia and Mexico, and now I’m preparing for a new chapter as I get ready to move to the USA with my
-EB-2 NIW visa.
+Outside of work, I share life with my wife and an ultra-cute Golden Retriever.  
+I unwind with video games and play drums purely for fun.  
+We’ve lived in both Russia and Mexico, and I’m now getting ready for the next chapter -  
+relocating to the United States under the **EB-2 NIW** program.
