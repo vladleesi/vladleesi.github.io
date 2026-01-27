@@ -3,7 +3,7 @@ layout: post
 title: "Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform"
 date: 2023-07-28
 categories: [ post ]
-tags: [kotlin, android, ios, multiplatform]
+tags: [kotlin, android, ios, multiplatform, jetpack-compose, compose-ui]
 ---
 
 Welcome to the world of Kotlin multiplatform app development! In this article, we'll explore a simple example of an app
