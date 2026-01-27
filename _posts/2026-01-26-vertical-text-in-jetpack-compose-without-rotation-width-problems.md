@@ -16,7 +16,7 @@ visually clipped when rendered vertically:
 
 ```kotlin
 Text(
-    text = text,
+    text = "Vertical Text!",
     modifier = Modifier.rotate(270f)
 )
 ```
@@ -34,14 +34,20 @@ character individually, adjusting layout bounds so the width behaves as expected
 
 In this case, each character is rendered as a separate Text and rotated individually.
 By applying the rotation per character, we avoid treating the entire string as a single horizontal block,
-which allows the layout to size and position each glyph correctly in a vertical flow.
+which allows the layout to size and position each char correctly in a vertical flow.
 
 ```kotlin
-reversedText.forEach { char ->
-    Text(
-        text = char.toString(),
-        modifier = Modifier.rotateVertically(),
-    )
+val reversedText = remember(text) { text.reversed() }
+Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+) {
+    reversedText.forEach { char ->
+        Text(
+            text = char.toString(),
+            modifier = Modifier.rotateVertically(),
+        )
+    }
 }
 ```
 And `rotateVertically` makes the rotation layout-aware.
