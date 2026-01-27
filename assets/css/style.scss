@@ -4,3 +4,23 @@
 @import
   "minima/skins/{{ site.minima.skin | default: 'classic' }}",
   "minima/initialize";
+
+.copy-code-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+
+  // optional polish
+  background: var(--code-copy-bg, #2d2d2d);
+  color: var(--code-copy-color, #fff);
+}
+
+.copy-code-btn:hover {
+  opacity: 1;
+}
