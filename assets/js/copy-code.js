@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".highlight").forEach((block) => {
-    // 🔒 guard: already initialized
     if (block.closest(".code-block-wrap")?.querySelector(".copy-code-btn")) {
       return;
     }
