@@ -23,7 +23,7 @@ minima:
   skin: auto
   nav_pages:
     - about.md
-    - projects.md
+#    - projects.md
   social_links:
     - title: GitHub
       icon: github
