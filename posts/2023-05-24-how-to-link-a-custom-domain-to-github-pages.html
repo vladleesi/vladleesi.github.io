@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var k='portfolio-theme';
+      var stored=localStorage.getItem(k);
+      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+    })();
+  </script>
+  <title>How to Link a Custom Domain to GitHub Pages | Vladislav Kochetov</title>
+  <meta name="description" content="Guide to linking a custom domain to your GitHub Pages site: DNS configuration, CNAME file, and GitHub settings.">
+  <link rel="canonical" href="https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html">
+  <meta property="og:title" content="How to Link a Custom Domain to GitHub Pages | Vladislav Kochetov">
+  <meta property="og:description" content="Guide to linking a custom domain to your GitHub Pages site, from DNS to the CNAME file and settings.">
+  <meta property="og:url" content="https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Custom domain on GitHub Pages | Vladislav Kochetov">
+  <meta name="twitter:description" content="Link a custom domain to GitHub Pages — DNS and CNAME.">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/article.css">
+</head>
+<body class="article-page" data-post-id="post5">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <article class="article-container">
+      <a href="../index.html" class="article-back">Back to home</a>
+      <header class="article-title-wrap">
+        <h1 class="article-title">How to Link a Custom Domain to GitHub Pages</h1>
+        <p class="article-meta"><time datetime="2023-05-24">May 24, 2023</time></p>
+      </header>
+
+      <div class="article-body">
+        <p class="reveal-item">GitHub Pages is a fantastic hosting service offered by GitHub, allowing users to create and host static websites directly from their repositories. While GitHub provides a default domain for your GitHub Pages site, linking a custom domain to your GitHub Pages repository can give your website a more professional and personalized touch. In this article, we will guide you through linking a custom domain to your GitHub Pages site, from start to finish.</p>
+
+        <h2 class="reveal-item">Step 1: Choose and Purchase a Custom Domain</h2>
+        <p class="reveal-item">The first step is selecting and purchasing a domain name. Various domain registrars like <a href="https://www.godaddy.com/" target="_blank" rel="noopener noreferrer">GoDaddy</a>, <a href="https://www.namecheap.com/" target="_blank" rel="noopener noreferrer">Namecheap</a>, or <a href="https://domains.google/" target="_blank" rel="noopener noreferrer">Google Domains</a> offer domain registration services. Choose a domain name that reflects your website's purpose and is easy to remember. For this guide, we will use the placeholder <code>yourdomain.com</code>.</p>
+
+        <h2 class="reveal-item">Step 2: Configure DNS Settings</h2>
+        <p class="reveal-item">Once you have purchased your custom domain, configure the DNS settings to point to GitHub Pages:</p>
+        <ol class="reveal-item">
+          <li>Log in to your domain registrar's website and navigate to the DNS management section (often labeled "DNS Management," "DNS Settings," or "Domain Management").</li>
+          <li>Locate the DNS settings for your domain. You should see a table or list of DNS records.</li>
+          <li>Add a new record. Select the option to create a new record.</li>
+          <li>Create a <strong>CNAME</strong> record. In the "Host" or "Name" field, enter the subdomain you want to link (e.g. <code>www</code> for <strong>www.yourdomain.com</strong>). In the "Value," "Points to," or "Destination" field, enter your GitHub Pages URL: <strong>username.github.io</strong> (replace "username" with your GitHub username).</li>
+          <li>Save the CNAME record.</li>
+        </ol>
+        <p class="reveal-item">Example:</p>
+        <ul class="reveal-item">
+          <li>Host: <code>www</code></li>
+          <li>Value: <code>username.github.io</code></li>
+        </ul>
+        <figure class="reveal-item">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/6coa2c2lvhf3y02gdtxn.png" alt="CNAME record example" loading="lazy">
+        </figure>
+        <p class="reveal-item">(Optional) To link your <strong>root domain</strong> (yourdomain.com) directly to GitHub Pages, add an <strong>A</strong> record:</p>
+        <ul class="reveal-item">
+          <li>Leave the "Host" or "Name" field blank or enter <code>@</code></li>
+          <li>In the "Value" or "Points to" field, enter one of GitHub's IP addresses: <code>185.199.108.153</code>, <code>185.199.109.153</code>, <code>185.199.110.153</code>, or <code>185.199.111.153</code></li>
+          <li>Save the A record. The <code>@</code> symbol represents the root domain (yourdomain.com).</li>
+        </ul>
+        <p class="reveal-item">Save all changes to your DNS settings.</p>
+
+        <h2 class="reveal-item">Step 3: Add CNAME File to Your GitHub Pages Repository</h2>
+        <p class="reveal-item">You can also link your custom domain by adding a <code>CNAME</code> file in your repository:</p>
+        <ol class="reveal-item">
+          <li>In your GitHub Pages repository, create a new file named <code>CNAME</code> (uppercase).</li>
+          <li>Open the <code>CNAME</code> file and enter your custom domain (e.g. <code>yourdomain.com</code>) in plain text.</li>
+          <li>Save the <code>CNAME</code> file.</li>
+          <li>Commit the changes to your repository, including the newly created <code>CNAME</code> file.</li>
+        </ol>
+        <p class="reveal-item">GitHub Pages will automatically recognize the CNAME file and associate your custom domain with the repository. Note: This method only works if you have already configured the DNS settings as described in Step 2.</p>
+        <blockquote class="reveal-item">
+          <p>Remember to allow some time for the changes to propagate globally. It may take up to 24 to 48 hours for the DNS changes to take full effect.</p>
+        </blockquote>
+
+        <h2 class="reveal-item">Step 4: Add Custom Domain in GitHub Pages Settings</h2>
+        <blockquote class="reveal-item">
+          <p><strong>Note:</strong> A CNAME file in your repository does not automatically add or remove a custom domain. You must configure the custom domain through your repository settings or through the API. For more information, see <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain" target="_blank" rel="noopener noreferrer">Managing a custom domain for your GitHub Pages site</a> and the <a href="https://docs.github.com/en/rest/pages?apiVersion=2022-11-28#update-information-about-a-github-pages-site" target="_blank" rel="noopener noreferrer">Pages API reference</a>.</p>
+        </blockquote>
+        <p class="reveal-item">To add your custom domain in the GitHub Pages settings for your repository, follow these steps:</p>
+        <ol class="reveal-item">
+          <li>Open your GitHub repository and go to the "Settings" tab.</li>
+          <li>Scroll down to the "GitHub Pages" section.</li>
+          <li>In the "Custom domain" field, enter your custom domain (e.g. <code>yourdomain.com</code>).</li>
+          <li>Click "Save." GitHub will validate the custom domain and configure the necessary settings.</li>
+        </ol>
+        <figure class="reveal-item">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/yvrcybdm588f9snkf2de.png" alt="GitHub Pages Custom Domain section example" loading="lazy">
+        </figure>
+        <p class="reveal-item">GitHub will validate the custom domain and configure the necessary settings. Once the configuration is complete, your custom domain will be associated with your GitHub Pages site.</p>
+        <p class="reveal-item">For more detailed information and troubleshooting tips, refer to the official GitHub documentation:</p>
+        <ul class="reveal-item">
+          <li><a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener noreferrer">Managing a custom domain for your GitHub Pages site</a></li>
+          <li><a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/troubleshooting-custom-domains-and-github-pages" target="_blank" rel="noopener noreferrer">Troubleshooting custom domains and GitHub Pages</a></li>
+        </ul>
+        <p class="reveal-item">Congratulations! You have successfully linked your custom domain (<code>yourdomain.com</code>) to your GitHub Pages site using the CNAME file within your repository.</p>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/site.config.js"></script>
+  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/article.js"></script>
+</body>
+</html>

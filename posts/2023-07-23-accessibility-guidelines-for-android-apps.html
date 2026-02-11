@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var k='portfolio-theme';
+      var stored=localStorage.getItem(k);
+      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+    })();
+  </script>
+  <title>Accessibility Guidelines for Android Apps | Vladislav Kochetov</title>
+  <meta name="description" content="Guidelines and best practices for making your Android app accessible to users with disabilities. Accessibility for mobile developers.">
+  <link rel="canonical" href="https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html">
+  <meta property="og:title" content="Accessibility Guidelines for Android Apps | Vladislav Kochetov">
+  <meta property="og:description" content="Guidelines and best practices for making your Android app accessible to users with disabilities.">
+  <meta property="og:url" content="https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Accessibility Guidelines for Android Apps | Vladislav Kochetov">
+  <meta name="twitter:description" content="Best practices for Android app accessibility.">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/article.css">
+</head>
+<body class="article-page" data-post-id="post3">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <article class="article-container">
+      <a href="../index.html" class="article-back">Back to home</a>
+      <header class="article-title-wrap">
+        <h1 class="article-title">Accessibility Guidelines for Android Apps</h1>
+        <p class="article-meta"><time datetime="2023-07-23">Jul 23, 2023</time></p>
+      </header>
+
+      <div class="article-body">
+        <p class="reveal-item">This article provides comprehensive guidelines and best practices for making your Android app more accessible to users with disabilities. By following these recommendations, you can ensure that your app is usable and inclusive for a wider range of users.</p>
+
+        <h2 class="reveal-item">Introduction</h2>
+        <p class="reveal-item">Accessibility is crucial in Android app development to ensure that all users, including those with disabilities, can fully access and interact with your app. This article will help you understand the key principles and techniques for creating accessible Android apps.</p>
+
+        <h2 class="reveal-item">Designing Accessible UI</h2>
+        <p class="reveal-item">When designing your app's user interface, keep these accessibility considerations in mind:</p>
+        <ul class="reveal-item">
+          <li><strong>Color Contrast</strong>: Use appropriate color contrast to ensure readability for users with visual impairments. Consider using tools like the Web Content Accessibility Guidelines (WCAG) color contrast checker to validate your color choices.</li>
+          <li><strong>Text Size and Resizability</strong>: Provide resizable text options to accommodate users with different visual needs. Consider implementing features such as adjustable font size within your app.</li>
+          <li><strong>Interactive Elements</strong>: Ensure interactive elements, such as buttons and checkboxes, are large enough for easy touch interaction. Provide sufficient spacing between elements to prevent accidental taps.</li>
+          <li><strong>Responsive Layout</strong>: Make sure your layout is responsive and works well across different screen sizes and orientations. Test your app on various devices to ensure proper usability.</li>
+        </ul>
+
+        <h2 class="reveal-item">Handling Accessibility Focus and Navigation</h2>
+        <p class="reveal-item">To support users who rely on accessibility features, consider the following:</p>
+        <ul class="reveal-item">
+          <li><strong>Focus Order</strong>: Set the proper focus order for interactive elements to ensure a logical flow. Users who navigate using keyboard or assistive technologies should be able to navigate through your app in a consistent and intuitive manner.</li>
+          <li><strong>Feedback and Visual Cues</strong>: Provide appropriate feedback and visual cues when elements receive focus. For example, you can highlight the focused element or provide audio feedback.</li>
+        </ul>
+
+        <h2 class="reveal-item">Providing Alternative Text</h2>
+        <p class="reveal-item">Adding alternative text to images is crucial for users with visual impairments. Follow these guidelines:</p>
+        <ul class="reveal-item">
+          <li>Use the <code>android:contentDescription</code> attribute to provide descriptive alternative text for images.</li>
+          <li>Consider the context in which the image is used to provide accurate and meaningful descriptions.</li>
+        </ul>
+
+        <h2 class="reveal-item">Supporting Screen Readers and Assistive Technologies</h2>
+        <p class="reveal-item">Ensure your app is compatible with screen readers and other assistive technologies:</p>
+        <ul class="reveal-item">
+          <li><strong>Markup and Semantic Elements</strong>: Use proper markup and semantic elements to provide meaningful information to screen readers. Use the appropriate accessibility roles and states for interactive elements.</li>
+          <li><strong>Announcements</strong>: Make sure interactive elements, such as buttons and checkboxes, are announced correctly by screen readers. Test your app with popular screen readers like <a href="https://support.google.com/accessibility/android/answer/6007100" target="_blank" rel="noopener noreferrer">TalkBack</a> to ensure compatibility.</li>
+        </ul>
+
+        <h2 class="reveal-item">Color Contrast and Readability</h2>
+        <p class="reveal-item">Choose colors carefully to maintain sufficient contrast for users with visual impairments. Ensure that text is easily readable by choosing appropriate color combinations. Consider the contrast ratio between the foreground text color and the background color.</p>
+
+        <h2 class="reveal-item">Testing and Validation</h2>
+        <p class="reveal-item">Thoroughly test and validate your app's accessibility features:</p>
+        <ul class="reveal-item">
+          <li><strong>Manual Testing</strong>: Conduct manual testing by using your app with accessibility features enabled. Try navigating through the app using a keyboard and assistive technologies.</li>
+          <li><strong>Automated Testing</strong>: Utilize automated testing tools, such as Accessibility Scanner or TalkBack testing, to identify potential issues. These tools can help you detect accessibility violations and provide suggestions for improvement.</li>
+          <li><strong>User Feedback</strong>: Get feedback from users with disabilities or involve accessibility experts to provide insights and suggestions. User feedback can help you identify real-world usage scenarios and areas for improvement.</li>
+        </ul>
+
+        <h2 class="reveal-item">Resources and References</h2>
+        <p class="reveal-item">For further learning and detailed documentation on Android app accessibility, refer to:</p>
+        <ul class="reveal-item">
+          <li><a href="https://developer.android.com/guide/topics/ui/accessibility" target="_blank" rel="noopener noreferrer">Android Accessibility Documentation</a></li>
+          <li><a href="https://www.google.com/accessibility/" target="_blank" rel="noopener noreferrer">Google Accessibility</a></li>
+          <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Web Content Accessibility Guidelines (WCAG)</a></li>
+        </ul>
+
+        <h2 class="reveal-item">Conclusion</h2>
+        <p class="reveal-item">By following these accessibility guidelines, you can make your Android app more inclusive and provide an excellent user experience for users with disabilities. Let's work together to create apps that everyone can enjoy!</p>
+        <p class="reveal-item">This article was written to provide comprehensive accessibility guidance for Android app developers. Feel free to share this article with fellow developers and contribute to the conversation on creating accessible apps.</p>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/site.config.js"></script>
+  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/article.js"></script>
+</body>
+</html>

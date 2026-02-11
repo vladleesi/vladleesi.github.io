@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vladislav Kochetov — Blog</title>
+    <link>https://vladleesi.dev/</link>
+    <description>Android, Kotlin Multiplatform, and mobile architecture. Code quality and developer experience.</description>
+    <language>en</language>
+    <atom:link href="https://vladleesi.dev/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Vertical text in Jetpack Compose (without rotation width problems)</title>
+      <link>https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html</link>
+      <description>Render text vertically by rotating each character and adjusting layout bounds so width behaves correctly.</description>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html</guid>
+    </item>
+    <item>
+      <title>Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform</title>
+      <link>https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html</link>
+      <description>A simple app with Kotlin multiplatform, Compose multiplatform, Coroutines, Serialization, and Ktor — Android and iOS.</description>
+      <pubDate>Fri, 28 Jul 2023 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html</guid>
+    </item>
+    <item>
+      <title>Accessibility Guidelines for Android Apps</title>
+      <link>https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html</link>
+      <description>Guidelines and best practices for making your Android app accessible to users with disabilities.</description>
+      <pubDate>Sun, 23 Jul 2023 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html</guid>
+    </item>
+    <item>
+      <title>How to set up publication signature with the Gradle plugin</title>
+      <link>https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html</link>
+      <description>Setting up GPG, generating keys, and using the Signing Plugin to sign artifacts before publishing to Nexus.</description>
+      <pubDate>Sun, 11 Jun 2023 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html</guid>
+    </item>
+    <item>
+      <title>How to Link a Custom Domain to GitHub Pages</title>
+      <link>https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html</link>
+      <description>Guide to linking a custom domain to your GitHub Pages site, from DNS to the CNAME file and settings.</description>
+      <pubDate>Wed, 24 May 2023 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html</guid>
+    </item>
+  </channel>
+</rss>

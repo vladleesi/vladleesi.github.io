@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var k='portfolio-theme';
+      var stored=localStorage.getItem(k);
+      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+    })();
+  </script>
+  <title>How to set up publication signature with the Gradle plugin | Vladislav Kochetov</title>
+  <meta name="description" content="Setting up GPG, generating keys, and using the Gradle Signing Plugin to sign artifacts before publishing to Nexus or Maven.">
+  <link rel="canonical" href="https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html">
+  <meta property="og:title" content="How to set up publication signature with the Gradle plugin | Vladislav Kochetov">
+  <meta property="og:description" content="Setting up GPG, generating keys, and using the Signing Plugin to sign artifacts before publishing to Nexus.">
+  <meta property="og:url" content="https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Gradle publication signature | Vladislav Kochetov">
+  <meta name="twitter:description" content="GPG and Gradle Signing Plugin for publishing to Nexus.">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/article.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body class="article-page" data-post-id="post4">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <article class="article-container">
+      <a href="../index.html" class="article-back">Back to home</a>
+      <header class="article-title-wrap">
+        <h1 class="article-title">How to set up publication signature with the Gradle plugin</h1>
+        <p class="article-meta"><time datetime="2023-06-11">Jun 11, 2023</time></p>
+      </header>
+
+      <div class="article-body">
+        <h2 class="reveal-item">Introduction</h2>
+        <p class="reveal-item">In the realm of software development, ensuring the security and integrity of your artifacts is of paramount importance. One effective approach is to sign your artifacts using GPG (GNU Privacy Guard) keys. This article will guide you through the process of setting up GPG, generating keys, and utilizing <a href="https://docs.gradle.org/current/userguide/signing_plugin.html" target="_blank" rel="noopener noreferrer">The Signing Plugin</a> to sign artifacts before publishing them to Nexus.</p>
+
+        <h2 class="reveal-item">1. Installing GPG</h2>
+        <p class="reveal-item">To begin, install GPG on your system:</p>
+        <ul class="reveal-item">
+          <li><strong>Linux</strong>: Open a terminal and run <code>sudo apt-get install gnupg</code></li>
+          <li><strong>macOS</strong>: Open a terminal and run <code>brew install gnupg</code></li>
+          <li><strong>Windows</strong>: Download the <a href="https://gpg4win.org/" target="_blank" rel="noopener noreferrer">Gpg4win</a> installer and follow the on-screen instructions.</li>
+        </ul>
+
+        <h2 class="reveal-item">2. Generating GPG Keys</h2>
+        <p class="reveal-item">Once GPG is installed, generate your keys:</p>
+        <ul class="reveal-item">
+          <li>Open a terminal or command prompt.</li>
+          <li>Execute <code>gpg --full-generate-key</code></li>
+          <li>Follow the interactive prompts to configure your key (type, size).</li>
+          <li>Set a strong passphrase and remember it for later.</li>
+          <li>Your GPG key pair will be stored in the GPG keyring.</li>
+        </ul>
+
+        <h2 class="reveal-item">3. Configuring The Signing Plugin</h2>
+        <p class="reveal-item">Open the <code>build.gradle</code> file of your project and add at the top:</p>
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-groovy">plugins {
+    id 'signing'
+}
+
+signing {
+    sign publishing.publications
+}</code></pre>
+        </div>
+        <p class="reveal-item">Provide the GPG key details in <code>gradle.properties</code>:</p>
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-groovy">signing.keyId=YOUR_KEY_ID
+signing.secretKeyRingFile=~/.gnupg/secring.gpg
+signing.password=YOUR_PASSPHRASE</code></pre>
+        </div>
+        <p class="reveal-item"><strong>Note:</strong></p>
+        <ul class="reveal-item">
+          <li>To get the <code>keyId</code>, run <code>gpg --list-keys --keyid-format short</code> and use the 8-digit value.</li>
+          <li>The <code>secring.gpg</code> file has been removed in GPG 2.1. You can create it with: <code>gpg --export-secret-keys -o secring.gpg</code></li>
+          <li>To upload your public key to a keyserver: <code>gpg --keyserver hkp://keyserver.ubuntu.com --send-keys YOUR_KEY_ID</code></li>
+        </ul>
+
+        <h2 class="reveal-item">4. Publish with signing</h2>
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-bash">./gradlew publishToMavenLocal
+./gradlew publish</code></pre>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/site.config.js"></script>
+  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="../assets/js/article.js"></script>
+</body>
+</html>

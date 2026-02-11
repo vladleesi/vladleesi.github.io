@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var k='portfolio-theme';
+      var stored=localStorage.getItem(k);
+      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+    })();
+  </script>
+  <title>Vladislav Kochetov | Mobile Software Engineer (Android &amp; Kotlin)</title>
+  <meta name="description" content="Vladislav Kochetov — Mobile Software Engineer with 8+ years building Android apps, Kotlin Multiplatform, and scalable mobile architecture. Blog on Jetpack Compose, KMP, and clean architecture.">
+  <meta name="author" content="Vladislav Kochetov">
+  <meta name="keywords" content="Android developer, Kotlin, Jetpack Compose, Kotlin Multiplatform, mobile architecture, software engineer, Vladislav Kochetov">
+  <link rel="canonical" href="https://vladleesi.dev/">
+  <meta property="og:title" content="Vladislav Kochetov | Mobile Software Engineer">
+  <meta property="og:description" content="Mobile Software Engineer — Android, Kotlin Multiplatform, Jetpack Compose. Blog on architecture, KMP, and developer experience.">
+  <meta property="og:url" content="https://vladleesi.dev/">
+  <meta property="og:site_name" content="Vladislav Kochetov">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vladislav Kochetov | Mobile Software Engineer">
+  <meta name="twitter:description" content="Android, Kotlin Multiplatform, Jetpack Compose. Blog on mobile architecture and developer experience.">
+  <meta name="theme-color" content="#6750a4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#d0bcff" media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Vladislav Kochetov","url":"https://vladleesi.dev/","jobTitle":"Mobile Software Engineer","sameAs":["https://github.com/vladleesi","https://www.linkedin.com/in/vladkochetov","https://twitter.com/vladleesi"],"description":"Mobile Software Engineer focused on Android, Kotlin Multiplatform, and scalable mobile architecture."}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"Vladislav Kochetov","url":"https://vladleesi.dev/","description":"Portfolio and blog — Android, Kotlin Multiplatform, Jetpack Compose.","publisher":{"@type":"Person","name":"Vladislav Kochetov"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="feed.xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- Parallax background elements -->
+  <div class="parallax-bg" aria-hidden="true">
+    <div class="parallax-gradient parallax-gradient-1"></div>
+    <div class="parallax-gradient parallax-gradient-2"></div>
+    <div class="parallax-orb parallax-orb-1"></div>
+    <div class="parallax-orb parallax-orb-2"></div>
+  </div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <p class="hero-overline">Mobile Software Engineer (Android)</p>
+          <h1 class="hero-title">
+            <span class="hero-title-line" aria-label="Mobile Development & Architecture">
+              <span class="hero-title-word">Vladislav Kochetov</span>
+            </span>
+          </h1>
+          <p class="hero-value">
+            I build scalable mobile architecture, ship reliable features, and help teams grow.
+          </p>
+          <div class="hero-actions">
+            <a href="assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf" class="hero-btn hero-btn-primary" target="_blank" rel="noopener noreferrer">Resume</a>
+            <a href="https://www.linkedin.com/in/vladkochetov" class="hero-btn hero-btn-outline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/vladleesi" class="hero-btn hero-btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-section" id="skills">
+      <div class="container">
+        <h2 class="section-title">Skills &amp; expertise</h2>
+        <div class="skills-grid" role="list">
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Kotlin</span>
+            <span class="skill-card-yoe">7 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Java</span>
+            <span class="skill-card-yoe">8 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Jetpack Compose</span>
+            <span class="skill-card-yoe">3 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">MVVM / MVI</span>
+            <span class="skill-card-yoe">7 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Clean Architecture</span>
+            <span class="skill-card-yoe">6 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Coroutines / Flow</span>
+            <span class="skill-card-yoe">5 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">Kotlin Multiplatform</span>
+            <span class="skill-card-yoe">2 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">REST APIs</span>
+            <span class="skill-card-yoe">8 Years Experience</span>
+          </article>
+          <article class="skill-card" role="listitem">
+            <span class="skill-card-name">SQL</span>
+            <span class="skill-card-yoe">6 Years Experience</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="impact-section" id="impact">
+      <div class="container">
+        <h2 class="section-title">How I work</h2>
+        <ul class="impact-list">
+          <li>Design and evolve application architecture and technical strategy for long-term scalability.</li>
+          <li>Lead technical execution of complex, cross-team initiatives in partnership with product and backend.</li>
+          <li>Drive improvements in performance, reliability, and developer experience with measurable outcomes.</li>
+          <li>Provide technical leadership through code reviews, mentorship, and engineering standards.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="posts-section" id="posts">
+      <div class="container">
+        <h2 class="section-title reveal">Latest posts</h2>
+        <ul class="posts-list">
+          <li class="post-card reveal">
+            <a href="posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html" class="post-card-link">
+              <div class="post-card-content">
+                <h3 class="post-card-title">Vertical text in Jetpack Compose (without rotation width problems)</h3>
+                <span class="post-card-date">
+                  <time datetime="2026-01-26">Jan 26, 2026</time>
+                  <span class="post-card-date-line"></span>
+                </span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card reveal">
+            <a href="posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html" class="post-card-link">
+              <div class="post-card-content">
+                <h3 class="post-card-title">Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform</h3>
+                <span class="post-card-date">
+                  <time datetime="2023-07-28">Jul 28, 2023</time>
+                  <span class="post-card-date-line"></span>
+                </span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card reveal">
+            <a href="posts/2023-07-23-accessibility-guidelines-for-android-apps.html" class="post-card-link">
+              <div class="post-card-content">
+                <h3 class="post-card-title">Accessibility Guidelines for Android Apps</h3>
+                <span class="post-card-date">
+                  <time datetime="2023-07-23">Jul 23, 2023</time>
+                  <span class="post-card-date-line"></span>
+                </span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card reveal">
+            <a href="posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html" class="post-card-link">
+              <div class="post-card-content">
+                <h3 class="post-card-title">How to set up publication signature with the Gradle plugin</h3>
+                <span class="post-card-date">
+                  <time datetime="2023-06-11">Jun 11, 2023</time>
+                  <span class="post-card-date-line"></span>
+                </span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card reveal">
+            <a href="posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html" class="post-card-link">
+              <div class="post-card-content">
+                <h3 class="post-card-title">How to Link a Custom Domain to GitHub Pages</h3>
+                <span class="post-card-date">
+                  <time datetime="2023-05-24">May 24, 2023</time>
+                  <span class="post-card-date-line"></span>
+                </span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+        <nav class="posts-pagination" aria-label="Blog pagination">
+          <button type="button" class="pagination-btn pagination-prev" disabled>Previous</button>
+          <div class="pagination-pages"></div>
+          <button type="button" class="pagination-btn pagination-next" disabled>Next</button>
+        </nav>
+      </div>
+    </section>
+
+    <section class="about-section" id="about">
+      <div class="container">
+        <h2 class="section-title reveal">About</h2>
+        <div class="about-content">
+          <p class="about-intro reveal">Hi, I'm Vladislav Kochetov!</p>
+          <div class="about-text">
+            <p class="reveal">I'm a Software Engineer with 8+ years of experience and a deep focus on <strong>Android development</strong> and <strong>Kotlin Multiplatform (KMP)</strong> to design mobile architectures that scale across platforms. I care a lot about code quality, developer experience, and building mobile products that are both scalable and pleasant to work on. Most of my day-to-day work revolves around Android and Kotlin, but I regularly explore new technologies through side projects — mainly to sharpen my thinking and stay curious beyond the mobile bubble.</p>
+            <p class="reveal">You can find more details about my professional background on <a href="https://www.linkedin.com/in/vladkochetov" target="_blank" rel="noopener noreferrer">LinkedIn</a>, or <a href="assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf">download my resume here</a>.</p>
+            <p class="reveal">Outside of work, I share life with my wife and an ultra-cute Golden Retriever. I unwind with video games and play drums purely for fun. We've lived in both Russia and Mexico, and I'm now getting ready for the next chapter — relocating to the United States under the EB-2 NIW program.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <div id="cursor-trail" class="cursor-trail" aria-hidden="true"></div>
+
+  <script src="assets/js/site.config.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>

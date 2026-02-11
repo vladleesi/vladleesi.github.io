@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var k='portfolio-theme';
+      var stored=localStorage.getItem(k);
+      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+    })();
+  </script>
+  <title>Vertical text in Jetpack Compose | Vladislav Kochetov</title>
+  <meta name="description" content="Render text vertically in Jetpack Compose by rotating each character and adjusting layout bounds so width behaves correctly. No rotation width problems.">
+  <link rel="canonical" href="https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html">
+  <meta property="og:title" content="Vertical text in Jetpack Compose (without rotation width problems) | Vladislav Kochetov">
+  <meta property="og:description" content="Render text vertically by rotating each character and adjusting layout bounds so width behaves correctly.">
+  <meta property="og:url" content="https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vertical text in Jetpack Compose | Vladislav Kochetov">
+  <meta name="twitter:description" content="Render text vertically in Jetpack Compose — no rotation width problems.">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+  <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/article.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body class="article-page" data-post-id="post1">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <div id="site-header"></div>
+
+  <main>
+    <article class="article-container">
+      <a href="../index.html" class="article-back">Back to home</a>
+      <header class="article-title-wrap">
+        <h1 class="article-title">Vertical text in Jetpack Compose (without rotation width problems)</h1>
+        <p class="article-meta"><time datetime="2026-01-26">Jan 26, 2026</time></p>
+      </header>
+
+      <div class="article-body">
+        <p class="reveal-item">Sometimes you need vertical text in Jetpack Compose — for side labels, indicators, or compact UI elements. A naive approach is rotating a <code>Text</code>, but rotation preserves the original layout bounds, which often leads to incorrect width and spacing.</p>
+
+        <p class="reveal-item">If we simply rotate a <code>Text</code>, the layout still uses the <strong>horizontal width</strong>, causing the text to be visually clipped when rendered vertically:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-kotlin">Text(
+    text = "Vertical Text!",
+    modifier = Modifier.rotate(270f)
+)</code></pre>
+        </div>
+
+        <p class="reveal-item">Which results in the following layout:</p>
+
+        <figure class="reveal-item">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9cxrujou5cl56kda8be1.jpg" alt="Simple rotation with incorrect width" loading="lazy">
+        </figure>
+
+        <p class="reveal-item">To fix this issue, the following composable renders text vertically by rotating and laying out each character individually, adjusting layout bounds so the width behaves as expected:</p>
+
+        <figure class="reveal-item">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgsxpobhxqb0e57nrtl1.jpg" alt="VerticalText with corrected layout bounds" loading="lazy">
+        </figure>
+
+        <h2 class="reveal-item">Implementation</h2>
+        <p class="reveal-item">In this case, each character is rendered as a separate Text and rotated individually. By applying the rotation per character, we avoid treating the entire string as a single horizontal block, which allows the layout to size and position each char correctly in a vertical flow.</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-kotlin">val reversedText = remember(text) { text.reversed() }
+Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+) {
+    reversedText.forEach { char ->
+        Text(
+            text = char.toString(),
+            modifier = Modifier.rotateVertically(),
+        )
+    }
+}</code></pre>
+        </div>
+
+        <p class="reveal-item">And <code>rotateVertically</code> makes the rotation layout-aware. <code>Modifier.rotate(270f)</code> only affects drawing, so without additional work the layout would still use the original horizontal bounds. This extension fixes that by explicitly re-measuring and re-placing the rotated content.</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code">Copy</button>
+          <pre><code class="language-kotlin">private fun Modifier.rotateVertically(): Modifier {
+    // Rotate the content
+    // The rotate modifier applies a 270° rotation, affecting only how the text is drawn.
+    val rotate = Modifier.rotate(270f)
+    val adjustBounds = layout { measurable, constraints ->
+        val placeable = measurable.measure(
+            // Re-measure with relaxed constraints
+            // The custom layout block measures the child with unbounded width and height.
+            // This prevents clipping and lets the text report its natural size after rotation.
+            constraints.copy(
+                minWidth = 0,
+                minHeight = 0,
+                maxWidth = Constraints.Infinity,
+                maxHeight = Constraints.Infinity
+            )
+        )
+        // Swap width and height to match the rotated orientation and the child is re-centered.
+        layout(placeable.height, placeable.width) {
+            // Re-center the rotated content so it stays aligned within the new bounds.
+            placeable.place(
+                x = -(placeable.width / 2 - placeable.height / 2),
+                y = -(placeable.height / 2 - placeable.width / 2)
+            )
+        }
+    }
+    return this
+        .then(rotate)
+        .then(adjustBounds)
+}</code></pre>
+        </div>
+
+        <p class="reveal-item">In short, this modifier combines a visual rotation with a custom layout pass, ensuring that the measured size reflects the rotated content rather than the original horizontal text.</p>
+        <p class="reveal-item">You can find the full code <a href="https://gist.github.com/vladleesi/27fae826ffa7490d697bc96d674ebd36" target="_blank" rel="noopener noreferrer">here</a>.</p> 
+        <p class="reveal-item">If this saved you some time, consider starring the gist 🙏</p>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/site.config.js"></script>
+  <script src="../assets/js/layout.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-kotlin.min.js"></script>
+  <script src="../assets/js/article.js"></script>
+</body>
+</html>
