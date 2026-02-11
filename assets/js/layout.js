@@ -9,24 +9,23 @@
   const site = window.SITE;
   if (!site) return;
 
-  const loc = window.location || {};
-  const path = loc.pathname ? loc.pathname.toLowerCase() : '';
-  const isHttpLike = loc.protocol === 'http:' || loc.protocol === 'https:';
-  const isHome = path.endsWith('/index.html') || path.endsWith('\\index.html') || path === '' || path.endsWith('/');
-  const inPosts = path.indexOf('posts') !== -1;
+  // Use clean root-relative URLs for navigation and RSS.
+  // This assumes the site is served from the host root (/, e.g. https://vladleesi.dev/).
+  const rootHref = '/';
 
-  // When served over HTTP(S), always point home links to the host root ("/"),
-  // so the main page is at https://host/ instead of https://host/index.html.
-  // When opened from local files (file://), fall back to relative index.html links.
-  const rootHref = isHttpLike ? '/' : (inPosts ? '../index.html' : 'index.html');
+  const path =
+    (window.location && window.location.pathname)
+      ? window.location.pathname.toLowerCase()
+      : '';
+  const isHome =
+    path === '' ||
+    path === '/' ||
+    path.endsWith('/index.html') ||
+    path.endsWith('\\index.html');
 
   const aboutHref = isHome ? '#about' : rootHref + '#about';
   const skillsHref = isHome ? '#skills' : rootHref + '#skills';
   const postsHref = isHome ? '#posts' : rootHref + '#posts';
-
-  // Always use current host + /feed.xml (in http/https),
-  // and fall back to a plain "feed.xml" when there is no origin (e.g. file://).
-  const rssHref = (loc.origin ? loc.origin + '/feed.xml' : 'feed.xml');
 
   const headerHtml = `
     <header class="header" id="header">
@@ -67,7 +66,7 @@
           <a href="${site.socials.twitter}" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
         </div>
         <div class="footer-rss-wrap">
-          <a href="${rssHref}" class="footer-rss" aria-label="${site.rss.label}">
+          <a href="${site.rss.href}" class="footer-rss" aria-label="${site.rss.label}">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/>
             </svg>
@@ -94,6 +93,21 @@
       btn.textContent = '↑';
       document.body.appendChild(btn);
     }
+
+    // "Back to home" — simulate browser Back when possible
+    // to avoid adding an extra entry to the history stack.
+    document.querySelectorAll('.article-back').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        // If there is a previous history entry, go back instead of navigating anew.
+        if (window.history && window.history.length > 1) {
+          e.preventDefault();
+          window.history.back();
+        } else {
+          // Fallback: go to host root (works in production and on local servers).
+          link.setAttribute('href', '/');
+        }
+      });
+    });
 
     // Set base title if page left it unchanged
     if (document.title && document.title.includes('Portfolio & Blog')) {

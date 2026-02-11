@@ -15,7 +15,8 @@ window.SITE = {
     twitter: 'https://twitter.com/vladleesi',
   },
   rss: {
-    href: 'feed.xml',
+    // Always resolve RSS from the host root, e.g. https://vladleesi.dev/feed.xml
+    href: '/feed.xml',
     label: 'Subscribe via RSS',
   },
 };
