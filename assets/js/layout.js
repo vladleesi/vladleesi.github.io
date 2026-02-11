@@ -9,13 +9,18 @@
   const site = window.SITE;
   if (!site) return;
 
-  const path = (window.location && window.location.pathname) ? window.location.pathname.toLowerCase() : '';
+  const loc = window.location || {};
+  const path = loc.pathname ? loc.pathname.toLowerCase() : '';
   const isHome = path.endsWith('/index.html') || path.endsWith('\\index.html') || path === '' || path.endsWith('/');
   const inPosts = path.indexOf('posts') !== -1;
   const indexLink = inPosts ? '../index.html' : 'index.html';
   const aboutHref = isHome ? '#about' : indexLink + '#about';
   const skillsHref = isHome ? '#skills' : indexLink + '#skills';
   const postsHref = isHome ? '#posts' : indexLink + '#posts';
+
+  // Always use current host + /feed.xml (in http/https),
+  // and fall back to a plain "feed.xml" when there is no origin (e.g. file://).
+  const rssHref = (loc.origin ? loc.origin + '/feed.xml' : 'feed.xml');
 
   const headerHtml = `
     <header class="header" id="header">
@@ -56,7 +61,7 @@
           <a href="${site.socials.twitter}" class="footer-link" target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
         </div>
         <div class="footer-rss-wrap">
-          <a href="${site.rss.href}" class="footer-rss" aria-label="${site.rss.label}">
+          <a href="${rssHref}" class="footer-rss" aria-label="${site.rss.label}">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1Z"/>
             </svg>
