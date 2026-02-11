@@ -11,12 +11,18 @@
 
   const loc = window.location || {};
   const path = loc.pathname ? loc.pathname.toLowerCase() : '';
+  const isHttpLike = loc.protocol === 'http:' || loc.protocol === 'https:';
   const isHome = path.endsWith('/index.html') || path.endsWith('\\index.html') || path === '' || path.endsWith('/');
   const inPosts = path.indexOf('posts') !== -1;
-  const indexLink = inPosts ? '../index.html' : 'index.html';
-  const aboutHref = isHome ? '#about' : indexLink + '#about';
-  const skillsHref = isHome ? '#skills' : indexLink + '#skills';
-  const postsHref = isHome ? '#posts' : indexLink + '#posts';
+
+  // When served over HTTP(S), always point home links to the host root ("/"),
+  // so the main page is at https://host/ instead of https://host/index.html.
+  // When opened from local files (file://), fall back to relative index.html links.
+  const rootHref = isHttpLike ? '/' : (inPosts ? '../index.html' : 'index.html');
+
+  const aboutHref = isHome ? '#about' : rootHref + '#about';
+  const skillsHref = isHome ? '#skills' : rootHref + '#skills';
+  const postsHref = isHome ? '#posts' : rootHref + '#posts';
 
   // Always use current host + /feed.xml (in http/https),
   // and fall back to a plain "feed.xml" when there is no origin (e.g. file://).
@@ -25,7 +31,7 @@
   const headerHtml = `
     <header class="header" id="header">
       <div class="header-inner">
-        <a href="${indexLink}" class="logo">${site.name}</a>
+        <a href="${rootHref}" class="logo">${site.name}</a>
         <div class="nav-wrap">
           <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span class="nav-toggle-line"></span>
