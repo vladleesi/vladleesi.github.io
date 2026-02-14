@@ -52,4 +52,4 @@ Pushes to `main` will trigger a rebuild and redeploy.
 
 ### Legacy Jekyll version
 
-The previous Jekyll-based implementation is preserved in the [`jekyll` branch](https://github.com/vladleesi/vladleesi.github.io/tree/jekyll).
+The previous Jekyll-based implementation is preserved in the [jekyll repo](https://github.com/vladleesi/jekyll).
