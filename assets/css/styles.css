@@ -538,6 +538,10 @@ html.theme-switching * {
     gap: 4px;
   }
 
+  .theme-toggle {
+    margin-left: 8px;
+  }
+
   .nav-toggle {
     display: inline-flex;
   }
