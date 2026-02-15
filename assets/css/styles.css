@@ -819,11 +819,109 @@ main {
   color: var(--md-sys-color-on-surface);
 }
 
-.about-text a {
+/* Focus areas highlighted by text color — high contrast for readability */
+.about-tag {
+  font-weight: 600;
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* LinkedIn & Resume link cards */
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: var(--space-lg);
+}
+
+.about-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-fast), border-color var(--duration-fast), transform var(--duration-fast);
+}
+
+.about-link:hover {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: 0 2px 8px var(--md-sys-color-shadow);
+  transform: translateY(-1px);
+  text-decoration: none;
+  color: var(--md-sys-color-on-surface);
+}
+
+.about-link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-link-icon svg {
+  display: block;
+}
+
+/* Circle icon container — background and icon use same hover transition */
+.about-link-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+
+/* LinkedIn circle — brand color; hover softens both background and icon together */
+.about-link-linkedin .about-link-icon-circle {
+  background: #0A66C2;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.about-link-linkedin:hover .about-link-icon-circle {
+  background: #004182;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* PDF / Resume circle — same idea: hover darkens background and softens icon */
+.about-link-resume .about-link-icon-circle {
+  background: var(--md-sys-color-tertiary-container);
+  color: var(--md-sys-color-on-tertiary-container);
+}
+
+.about-link-resume:hover .about-link-icon-circle {
+  background: var(--md-sys-color-tertiary);
+  color: var(--md-sys-color-on-tertiary);
+}
+
+.about-link-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-link-arrow {
+  font-size: 1.1rem;
+  color: var(--md-sys-color-primary);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--duration-normal), transform var(--duration-normal);
+}
+
+.about-link:hover .about-link-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-text a:not(.about-link) {
   color: var(--md-sys-color-primary);
 }
 
-.about-text a:hover {
+.about-text a:not(.about-link):hover {
   text-decoration: underline;
 }
 
