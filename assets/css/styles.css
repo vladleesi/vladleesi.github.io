@@ -1155,11 +1155,13 @@ main {
   height: 40px;
   border-radius: var(--radius-full);
   border: none;
-  background: var(--md-sys-color-primary);
+  background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
   color: var(--md-sys-color-on-primary);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
   box-shadow: 0 2px 6px var(--md-sys-color-shadow);
   cursor: pointer;
   opacity: 0;
@@ -1169,9 +1171,14 @@ main {
   z-index: 90;
 }
 
+.back-to-top,
+[data-theme="dark"] .back-to-top {
+  background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
+}
+
 .back-to-top:hover {
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: linear-gradient(90deg, var(--md-sys-color-tertiary), var(--md-sys-color-primary));
+  color: var(--md-sys-color-on-primary);
 }
 
 .back-to-top.visible {
