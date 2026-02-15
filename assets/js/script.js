@@ -187,6 +187,7 @@
 
   // ——— Theme toggle (light/dark) ———
   const THEME_KEY = 'portfolio-theme';
+  const THEME_SWITCHING_CLASS = 'theme-switching';
 
   function getPreferredTheme() {
     const stored = localStorage.getItem(THEME_KEY);
@@ -199,15 +200,30 @@
     document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
   }
 
+  function syncThemeToggleState(btn, theme) {
+    if (!btn) return;
+    const isDark = theme === 'dark';
+    btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    btn.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+
   function initTheme() {
-    applyTheme(getPreferredTheme());
+    const initialTheme = getPreferredTheme();
+    applyTheme(initialTheme);
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
+    syncThemeToggleState(btn, initialTheme);
     btn.addEventListener('click', function () {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.classList.add(THEME_SWITCHING_CLASS);
       applyTheme(next);
+      syncThemeToggleState(btn, next);
       localStorage.setItem(THEME_KEY, next);
+      window.setTimeout(function () {
+        document.documentElement.classList.remove(THEME_SWITCHING_CLASS);
+      }, 360);
     });
   }
 
