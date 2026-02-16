@@ -1120,11 +1120,29 @@ main {
 }
 
 .about-link-arrow {
-  font-size: 1.1rem;
-  color: var(--md-sys-color-primary);
+  position: relative;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  font-size: 0;
+  line-height: 0;
+  color: currentColor;
   opacity: 0;
   transform: translateX(-4px);
-  transition: opacity var(--duration-normal), transform var(--duration-normal);
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+}
+
+.about-link-arrow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .about-link:hover .about-link-arrow {
