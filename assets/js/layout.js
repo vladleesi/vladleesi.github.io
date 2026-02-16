@@ -8,6 +8,31 @@
 
   const site = window.SITE;
   if (!site) return;
+  const THEME_KEY = 'portfolio-theme';
+
+  function getPreferredTheme() {
+    var stored = null;
+    try {
+      stored = localStorage.getItem(THEME_KEY);
+    } catch (_) {
+      stored = null;
+    }
+    if (stored === 'light' || stored === 'dark') return stored;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
+    return 'light';
+  }
+
+  function syncThemeFromStorage() {
+    const theme = getPreferredTheme();
+    document.documentElement.setAttribute('data-theme', theme);
+    const btn = document.getElementById('theme-toggle');
+    if (btn) {
+      const isDark = theme === 'dark';
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      btn.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+  }
 
   // Use clean root-relative URLs for navigation and RSS.
   // This assumes the site is served from the host root (/, e.g. https://vladleesi.dev/).
@@ -115,6 +140,8 @@
     if (document.title && document.title.includes('Portfolio & Blog')) {
       document.title = site.title;
     }
+
+    syncThemeFromStorage();
   }
 
   if (document.readyState === 'loading') {
@@ -122,5 +149,11 @@
   } else {
     render();
   }
+
+  // Keep theme in sync when the page is restored from BFCache
+  // (e.g., browser Back/Forward navigation).
+  window.addEventListener('pageshow', function () {
+    syncThemeFromStorage();
+  });
 })();
 
