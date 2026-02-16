@@ -724,20 +724,38 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 44px;
   border-radius: var(--radius-full);
-  padding: 8px 18px;
-  font-size: 0.9rem;
+  padding: 10px 18px;
+  font-size: 0.92rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: background var(--duration-fast), color var(--duration-fast), box-shadow var(--duration-fast);
+  transition:
+    background var(--duration-fast),
+    color var(--duration-fast),
+    border-color var(--duration-fast),
+    box-shadow var(--duration-fast),
+    transform var(--duration-fast);
 }
 
 .hero-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--md-sys-color-shadow) 40%, transparent);
   text-decoration: none;
+}
+
+.hero-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--md-sys-color-shadow) 32%, transparent);
+}
+
+.hero-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--md-sys-color-primary) 28%, transparent);
 }
 
 .hero-btn-primary {
@@ -746,8 +764,8 @@ main {
 }
 
 .hero-btn-primary:hover {
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
+  background: color-mix(in srgb, var(--md-sys-color-primary) 90%, black 10%);
+  color: var(--md-sys-color-on-primary);
 }
 
 .hero-btn-tonal {
@@ -767,9 +785,9 @@ main {
 }
 
 .hero-btn-outline:hover {
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  border-color: var(--md-sys-color-primary-container);
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-primary);
+  border-color: var(--md-sys-color-primary);
 }
 
 .hero-btn-ghost {
@@ -779,6 +797,18 @@ main {
 
 .hero-btn-ghost:hover {
   background: var(--md-sys-color-surface-container-high);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-btn {
+    transition: background var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast);
+  }
+
+  .hero-btn:hover,
+  .hero-btn:active {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 /* ============================================ Reveals ============================================ */
