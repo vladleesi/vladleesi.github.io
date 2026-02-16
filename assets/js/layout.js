@@ -85,14 +85,16 @@
     if (footerMount) footerMount.innerHTML = footerHtml;
 
     // Back-to-top button (single instance)
-    if (!document.getElementById('back-to-top')) {
-      const btn = document.createElement('button');
+    let btn = document.getElementById('back-to-top');
+    if (!btn) {
+      btn = document.createElement('button');
       btn.id = 'back-to-top';
-      btn.className = 'back-to-top';
-      btn.setAttribute('aria-label', 'Back to top');
-      btn.textContent = '↑';
       document.body.appendChild(btn);
     }
+    // Always sync structure so old cached DOM still gets latest icon/styling.
+    btn.className = 'back-to-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '<span class="back-to-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg></span>';
 
     // "Back to home" — simulate browser Back when possible
     // to avoid adding an extra entry to the history stack.

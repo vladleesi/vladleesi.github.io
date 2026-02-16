@@ -56,16 +56,16 @@
 }
 
 .article-back::before {
-  content: '←';
+  content: '';
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 1em;
-  width: 1em;
-  height: 1em;
-  line-height: 1;
-  font-size: 1em;
-  transform: translateY(-0.02em);
+  flex: 0 0 0.5em;
+  width: 0.5em;
+  height: 0.5em;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
 }
 
 .article-title-wrap {
