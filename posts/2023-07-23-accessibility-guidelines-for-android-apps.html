@@ -27,11 +27,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
   <link rel="shortcut icon" href="../assets/favicon.ico">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/article.css">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body class="article-page" data-post-id="post3">
   <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
@@ -110,9 +114,9 @@
 
   <div id="site-footer"></div>
 
-  <script src="../assets/js/site.config.js"></script>
-  <script src="../assets/js/layout.js"></script>
-  <script src="../assets/js/script.js"></script>
-  <script src="../assets/js/article.js"></script>
+  <script src="../assets/js/site.config.js" defer></script>
+  <script src="../assets/js/layout.js" defer></script>
+  <script src="../assets/js/script.js" defer></script>
+  <script src="../assets/js/article.js" defer></script>
 </body>
 </html>

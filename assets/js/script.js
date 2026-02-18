@@ -101,6 +101,7 @@
 
   // ——— Intersection Observer for reveals ———
   function initReveals() {
+    if (!window.IntersectionObserver) return;
     const reveals = document.querySelectorAll('.reveal, .post-card, .section-title');
     if (!reveals.length) return;
 
@@ -167,7 +168,7 @@
     document.addEventListener('mousemove', function (e) {
       targetX = e.clientX;
       targetY = e.clientY;
-    });
+    }, { passive: true });
 
     function animate() {
       x += (targetX - x) * 0.15;
@@ -190,7 +191,8 @@
   const THEME_SWITCHING_CLASS = 'theme-switching';
 
   function getPreferredTheme() {
-    const stored = localStorage.getItem(THEME_KEY);
+    var stored = null;
+    try { stored = localStorage.getItem(THEME_KEY); } catch (_) { /* private browsing */ }
     if (stored === 'light' || stored === 'dark') return stored;
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) return 'dark';
     return 'light';
@@ -220,7 +222,7 @@
       document.documentElement.classList.add(THEME_SWITCHING_CLASS);
       applyTheme(next);
       syncThemeToggleState(btn, next);
-      localStorage.setItem(THEME_KEY, next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (_) { /* private browsing */ }
       window.setTimeout(function () {
         document.documentElement.classList.remove(THEME_SWITCHING_CLASS);
       }, 360);
@@ -229,7 +231,8 @@
 
   // Apply theme immediately to avoid flash (before DOMContentLoaded)
   (function applyThemeSync() {
-    const stored = localStorage.getItem(THEME_KEY);
+    var stored = null;
+    try { stored = localStorage.getItem(THEME_KEY); } catch (_) { /* private browsing */ }
     const theme = stored === 'dark' || stored === 'light' ? stored : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
   })();

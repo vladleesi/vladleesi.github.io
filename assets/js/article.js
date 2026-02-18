@@ -88,6 +88,7 @@
   }
 
   function initArticleReveals() {
+    if (!window.IntersectionObserver) return;
     const items = document.querySelectorAll('.article-body .reveal-item');
     if (!items.length) return;
 
