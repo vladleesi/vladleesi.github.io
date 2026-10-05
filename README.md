@@ -8,7 +8,7 @@ Static site for `https://vladleesi.dev` — personal portfolio and blog about An
 
 - **Static HTML**: `index.html` + one file per post under `posts/`.
 - **Vanilla JS**: small helpers in `assets/js` for layout, theming, article UX.
-- **CSS only**: no framework, custom Material 3–inspired design in `assets/css`.
+- **CSS only**: no framework, shared editorial design in `assets/css` and locally bundled Archivo fonts.
 - **Hosting**: GitHub Pages on the `main` branch.
 
 ### Project structure
@@ -21,8 +21,10 @@ Static site for `https://vladleesi.dev` — personal portfolio and blog about An
 - `assets/js/`
   - `site.config.js` – global site metadata consumed by layout.
   - `layout.js` – renders shared header/footer + back-to-top button.
-  - `script.js` – homepage interactions (loader, theme toggle, parallax, pagination, etc.).
-  - `article.js` – article-specific behavior (reading progress, copy buttons, Prism init).
+  - `script.js` – shared theme toggle, navigation, back-to-top, and homepage pagination.
+  - `article.js` – article-specific behavior (reading progress, accessible copy buttons, Prism init).
+- `assets/fonts/` – local Archivo fonts and their SIL Open Font Licenses.
+- `assets/js/vendor/prism/` – existing Prism 1.29.0 syntax highlighter, bundled locally with its MIT license.
 - `assets/` – favicons and `resume/` PDF.
 - `feed.xml` – RSS feed.
 - `sitemap.xml` – XML sitemap for search engines.

@@ -1,5 +1,5 @@
 /**
- * Article page — Reading progress bar, copy buttons, staggered reveal
+ * Article page — Reading progress, accessible code copying, syntax highlighting.
  */
 
 (function () {
@@ -58,7 +58,7 @@
       document.body.appendChild(ta);
       ta.select();
       try {
-        document.execCommand('copy');
+        if (!document.execCommand('copy')) throw new Error('Copy was not supported');
         return Promise.resolve();
       } finally {
         document.body.removeChild(ta);
@@ -70,42 +70,32 @@
       var codeEl = wrap.querySelector('pre code');
       if (!btn || !codeEl) return;
 
+      btn.setAttribute('aria-live', 'polite');
+      btn.setAttribute('aria-atomic', 'true');
+      var feedbackTimer;
+
       btn.addEventListener('click', function () {
+        clearTimeout(feedbackTimer);
         var text = (codeEl.textContent || codeEl.innerText || '').trim();
         copyToClipboard(text).then(function () {
           btn.classList.add('copied');
           btn.textContent = 'Copied';
-          setTimeout(function () {
+          btn.setAttribute('aria-label', 'Code copied');
+          feedbackTimer = setTimeout(function () {
             btn.classList.remove('copied');
             btn.textContent = 'Copy';
+            btn.setAttribute('aria-label', 'Copy code');
           }, 2000);
         }).catch(function () {
+          btn.classList.remove('copied');
           btn.textContent = 'Copy failed';
-          setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+          btn.setAttribute('aria-label', 'Copy failed; select the code to copy manually');
+          feedbackTimer = setTimeout(function () {
+            btn.textContent = 'Copy';
+            btn.setAttribute('aria-label', 'Copy code');
+          }, 2000);
         });
       });
-    });
-  }
-
-  function initArticleReveals() {
-    if (!window.IntersectionObserver) return;
-    const items = document.querySelectorAll('.article-body .reveal-item');
-    if (!items.length) return;
-
-    const observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      },
-      { rootMargin: '0px 0px 80px 0px', threshold: 0 }
-    );
-
-    items.forEach(function (el, i) {
-      el.style.transitionDelay = Math.min(i * 0.02, 0.15) + 's';
-      observer.observe(el);
     });
   }
 
@@ -118,7 +108,6 @@
   function init() {
     initProgressBar();
     initCopyButtons();
-    initArticleReveals();
     initSyntaxHighlight();
   }
 

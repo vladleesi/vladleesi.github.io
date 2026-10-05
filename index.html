@@ -6,10 +6,11 @@
   <script>
     (function(){
       var k='portfolio-theme';
-      var stored=localStorage.getItem(k);
+      var stored=null;
+      try { stored=localStorage.getItem(k); } catch (_) {}
       var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
       document.documentElement.setAttribute('data-theme',dark?'dark':'light');
-      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+      document.documentElement.style.backgroundColor=dark?'#080808':'#edebe5';
     })();
   </script>
   <title>Vladislav Kochetov | Mobile Software Engineer (Android &amp; Kotlin)</title>
@@ -26,8 +27,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Vladislav Kochetov | Mobile Software Engineer">
   <meta name="twitter:description" content="Android, Kotlin Multiplatform, Jetpack Compose. Blog on mobile architecture and developer experience.">
-  <meta name="theme-color" content="#6750a4" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#d0bcff" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#edebe5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#080808" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <script type="application/ld+json">
@@ -36,40 +37,23 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebSite","name":"Vladislav Kochetov","url":"https://vladleesi.dev/","description":"Portfolio and blog — Android, Kotlin Multiplatform, Jetpack Compose.","publisher":{"@type":"Person","name":"Vladislav Kochetov"}}
   </script>
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" href="assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="feed.xml">
   <link rel="stylesheet" href="assets/css/styles.css">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
-  <!-- Loading screen -->
-  <div id="loader" class="loader" aria-hidden="true">
-    <div class="loader-line"></div>
-  </div>
-
-  <!-- Parallax background elements -->
-  <div class="parallax-bg" aria-hidden="true">
-    <div class="parallax-gradient parallax-gradient-1"></div>
-    <div class="parallax-gradient parallax-gradient-2"></div>
-    <div class="parallax-orb parallax-orb-1"></div>
-    <div class="parallax-orb parallax-orb-2"></div>
-  </div>
-
+  <a href="#main" class="skip-link">Skip to content</a>
   <div id="site-header"></div>
 
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero" id="hero">
       <div class="container hero-inner">
         <div class="hero-content">
           <p class="hero-overline">Mobile Software Engineer (Android)</p>
           <h1 class="hero-title">
-            <span class="hero-title-line" aria-label="Mobile Development & Architecture">
-              <span class="hero-title-word">Vladislav Kochetov</span>
+            <span class="hero-title-line">
+              <span class="hero-title-word"><span>Vladislav</span> <span>Kochetov</span></span>
             </span>
           </h1>
           <p class="hero-value">
@@ -114,7 +98,7 @@
           </article>
           <article class="skill-card" role="listitem">
             <span class="skill-card-name">Kotlin Multiplatform</span>
-            <span class="skill-card-yoe">2 Years Experience</span>
+            <span class="skill-card-yoe">3 Years Experience</span>
           </article>
           <article class="skill-card" role="listitem">
             <span class="skill-card-name">REST APIs</span>
@@ -122,7 +106,7 @@
           </article>
           <article class="skill-card" role="listitem">
             <span class="skill-card-name">SQL</span>
-            <span class="skill-card-yoe">6 Years Experience</span>
+            <span class="skill-card-yoe">7 Years Experience</span>
           </article>
         </div>
       </div>
@@ -245,8 +229,6 @@
   </main>
 
   <div id="site-footer"></div>
-
-  <div id="cursor-trail" class="cursor-trail" aria-hidden="true"></div>
 
   <script src="assets/js/site.config.js" defer></script>
   <script src="assets/js/layout.js" defer></script>

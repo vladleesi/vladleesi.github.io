@@ -6,10 +6,11 @@
   <script>
     (function(){
       var k='portfolio-theme';
-      var stored=localStorage.getItem(k);
+      var stored=null;
+      try { stored=localStorage.getItem(k); } catch (_) {}
       var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
       document.documentElement.setAttribute('data-theme',dark?'dark':'light');
-      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
+      document.documentElement.style.backgroundColor=dark?'#080808':'#edebe5';
     })();
   </script>
   <title>How to set up publication signature with the Gradle plugin | Vladislav Kochetov</title>
@@ -25,24 +26,18 @@
   <meta name="twitter:description" content="GPG and Gradle Signing Plugin for publishing to Nexus.">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" href="../assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/article.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body class="article-page" data-post-id="post4">
+  <a href="#main" class="skip-link">Skip to content</a>
   <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
 
   <div id="site-header"></div>
 
-  <main>
+  <main id="main" tabindex="-1">
     <article class="article-container">
       <a href="/" class="article-back">Back to home</a>
       <header class="article-title-wrap">
@@ -113,9 +108,9 @@ signing.password=YOUR_PASSPHRASE</code></pre>
   <script src="../assets/js/site.config.js" defer></script>
   <script src="../assets/js/layout.js" defer></script>
   <script src="../assets/js/script.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" defer></script>
+  <script src="../assets/js/vendor/prism/prism.min.js" defer></script>
+  <script src="../assets/js/vendor/prism/prism-groovy.min.js" defer></script>
+  <script src="../assets/js/vendor/prism/prism-bash.min.js" defer></script>
   <script src="../assets/js/article.js" defer></script>
 </body>
 </html>
