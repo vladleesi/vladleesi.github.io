@@ -24,8 +24,11 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Kotlin and Compose Multiplatform | Vladislav Kochetov">
   <meta name="twitter:description" content="Kotlin Multiplatform, Compose Multiplatform — Android and iOS from one codebase.">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png?v=minimal-vk-5">
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=minimal-vk-5">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png?v=minimal-vk-5">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png?v=minimal-vk-5">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="../assets/favicon.svg?v=minimal-vk-5">
   <link rel="preload" href="../assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/article.css">
@@ -51,8 +54,8 @@
         </blockquote>
         <p class="reveal-item">So, let's get started!</p>
         <p class="reveal-item">To begin, let's create a multiplatform project in Android Studio by selecting "New Project" and then choosing the "Kotlin Multiplatform App" template.</p>
-        <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wnn34qwg4p77gjuy6gam.png" alt="Creation of new multiplatform project" loading="lazy">
+        <figure class="reveal-item article-media-wide">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wnn34qwg4p77gjuy6gam.png" alt="Creation of new multiplatform project" width="1290" height="538" loading="lazy">
         </figure>
         <p class="reveal-item">After creating the multiplatform project in Android Studio, the next step is to add all the necessary dependencies and plugins.</p>
         <div class="code-block-wrap reveal-item">
@@ -240,17 +243,17 @@ struct ContentView_Previews: PreviewProvider {
         <p class="reveal-item">That's all the Xcode part, you may forget about it (if you can) and return to Android Studio.</p>
         <p class="reveal-item">Before running the app, we must build the iOS module using the following command: <code>./gradlew :shared:compileKotlinIosArm64</code>.</p>
         <p class="reveal-item">In Android Studio, select the target platform, and then click on the "Run" button to launch the application on the chosen platform.</p>
-        <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wy2c9iv7xbl1vms6qo3z.jpg" alt="Choosing target platform for launch" loading="lazy">
+        <figure class="reveal-item article-media-detail">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wy2c9iv7xbl1vms6qo3z.jpg" alt="Choosing target platform for launch" width="400" height="266" loading="lazy">
         </figure>
         <p class="reveal-item">Well done!</p>
         <div class="article-body-table reveal-item">
-          <figure>
-            <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tvgbm18ch9x2vmypi0z2.gif" alt="Android (Dark theme)" loading="lazy">
+          <figure class="article-media-dark">
+            <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tvgbm18ch9x2vmypi0z2.gif" alt="Android (Dark theme)" width="295" height="640" loading="lazy">
             <figcaption>Android (Dark theme)</figcaption>
           </figure>
           <figure>
-            <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/htgbvoh1d4402og8ims6.gif" alt="iOS (Light theme)" loading="lazy">
+            <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/htgbvoh1d4402og8ims6.gif" alt="iOS (Light theme)" width="300" height="649" loading="lazy">
             <figcaption>iOS (Light theme)</figcaption>
           </figure>
         </div>

@@ -1,9 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Archivo 750: native glyph shapes, advances, and kerning; uniformly scaled. -->
   <style>
-    text { fill: #7d5260; }
+    .mark { fill: #c5231c; }
     @media (prefers-color-scheme: dark) {
-      text { fill: #efb8c8; }
+      .mark { fill: #f1372d; }
     }
   </style>
-  <text x="32" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="-3">VK</text>
+  <g id="monogram">
+    <path class="mark" transform="translate(1.569899 46.374627) scale(0.041862104 -0.041862104)" d="M260.3804 0 12.663 686.7609H189.8041L326.9347 273.3474Q330.9347 262.2061 336.076 244.6409Q341.2173 227.0757 346.9292 209.2986Q352.6412 191.5215 356.7825 177.1954H362.9238Q367.0651 190.1411 372.277 207.228Q377.489 224.3149 382.8205 241.7605Q388.152 259.2061 392.152 272.7278L529.0435 686.7609H698.6628L451.3258 0ZM787.2391 0V686.7609H951.8585V377.8912L1233.413 686.7609H1436.1627L1177.3909 406.8587L1441.1627 0H1246.4564L1063.9019 294.1741L951.8585 191.7067V0Z"/>
+  </g>
 </svg>

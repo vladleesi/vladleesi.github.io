@@ -24,8 +24,11 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Vertical text in Jetpack Compose | Vladislav Kochetov">
   <meta name="twitter:description" content="Render text vertically in Jetpack Compose — no rotation width problems.">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png?v=minimal-vk-5">
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico?v=minimal-vk-5">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png?v=minimal-vk-5">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png?v=minimal-vk-5">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="../assets/favicon.svg?v=minimal-vk-5">
   <link rel="preload" href="../assets/fonts/archivo-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/article.css">
@@ -60,14 +63,14 @@
 
         <p class="reveal-item">Which results in the following layout:</p>
 
-        <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9cxrujou5cl56kda8be1.jpg" alt="Simple rotation with incorrect width" loading="lazy">
+        <figure class="reveal-item article-media-wide article-media-dark">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9cxrujou5cl56kda8be1.jpg" alt="Simple rotation with incorrect width" width="755" height="226" loading="lazy">
         </figure>
 
         <p class="reveal-item">To fix this issue, the following composable renders text vertically by rotating and laying out each character individually, adjusting layout bounds so the width behaves as expected:</p>
 
-        <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgsxpobhxqb0e57nrtl1.jpg" alt="VerticalText with corrected layout bounds" loading="lazy">
+        <figure class="reveal-item article-media-detail article-media-dark">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgsxpobhxqb0e57nrtl1.jpg" alt="VerticalText with corrected layout bounds" width="160" height="626" loading="lazy">
         </figure>
 
         <h2 class="reveal-item">Implementation</h2>
