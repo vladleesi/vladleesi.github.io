@@ -3,15 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    (function(){
-      var k='portfolio-theme';
-      var stored=localStorage.getItem(k);
-      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
-      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
-      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
-    })();
-  </script>
+  <script src="../assets/js/theme.js"></script>
   <title>Write Once, Run Everywhere: Kotlin and Compose Multiplatform | Vladislav Kochetov</title>
   <meta name="description" content="Build a simple app with Kotlin Multiplatform, Compose Multiplatform, Coroutines, Serialization, and Ktor — Android and iOS from one codebase.">
   <link rel="canonical" href="https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html">
@@ -23,11 +15,14 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Kotlin and Compose Multiplatform | Vladislav Kochetov">
   <meta name="twitter:description" content="Kotlin Multiplatform, Compose Multiplatform — Android and iOS from one codebase.">
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png" data-light-href="../assets/apple-touch-icon.png" data-dark-href="../assets/apple-touch-icon-dark.png">
-  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" data-light-href="../assets/favicon.ico" data-dark-href="../assets/favicon-dark.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" data-light-href="../assets/favicon-32x32.png" data-dark-href="../assets/favicon-32x32-dark.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png" data-light-href="../assets/favicon-16x16.png" data-dark-href="../assets/favicon-16x16-dark.png">
-  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <noscript>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32-dark.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../assets/favicon.svg">
+  </noscript>
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -279,7 +274,7 @@ struct ContentView_Previews: PreviewProvider {
   <div id="site-footer"></div>
   <script src="../assets/js/site.config.js" defer></script>
   <script src="../assets/js/layout.js" defer></script>
-  <script src="../assets/js/script.js" defer></script>
+  <script src="../assets/js/script.js?v=theme-icons-2" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-kotlin.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-groovy.min.js" defer></script>

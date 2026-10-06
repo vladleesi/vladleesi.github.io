@@ -199,16 +199,7 @@
   }
 
   function syncThemeFavicon() {
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    document.querySelectorAll('link[data-light-href][data-dark-href]').forEach(function (icon) {
-      icon.href = icon.getAttribute(`data-${theme}-href`);
-    });
-    const favicon = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
-    if (!favicon) return;
-    const accent = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim();
-    if (!accent) return;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text x="32" y="46" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" font-weight="700" letter-spacing="-3" fill="${accent}">VK</text></svg>`;
-    favicon.href = `data:image/svg+xml,${encodeURIComponent(svg)}`;
+    if (window.syncThemeIcons) window.syncThemeIcons();
   }
 
   function applyTheme(theme) {

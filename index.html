@@ -3,15 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    (function(){
-      var k='portfolio-theme';
-      var stored=localStorage.getItem(k);
-      var dark=stored==='dark'||(stored!=='light'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
-      document.documentElement.setAttribute('data-theme',dark?'dark':'light');
-      document.documentElement.style.backgroundColor=dark?'#141218':'#fef7ff';
-    })();
-  </script>
+  <script src="assets/js/theme.js"></script>
   <title>Vladislav Kochetov | Mobile Software Engineer (Android &amp; Kotlin)</title>
   <meta name="description" content="Vladislav Kochetov — Mobile Software Engineer with 8+ years building Android apps, Kotlin Multiplatform, and scalable mobile architecture. Blog on Jetpack Compose, KMP, and clean architecture.">
   <meta name="author" content="Vladislav Kochetov">
@@ -28,11 +20,14 @@
   <meta name="twitter:description" content="Android, Kotlin Multiplatform, Jetpack Compose. Blog on mobile architecture and developer experience.">
   <meta name="theme-color" content="#6750a4" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#d0bcff" media="(prefers-color-scheme: dark)">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" data-light-href="assets/apple-touch-icon.png" data-dark-href="assets/apple-touch-icon-dark.png">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" data-light-href="assets/favicon.ico" data-dark-href="assets/favicon-dark.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" data-light-href="assets/favicon-32x32.png" data-dark-href="assets/favicon-32x32-dark.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" data-light-href="assets/favicon-16x16.png" data-dark-href="assets/favicon-16x16-dark.png">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <noscript>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="assets/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32-dark.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="assets/favicon.svg">
+  </noscript>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Vladislav Kochetov","url":"https://vladleesi.dev/","jobTitle":"Mobile Software Engineer","sameAs":["https://github.com/vladleesi","https://www.linkedin.com/in/vladkochetov","https://twitter.com/vladleesi"],"description":"Mobile Software Engineer focused on Android, Kotlin Multiplatform, and scalable mobile architecture."}
   </script>
@@ -253,6 +248,6 @@
 
   <script src="assets/js/site.config.js" defer></script>
   <script src="assets/js/layout.js" defer></script>
-  <script src="assets/js/script.js" defer></script>
+  <script src="assets/js/script.js?v=theme-icons-2" defer></script>
 </body>
 </html>
