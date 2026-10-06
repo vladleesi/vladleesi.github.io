@@ -100,26 +100,7 @@
   }
 
   function initSyntaxHighlight() {
-    if (typeof window.Prism !== 'undefined') {
-      // Prism's Kotlin grammar omits class names; identify explicit type contexts
-      // without treating capitalized Compose functions as types.
-      if (window.Prism.languages.kotlin) {
-        window.Prism.languages.insertBefore('kotlin', 'keyword', {
-          'class-name': [
-            {
-              pattern: /(\b(?:class|interface|object|typealias)\s+)[A-Za-z_]\w*/,
-              lookbehind: true
-            },
-            {
-              pattern: /((?:^|[^:]):(?!:)\s*|\b(?:as|is)\??\s+)[A-Z]\w*/,
-              lookbehind: true
-            },
-            /\b(?:Any|Nothing|Unit|String|Char|Boolean|Byte|Short|Int|Long|Float|Double|Array|(?:Boolean|Byte|Short|Int|Long|Float|Double|Char)Array)\b/
-          ]
-        });
-      }
-      window.Prism.highlightAll();
-    }
+    if (window.ArticleSyntax) window.ArticleSyntax.highlight();
   }
 
   function init() {

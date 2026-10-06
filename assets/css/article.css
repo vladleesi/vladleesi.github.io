@@ -5,9 +5,9 @@
   --code-text: #eeece6;
   --code-muted: #8a8681;
   --code-keyword: #f2554a;
-  --code-type: #8fbac6;
-  --code-string: #d6b477;
-  --code-number: #a9bc7a;
+  --code-type: #d6b477;
+  --code-string: #a9bc7a;
+  --code-number: #8fbac6;
   --code-function: #eeece6;
   --code-variable: #c8c3bc;
 }
@@ -126,14 +126,14 @@
 .code-copy:focus-visible { outline-color: #f1372d; outline-offset: 3px; }
 /* Muted semantic colors stay inside code; red remains the control signal. */
 .article-body pre .token { background: transparent; }
-.article-body pre .token:is(.keyword, .tag, .boolean) { color: var(--code-keyword); }
-.article-body pre .token:is(.string, .string-literal, .interpolation-string, .char, .regex, .attr-value) { color: var(--code-string); }
-.article-body pre .token:is(.number, .constant, .symbol) { color: var(--code-number); }
-.article-body pre .token:is(.variable, .property, .attr-name, .parameter, .short-argument, .interpolation) { color: var(--code-variable); }
-.article-body pre .token:is(.operator, .punctuation, .comment, .prolog, .doctype, .cdata, .shebang) { color: var(--code-muted); }
+.article-body pre .token:is(.keyword, .tag, .boolean, .null, .rule, .deleted) { color: var(--code-keyword); }
+.article-body pre .token:is(.string, .string-literal, .interpolation-string, .template-string, .string-interpolation, .char, .regex, .regex-source, .attr-value, .url, .url-reference, .entity, .inserted) { color: var(--code-string); }
+.article-body pre .token:is(.number, .constant, .symbol, .unit, .color) { color: var(--code-number); }
+.article-body pre .token:is(.variable, .property, .attr-name, .parameter, .short-argument, .interpolation, .key, .identifier, .argument-name) { color: var(--code-variable); }
+.article-body pre .token:is(.operator, .punctuation, .comment, .prolog, .doctype, .cdata, .shebang, .coord, .delimiter, .directive-hash) { color: var(--code-muted); }
 /* Annotation aliases may also be punctuation; their semantic type takes priority. */
-.article-body pre .token:is(.class-name, .type, .builtin, .annotation, .attribute) { color: var(--code-type); }
-.article-body pre .token.function { color: var(--code-function); font-weight: 600; }
+.article-body pre .token:is(.class-name, .type, .builtin, .annotation, .attribute, .decorator, .namespace, .module, .package, .selector) { color: var(--code-type); }
+.article-body pre .token:is(.function, .generic-function, .generic-method, .method-definition, .title) { color: var(--code-function); font-weight: 600; }
 .article-body pre .token.bold, .article-body pre .token.important { font-weight: 700; }
 .article-body pre .token.italic { font-style: italic; }
 

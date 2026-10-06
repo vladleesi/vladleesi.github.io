@@ -23,6 +23,7 @@ Static site for `https://vladleesi.dev` — personal portfolio and blog about An
   - `layout.js` – renders shared header/footer + back-to-top button.
   - `script.js` – shared theme toggle, navigation, back-to-top, and homepage pagination.
   - `article.js` – article-specific behavior (reading progress, accessible copy buttons, Prism init).
+  - `syntax.js` – local grammar loading and semantic syntax mappings shared by articles.
 - `assets/fonts/` – local Archivo fonts and their SIL Open Font Licenses.
 - `assets/js/vendor/prism/` – existing Prism 1.29.0 syntax highlighter, bundled locally with its MIT license.
 - `assets/` – favicons and `resume/` PDF.
@@ -46,6 +47,29 @@ Then open:
 
 - `http://localhost:8000/` – main page.
 - `http://localhost:8000/posts/<post-file>.html` – individual posts.
+
+### Article syntax highlighting
+
+Use `<pre><code class="language-kotlin">...</code></pre>` with the appropriate
+language name. Article pages load only the local grammars they need, including
+dependencies. No external CDN or build step is required. Unknown languages remain
+readable as plain text.
+
+Supported languages include JavaScript, TypeScript, JSX/TSX, Python, Java, Kotlin,
+Swift, C, C++, C#, Go, Rust, PHP, Ruby, Groovy, Bash, PowerShell, HTML/XML, CSS/SCSS,
+SQL, JSON, YAML, TOML, Markdown, Dockerfiles, GraphQL, and diffs. Common aliases such
+as `js`, `ts`, `py`, `kt`, `sh`, `yml`, `md`, and `console` also work.
+
+Syntax uses only the existing article palette: red control syntax, amber types,
+sage strings, muted blue numbers/constants, semibold off-white functions, and
+neutral variables, operators, and comments. Markdown and diffs use the same colors.
+Token extensions follow [Prism's language and alias API](https://prismjs.com/extending.html).
+
+Run the grammar, loader, and palette regression checks with:
+
+```bash
+node --test tests/syntax.test.cjs
+```
 
 ### Deployment
 
