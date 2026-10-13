@@ -49,7 +49,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="feed.xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=impact-uniform-1">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
@@ -88,24 +88,21 @@
     <section class="impact-section" id="impact" aria-labelledby="impact-title">
       <div class="container">
         <h2 class="section-title" id="impact-title">Engineering impact</h2>
-        <div class="impact-panel">
-          <div class="impact-highlight">
-            <h3>Architecture &amp; modernization</h3>
-            <p>Designed an Android app’s architecture and delivered its first production release. Also migrated legacy Java to Kotlin and drove Jetpack Compose adoption.</p>
-          </div>
-          <!-- html-validate-disable-next no-redundant-role -- Preserve list semantics when CSS removes bullets. -->
-          <ul class="impact-outcomes" role="list">
-            <li>
-              <h3>Performance &amp; reliability</h3>
-              <p>Established performance metrics and analysis, contributed to app tuning, and improved service-level compliance through continuous monitoring.</p>
-            </li>
-            <li>
-              <h3>Led 5 Android engineers</h3>
-              <p>Guided technical refinements and mentored teammates while continuing hands-on architecture, implementation, and code review.</p>
-            </li>
-          </ul>
-          <a class="evidence-link" href="assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf" target="_blank" rel="noopener noreferrer">Full professional background (PDF) <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4 10 14M10 4H4v16h16v-6"/></svg></a>
+        <div class="impact-grid">
+          <article class="impact-card impact-card-primary">
+            <h3><svg class="expertise-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="8.5" y="14" width="7" height="7" rx="1"/><path d="M6.5 10v2h11v-2M12 12v2"/></svg>Architecture &amp; Modernization</h3>
+            <p>Designed Android app architecture and delivered its <strong>first production release</strong>. Migrated <strong>Java to Kotlin</strong> and drove <strong>Jetpack Compose</strong> adoption.</p>
+          </article>
+          <article class="impact-card">
+            <h3><svg class="expertise-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg>Performance &amp; Reliability</h3>
+            <p><strong>Improved service-level compliance</strong> through continuous monitoring. Established performance metrics and contributed to app tuning.</p>
+          </article>
+          <article class="impact-card">
+            <h3><svg class="expertise-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6M21 21v-3a6 6 0 0 0-4-5.7"/></svg>Team Leadership</h3>
+            <p>Led <strong>5 Android engineers</strong> through technical refinement, mentoring, and code review. Stayed hands-on with architecture and implementation.</p>
+          </article>
         </div>
+        <a class="evidence-link" href="assets/resume/Vladislav_Kochetov_Android_Engineer_Resume.pdf" target="_blank" rel="noopener noreferrer">View resume (PDF) <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4 10 14M10 4H4v16h16v-6"/></svg></a>
       </div>
     </section>
 
@@ -258,6 +255,6 @@
 
   <script src="assets/js/site.config.js" defer></script>
   <script src="assets/js/layout.js" defer></script>
-  <script src="assets/js/script.js?v=senior-portfolio-1" defer></script>
+  <script src="assets/js/script.js?v=impact-uniform-1" defer></script>
 </body>
 </html>

@@ -228,7 +228,7 @@
   function initContentReveals() {
     if (!window.IntersectionObserver || !Element.prototype.animate) return;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const targets = document.querySelectorAll('.hero-content, .section-title, .work-item, .skill-card, .workflow-note, .impact-panel, .post-card, .about-panel, .article-body .reveal-item');
+    const targets = document.querySelectorAll('.hero-content, .section-title, .work-item, .skill-card, .workflow-note, .impact-card, .post-card, .about-panel, .article-body .reveal-item');
     const seen = new WeakSet();
     const active = new Set();
     const observer = new IntersectionObserver(function (entries) {
@@ -239,7 +239,7 @@
         seen.add(element);
         const article = element.classList.contains('reveal-item');
         const siblings = Array.from(element.parentElement.children).filter(function (sibling) {
-          return sibling.matches('.skill-card, .work-item, .post-card, .reveal-item');
+          return sibling.matches('.skill-card, .work-item, .impact-card, .post-card, .reveal-item');
         });
         const delay = Math.min(Math.max(0, siblings.indexOf(element)) * (article ? 20 : 50), 150);
         const animation = element.animate([

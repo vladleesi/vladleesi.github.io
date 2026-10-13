@@ -9,7 +9,7 @@ const pages = ['/', '/posts/2026-01-26-vertical-text-in-jetpack-compose-without-
 const directory = `reports/lighthouse/${mode}`;
 const runs = 3;
 const median = values => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
-const { server, origin } = await startServer();
+const { server, origin } = await startServer(0, { cacheControl: 'public, max-age=600' });
 let chrome;
 let failed = false;
 const summary = [];

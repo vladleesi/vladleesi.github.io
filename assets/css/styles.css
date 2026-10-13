@@ -1092,43 +1092,52 @@ main {
   .skills-grid { grid-template-columns: 1fr; }
 }
 
-.impact-panel {
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.impact-card {
   padding: var(--space-lg);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   background: var(--md-sys-color-surface-container);
 }
 
-.impact-panel h3 {
+.impact-card h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
   margin-bottom: var(--space-sm);
 }
 
-.impact-panel p {
+.impact-card p {
   font-size: 0.95rem;
+  line-height: 1.6;
   color: var(--md-sys-color-on-surface-variant);
 }
 
-.impact-highlight h3 {
+.impact-card strong {
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface);
+}
+
+.impact-card-primary {
+  grid-column: 1 / -1;
+}
+
+.impact-card-primary h3 {
   font-size: 1.25rem;
-  color: var(--md-sys-color-primary);
 }
 
-.impact-outcomes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-lg);
-  margin-top: var(--space-lg);
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-}
-
-.impact-panel .evidence-link { margin-top: var(--space-lg); }
+.impact-section .evidence-link { margin-top: var(--space-md); }
 
 @media (max-width: 640px) {
-  .impact-outcomes { grid-template-columns: 1fr; }
-  .impact-panel { padding: 20px; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .impact-card { padding: 20px; }
 }
 
 /* ============================================ Footer — M3 surface container ============================================ */

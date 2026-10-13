@@ -11,7 +11,7 @@ const types = {
   '.jpg': 'image/jpeg', '.gif': 'image/gif', '.ico': 'image/x-icon', '.pdf': 'application/pdf'
 };
 
-export async function startServer(port = 0) {
+export async function startServer(port = 0, { cacheControl = 'no-store' } = {}) {
   const server = createServer(async (request, response) => {
     try {
       if (!['GET', 'HEAD'].includes(request.method)) {
@@ -31,7 +31,7 @@ export async function startServer(port = 0) {
       response.writeHead(200, {
         'Content-Type': types[extname(file)] || 'application/octet-stream',
         'Content-Length': content.length,
-        'Cache-Control': 'public, max-age=600',
+        'Cache-Control': cacheControl,
         'X-Content-Type-Options': 'nosniff'
       });
       response.end(request.method === 'HEAD' ? undefined : content);
