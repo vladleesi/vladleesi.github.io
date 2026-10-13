@@ -2,3 +2,8 @@
 /shelf/
 /.idea
 /_site
+
+# Development tools and local reports
+.DS_Store
+/node_modules/
+/reports/

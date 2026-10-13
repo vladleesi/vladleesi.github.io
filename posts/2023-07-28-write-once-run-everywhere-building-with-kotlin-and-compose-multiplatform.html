@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="../assets/js/theme.js"></script>
-  <title>Write Once, Run Everywhere: Kotlin and Compose Multiplatform | Vladislav Kochetov</title>
+  <title>Kotlin &amp; Compose Multiplatform | Vladislav Kochetov</title>
   <meta name="description" content="Build a simple app with Kotlin Multiplatform, Compose Multiplatform, Coroutines, Serialization, and Ktor — Android and iOS from one codebase.">
   <link rel="canonical" href="https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html">
   <meta property="og:title" content="Write Once, Run Everywhere: Kotlin and Compose Multiplatform | Vladislav Kochetov">
@@ -44,6 +44,28 @@
   <link rel="stylesheet" href="../assets/css/article.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="author" content="Vladislav Kochetov">
+  <meta property="article:published_time" content="2023-07-28">
+  <link rel="alternate" type="application/rss+xml" title="Vladislav Kochetov — Blog" href="https://vladleesi.dev/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html#article",
+    "headline": "Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform",
+    "description": "Build a simple app with Kotlin Multiplatform, Compose Multiplatform, Coroutines, Serialization, and Ktor — Android and iOS from one codebase.",
+    "datePublished": "2023-07-28",
+    "author": {
+      "@type": "Person",
+      "@id": "https://vladleesi.dev/#person",
+      "name": "Vladislav Kochetov",
+      "url": "https://vladleesi.dev/"
+    },
+    "mainEntityOfPage": "https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html",
+    "image": "https://vladleesi.dev/assets/og-image.jpg",
+    "inLanguage": "en"
+  }
+  </script>
 </head>
 <body class="article-page" data-post-id="post2">
   <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
@@ -192,7 +214,7 @@ fun FactasticApp(viewModel: AppViewModel, modifier: Modifier = Modifier) {
 }</code></pre>
         </div>
         <blockquote class="reveal-item">
-          <p>Business logic inside <code>AppViewModel</code> is <a href="https://github.com/vladleesi/factastic/blob/master/shared/src/commonMain/kotlin/dev/vladleesi/factastic/presentation/AppViewModel.kt" target="_blank" rel="noopener noreferrer">here</a>. Configuration of Ktor client is <a href="https://github.com/vladleesi/factastic/blob/master/shared/src/commonMain/kotlin/dev/vladleesi/factastic/data/api/HttpClient.kt" target="_blank" rel="noopener noreferrer">here</a>.</p>
+          <p>See the <a href="https://github.com/vladleesi/factastic/blob/master/shared/src/commonMain/kotlin/dev/vladleesi/factastic/presentation/AppViewModel.kt" target="_blank" rel="noopener noreferrer">AppViewModel implementation</a> for business logic and the <a href="https://github.com/vladleesi/factastic/blob/master/shared/src/commonMain/kotlin/dev/vladleesi/factastic/data/api/HttpClient.kt" target="_blank" rel="noopener noreferrer">Ktor HTTP client configuration</a> for API setup.</p>
         </blockquote>
         <p class="reveal-item">Behold, the moment for the grand trick has arrived.</p>
         <h3 class="reveal-item">Android</h3>

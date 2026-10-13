@@ -174,6 +174,8 @@
   overflow: auto;
   background: var(--code-bg);
   position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.08);
 }
 
 .article-body pre code {
@@ -290,11 +292,6 @@
 }
 
 /* Scrollbar styling for code blocks — dark theme (default) */
-.article-body pre {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.08);
-}
-
 .article-body pre::-webkit-scrollbar {
   height: 10px;
 }

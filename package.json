@@ -1,0 +1,31 @@
+{
+  "name": "vladleesi-portfolio",
+  "private": true,
+  "engines": {
+    "node": ">=24.8.0"
+  },
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "lint:html": "html-validate index.html 'posts/*.html'",
+    "lint:css": "stylelint 'assets/css/*.css' --max-warnings 0",
+    "lint:js": "eslint assets/js scripts *.mjs --max-warnings 0",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "check:site": "node scripts/check-site.mjs",
+    "check": "npm run lint && npm run check:site && git diff --check",
+    "profile": "node scripts/profile.mjs",
+    "profile:desktop": "node scripts/profile.mjs --desktop"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "chrome-launcher": "1.2.2",
+    "eslint": "10.12.0",
+    "fast-xml-parser": "5.11.2",
+    "globals": "17.13.0",
+    "html-validate": "11.16.2",
+    "lighthouse": "13.5.0",
+    "linkedom": "0.18.13",
+    "robots-parser": "3.0.1",
+    "stylelint": "17.16.0",
+    "stylelint-config-recommended": "18.0.0"
+  }
+}

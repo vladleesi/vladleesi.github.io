@@ -44,6 +44,28 @@
   <link rel="stylesheet" href="../assets/css/article.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
   <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="author" content="Vladislav Kochetov">
+  <meta property="article:published_time" content="2026-01-26">
+  <link rel="alternate" type="application/rss+xml" title="Vladislav Kochetov — Blog" href="https://vladleesi.dev/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html#article",
+    "headline": "Vertical text in Jetpack Compose (without rotation width problems)",
+    "description": "Render text vertically in Jetpack Compose by rotating each character and adjusting layout bounds so width behaves correctly. No rotation width problems.",
+    "datePublished": "2026-01-26",
+    "author": {
+      "@type": "Person",
+      "@id": "https://vladleesi.dev/#person",
+      "name": "Vladislav Kochetov",
+      "url": "https://vladleesi.dev/"
+    },
+    "mainEntityOfPage": "https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html",
+    "image": "https://vladleesi.dev/assets/og-image.jpg",
+    "inLanguage": "en"
+  }
+  </script>
 </head>
 <body class="article-page" data-post-id="post1">
   <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
@@ -151,7 +173,7 @@ Column(
         </div>
 
         <p class="reveal-item">In short, this modifier combines a visual rotation with a custom layout pass, ensuring that the measured size reflects the rotated content rather than the original horizontal text.</p>
-        <p class="reveal-item">You can find the full code <a href="https://gist.github.com/vladleesi/27fae826ffa7490d697bc96d674ebd36" target="_blank" rel="noopener noreferrer">here</a>.</p> 
+        <p class="reveal-item">See the full <a href="https://gist.github.com/vladleesi/27fae826ffa7490d697bc96d674ebd36" target="_blank" rel="noopener noreferrer">VerticalText implementation on GitHub Gist</a>.</p>
         <p class="reveal-item">If this saved you some time, consider starring the gist 🙏</p>
       </div>
     </article>

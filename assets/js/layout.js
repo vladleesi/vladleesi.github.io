@@ -11,7 +11,7 @@
   const THEME_KEY = 'portfolio-theme';
 
   function getPreferredTheme() {
-    var stored = null;
+    var stored;
     try {
       stored = localStorage.getItem(THEME_KEY);
     } catch (_) {

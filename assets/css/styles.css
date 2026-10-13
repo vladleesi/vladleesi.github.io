@@ -88,6 +88,7 @@
 }
 
 /* Legacy aliases for compatibility */
+/* stylelint-disable-next-line no-duplicate-selectors -- Keep shared tokens grouped separately from color roles. */
 :root {
   --color-bg: var(--md-sys-color-surface);
   --color-surface: var(--md-sys-color-surface-container);
@@ -1251,6 +1252,7 @@ main {
   box-shadow: 0 2px 6px var(--md-sys-color-shadow);
   cursor: pointer;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   transform: translateY(8px);
   transition: opacity var(--duration-fast), transform var(--duration-fast), background var(--duration-fast), color var(--duration-fast);
@@ -1272,11 +1274,6 @@ main {
   display: block;
 }
 
-.back-to-top,
-[data-theme="dark"] .back-to-top {
-  background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-tertiary));
-}
-
 .back-to-top:hover {
   background: linear-gradient(90deg, var(--md-sys-color-tertiary), var(--md-sys-color-primary));
   color: var(--md-sys-color-on-primary);
@@ -1284,6 +1281,7 @@ main {
 
 .back-to-top.visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
 }
@@ -1343,8 +1341,6 @@ main {
 }
 
 .skip-link:focus { transform: translateY(0); }
-.back-to-top { visibility: hidden; }
-.back-to-top.visible { visibility: visible; }
 
 @media (max-width: 640px) {
   /* The fallback navigation overlays the header's second row, avoiding a

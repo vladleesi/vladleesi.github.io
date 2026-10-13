@@ -1,0 +1,13 @@
+# GitHub Pages already uses Jekyll to publish this static repository.
+# Development tooling and local reports must not become public site files.
+exclude:
+  - AGENTS.md
+  - README.md
+  - LICENSE
+  - package.json
+  - package-lock.json
+  - node_modules
+  - scripts
+  - reports
+  - eslint.config.mjs
+  - stylelint.config.mjs
