@@ -51,22 +51,24 @@
   const aboutHref = isHome ? '#about' : rootHref + '#about';
   const skillsHref = isHome ? '#skills' : rootHref + '#skills';
   const postsHref = isHome ? '#posts' : rootHref + '#posts';
+  const workHref = isHome ? '#work' : rootHref + '#work';
 
   const headerHtml = `
     <header class="header" id="header">
       <div class="header-inner">
         <a href="${rootHref}" class="logo">${site.name}</a>
         <div class="nav-wrap">
-          <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav" hidden>
             <span class="nav-toggle-line"></span>
             <span class="nav-toggle-line"></span>
           </button>
-          <nav class="nav">
-            <a href="${skillsHref}" class="nav-link">Skills</a>
-            <a href="${postsHref}" class="nav-link">Posts</a>
-            <a href="${aboutHref}" class="nav-link">${site.nav.aboutLabel}</a>
+          <nav class="nav" id="main-nav" aria-label="Main navigation">
+            <a href="${workHref}" class="nav-link">Work</a>
+            <a href="${skillsHref}" class="nav-link">Expertise</a>
+            <a href="${postsHref}" class="nav-link">Writing</a>
+            <a href="${aboutHref}" class="nav-link">Contact</a>
           </nav>
-          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" hidden>
             <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
@@ -120,21 +122,6 @@
     btn.className = 'back-to-top';
     btn.setAttribute('aria-label', 'Back to top');
     btn.innerHTML = '<span class="back-to-top-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg></span>';
-
-    // "Back to home" — simulate browser Back when possible
-    // to avoid adding an extra entry to the history stack.
-    document.querySelectorAll('.article-back').forEach(function (link) {
-      link.addEventListener('click', function (e) {
-        // If there is a previous history entry, go back instead of navigating anew.
-        if (window.history && window.history.length > 1) {
-          e.preventDefault();
-          window.history.back();
-        } else {
-          // Fallback: go to host root (works in production and on local servers).
-          link.setAttribute('href', '/');
-        }
-      });
-    });
 
     // Set base title if page left it unchanged
     if (document.title && document.title.includes('Portfolio & Blog')) {

@@ -13,20 +13,24 @@ Static site for `https://vladleesi.dev` — personal portfolio and blog about An
 
 ### Project structure
 
-- `index.html` – landing page (hero, skills, latest posts, about).
+- `index.html` – landing page (hero, impact, selected work, expertise, selected writing, contact).
 - `posts/` – individual article pages (`*.html`).
 - `assets/css/`
   - `styles.css` – global layout, header/footer, homepage sections.
   - `article.css` – article layout, code blocks, reading progress, related posts.
 - `assets/js/`
   - `site.config.js` – global site metadata consumed by layout.
-  - `layout.js` – renders shared header/footer + back-to-top button.
-  - `script.js` – homepage interactions (loader, theme toggle, parallax, pagination, etc.).
-  - `article.js` – article-specific behavior (reading progress, copy buttons, Prism init).
+  - `layout.js` – enhances header/footer fallbacks and adds the back-to-top button.
+  - `script.js` – theme controls, accessible mobile navigation, back-to-top behavior, and article return positions.
+  - `article.js` – article-specific behavior (reading progress and code copying).
 - `assets/` – favicons and `resume/` PDF.
 - `feed.xml` – RSS feed.
 - `sitemap.xml` – XML sitemap for search engines.
 - `robots.txt` – basic crawl rules.
+
+All pages include static navigation and contact links. If navigation or contact details change, update the HTML fallbacks alongside `site.config.js` and `layout.js`. Essential content stays visible without JavaScript; motion preferences apply to scrolling and transitions.
+
+The homepage sharing image is `assets/og-image.png` (1200×630), with its editable source in `assets/og-image.svg`. Article sharing images retain their existing URLs. No image generator or build step is required to serve the site.
 
 ### Local development
 

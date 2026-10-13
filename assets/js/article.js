@@ -1,5 +1,5 @@
 /**
- * Article page — Reading progress bar, copy buttons, staggered reveal
+ * Article page — Reading progress bar, copy buttons, and syntax highlighting
  */
 
 (function () {
@@ -84,42 +84,14 @@
           setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
         });
       });
+      btn.hidden = false;
     });
-  }
-
-  function initArticleReveals() {
-    if (!window.IntersectionObserver) return;
-    const items = document.querySelectorAll('.article-body .reveal-item');
-    if (!items.length) return;
-
-    const observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      },
-      { rootMargin: '0px 0px 80px 0px', threshold: 0 }
-    );
-
-    items.forEach(function (el, i) {
-      el.style.transitionDelay = Math.min(i * 0.02, 0.15) + 's';
-      observer.observe(el);
-    });
-  }
-
-  function initSyntaxHighlight() {
-    if (typeof window.Prism !== 'undefined') {
-      window.Prism.highlightAll();
-    }
   }
 
   function init() {
     initProgressBar();
     initCopyButtons();
-    initArticleReveals();
-    initSyntaxHighlight();
+    // Deferred Prism scripts highlight once automatically after parsing.
   }
 
   if (document.readyState === 'loading') {

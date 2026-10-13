@@ -94,6 +94,7 @@
   font-size: 1rem;
   line-height: 1.6;
   color: var(--md-sys-color-on-surface);
+  overflow-wrap: anywhere;
 }
 
 .article-body > * + * {
@@ -139,10 +140,22 @@
 
 .article-body a {
   color: var(--md-sys-color-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--md-sys-color-outline);
+  text-decoration-thickness: 1px;
+  border-radius: 4px;
+  padding: 1px 3px;
+  background: color-mix(in srgb, var(--md-sys-color-primary-container) 40%, transparent);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background var(--duration-fast), text-decoration-color var(--duration-fast);
 }
 
 .article-body a:hover {
   text-decoration: underline;
+  text-decoration-color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-primary-container);
 }
 
 /* Inline code only (not code blocks with class="language-...") */
@@ -170,7 +183,7 @@
   color: var(--code-fg);
   font-size: 0.875rem;
   line-height: 1.5;
-  overflow-x: auto;
+  overflow-x: visible;
 }
 
 /* Prism.js overrides — keep our code background for theme consistency */
@@ -231,16 +244,7 @@
   color: var(--md-sys-color-on-primary);
 }
 
-.reveal-item {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.22s var(--ease-out-expo), transform 0.22s var(--ease-out-expo);
-}
-
-.reveal-item.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Article content stays visible without JavaScript. */
 
 .article-body img {
   border-radius: var(--radius-md);

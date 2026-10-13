@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="accent"><stop stop-color="#d0bcff"/><stop offset="1" stop-color="#efb8c8"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#6750a4" stop-opacity=".5"/><stop offset="1" stop-color="#141218" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#141218"/>
+  <circle cx="1160" cy="70" r="460" fill="url(#glow)"/>
+  <path d="M840 630 Q910 350 1200 260" fill="none" stroke="#d0bcff" stroke-opacity=".15"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="76" y="102" fill="#d0bcff" font-size="28" font-weight="700">@vladleesi</text>
+    <text x="76" y="165" fill="#cac4d0" font-size="22" letter-spacing="1.5">SENIOR MOBILE SOFTWARE ENGINEER</text>
+    <g fill="#e6e1e5" font-size="78" font-weight="700">
+      <text x="70" y="275">Vladislav</text>
+      <text x="70" y="365">Kochetov</text>
+    </g>
+    <rect x="76" y="392" width="168" height="8" rx="4" fill="url(#accent)"/>
+    <text x="76" y="463" fill="#e6e1e5" font-size="28">Android engineering. Architecture. Production delivery.</text>
+    <text x="76" y="527" fill="#cac4d0" font-size="23">Kotlin · Jetpack Compose · Kotlin Multiplatform</text>
+    <text x="76" y="582" fill="#d0bcff" font-size="21">vladleesi.dev</text>
+  </g>
+</svg>
