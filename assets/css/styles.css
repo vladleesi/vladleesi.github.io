@@ -1129,10 +1129,6 @@ main {
   grid-column: 1 / -1;
 }
 
-.impact-card-primary h3 {
-  font-size: 1.25rem;
-}
-
 .impact-section .evidence-link { margin-top: var(--space-md); }
 
 @media (max-width: 640px) {
