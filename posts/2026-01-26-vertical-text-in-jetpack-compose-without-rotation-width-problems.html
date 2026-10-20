@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" href="../assets/fonts/open-sans-common.woff2" as="font" type="font/woff2" crossorigin>
   <script src="../assets/js/theme.js"></script>
   <title>Vertical text in Jetpack Compose | Vladislav Kochetov</title>
   <meta name="description" content="Render text vertically in Jetpack Compose by rotating each character and adjusting layout bounds so width behaves correctly. No rotation width problems.">
@@ -38,11 +39,11 @@
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/article.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link rel="stylesheet" href="../assets/vendor/prism/prism-tomorrow.min.css">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="author" content="Vladislav Kochetov">
   <meta property="article:published_time" content="2026-01-26">
@@ -109,13 +110,13 @@
         <p class="reveal-item">Which results in the following layout:</p>
 
         <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9cxrujou5cl56kda8be1.jpg" alt="Simple rotation with incorrect width" loading="lazy">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9cxrujou5cl56kda8be1.jpg" alt="Simple rotation with incorrect width" width="755" height="226" loading="lazy" decoding="async">
         </figure>
 
         <p class="reveal-item">To fix this issue, the following composable renders text vertically by rotating and laying out each character individually, adjusting layout bounds so the width behaves as expected:</p>
 
         <figure class="reveal-item">
-          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgsxpobhxqb0e57nrtl1.jpg" alt="VerticalText with corrected layout bounds" loading="lazy">
+          <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgsxpobhxqb0e57nrtl1.jpg" alt="VerticalText with corrected layout bounds" width="160" height="626" loading="lazy" decoding="async">
         </figure>
 
         <h2 class="reveal-item">Implementation</h2>
