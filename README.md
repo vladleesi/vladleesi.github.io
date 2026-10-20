@@ -48,3 +48,9 @@ CI checks pull requests and pushes to `main`. Lighthouse runs on relevant pull r
 - See [AGENTS.md](AGENTS.md) for coding and pre-commit rules.
 
 Known tool issue: Stylelint has an unpatched development-only [glob-parser advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm). Use only fixed, repository-owned lint patterns.
+
+## License
+
+Website source code (HTML structure, CSS, JavaScript, configuration, and development tooling) is licensed under the [MIT License](LICENSE).
+
+Personal photos, artwork, portfolio descriptions, article text, resume content, logos, favicons, social preview images, and personal branding are excluded, even when embedded in source files or metadata. All Rights Reserved, subject to previously granted rights. Third-party materials retain their own licenses and attribution requirements.
