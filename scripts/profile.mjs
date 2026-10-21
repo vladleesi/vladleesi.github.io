@@ -3,13 +3,15 @@ import lighthouse from 'lighthouse';
 import { launch } from 'chrome-launcher';
 import desktopConfig from 'lighthouse/core/config/desktop-config.js';
 import { startServer } from './serve.mjs';
+import { buildSite } from './build.mjs';
 
 const mode = process.argv.includes('--desktop') ? 'desktop' : 'mobile';
 const pages = ['/', '/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html'];
 const directory = `reports/lighthouse/${mode}`;
 const runs = 3;
 const median = values => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
-const { server, origin } = await startServer(0, { cacheControl: 'public, max-age=600' });
+const { output } = await buildSite();
+const { server, origin } = await startServer(0, { cacheControl: 'public, max-age=600', directory: output });
 let chrome;
 let failed = false;
 const summary = [];

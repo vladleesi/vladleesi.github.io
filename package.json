@@ -6,12 +6,15 @@
   },
   "scripts": {
     "serve": "node scripts/serve.mjs",
+    "serve:built": "npm run build && node scripts/serve.mjs --built",
+    "build": "node scripts/build.mjs",
+    "test:build": "node --test scripts/build.test.mjs",
     "lint:html": "html-validate index.html 'posts/*.html'",
     "lint:css": "stylelint 'assets/css/*.css' --max-warnings 0",
     "lint:js": "eslint assets/js scripts *.mjs --max-warnings 0",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
     "check:site": "node scripts/check-site.mjs",
-    "check": "npm run lint && npm run check:site && git diff --check",
+    "check": "npm run lint && npm run check:site && npm run test:build && npm run build && node scripts/check-site.mjs _site --versioned && git diff --check",
     "profile": "node scripts/profile.mjs",
     "profile:desktop": "node scripts/profile.mjs --desktop"
   },

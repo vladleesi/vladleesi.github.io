@@ -3,7 +3,14 @@
   'use strict';
 
   const root = document.documentElement;
-  const assets = new URL('../', document.currentScript.src);
+  const scriptUrl = new URL(document.currentScript.src);
+  const assets = new URL('../', scriptUrl);
+  const version = scriptUrl.searchParams.get('v');
+  function iconUrl(name) {
+    const url = new URL(name, assets);
+    if (version) url.searchParams.set('v', version);
+    return url.href;
+  }
   let stored = null;
   try { stored = localStorage.getItem('portfolio-theme'); } catch (_) { /* private browsing */ }
   const dark = stored === 'dark' || (stored !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -35,8 +42,8 @@
     icon.rel = definition.rel;
     if (definition.type) icon.type = definition.type;
     if (definition.sizes) icon.sizes = definition.sizes;
-    icon.setAttribute('data-light-href', new URL(definition.light, assets).href);
-    icon.setAttribute('data-dark-href', new URL(definition.dark, assets).href);
+    icon.setAttribute('data-light-href', iconUrl(definition.light));
+    icon.setAttribute('data-dark-href', iconUrl(definition.dark));
     icon.href = icon.getAttribute(dark ? 'data-dark-href' : 'data-light-href');
     document.head.appendChild(icon);
   });

@@ -1,5 +1,5 @@
-# GitHub Pages already uses Jekyll to publish this static repository.
-# Development tooling and local reports must not become public site files.
+# Fallback exclusions for branch-based Jekyll publishing.
+# The GitHub Actions workflow publishes only the packaged _site/ directory.
 exclude:
   - AGENTS.md
   - README.md

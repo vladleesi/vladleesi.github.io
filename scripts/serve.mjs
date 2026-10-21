@@ -12,7 +12,8 @@ const types = {
   '.woff2': 'font/woff2'
 };
 
-export async function startServer(port = 0, { cacheControl = 'no-store' } = {}) {
+export async function startServer(port = 0, { cacheControl = 'no-store', directory = root } = {}) {
+  const siteRoot = resolve(directory);
   const server = createServer(async (request, response) => {
     try {
       if (!['GET', 'HEAD'].includes(request.method)) {
@@ -23,8 +24,8 @@ export async function startServer(port = 0, { cacheControl = 'no-store' } = {}) 
       const path = pathname === '/' ? '/index.html' : pathname;
       const allowed = /^\/(?:index\.html|robots\.txt|sitemap\.xml|feed\.xml)$/.test(path)
         || /^\/posts\/[^/]+\.html$/.test(path) || path.startsWith('/assets/');
-      const file = resolve(root, '.' + path);
-      if (!allowed || !file.startsWith(root + sep) || path.split('/').some(part => part.startsWith('.'))) {
+      const file = resolve(siteRoot, '.' + path);
+      if (!allowed || !file.startsWith(siteRoot + sep) || path.split('/').some(part => part.startsWith('.'))) {
         response.writeHead(404).end('Not found');
         return;
       }
@@ -48,6 +49,7 @@ export async function startServer(port = 0, { cacheControl = 'no-store' } = {}) 
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const { origin } = await startServer(8000);
+  const directory = process.argv.includes('--built') ? resolve(root, '_site') : root;
+  const { origin } = await startServer(8000, { directory });
   console.log(`Static site: ${origin} (Ctrl+C to stop)`);
 }

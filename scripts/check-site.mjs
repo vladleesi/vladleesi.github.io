@@ -7,6 +7,8 @@ import robotsParser from 'robots-parser';
 import { root as siteRoot } from './serve.mjs';
 
 const root = resolve(process.argv[2] || siteRoot);
+const requireAssetVersions = process.argv.includes('--versioned');
+const assetVersions = new Set();
 const origin = 'https://vladleesi.dev';
 const files = ['index.html', ...(await readdir(resolve(root, 'posts'))).filter(file => file.endsWith('.html')).map(file => 'posts/' + file)];
 const documents = new Map();
@@ -89,11 +91,26 @@ for (const [file, document] of documents) {
     if (url.origin !== origin) continue;
     const target = sourcePath(url);
     assert.ok((await stat(target)).isFile(), `${file}: missing local target ${value}`);
+    if (requireAssetVersions && url.pathname.startsWith('/assets/') && ['SCRIPT', 'LINK', 'IMG', 'SOURCE'].includes(element.tagName)) {
+      assert.match(url.searchParams.get('v') || '', /^[a-f0-9]{16}$/, `${file}: missing deployment asset version on ${value}`);
+      assetVersions.add(url.searchParams.get('v'));
+    }
     assert.ok(robots.isAllowed(url.href, 'Googlebot'), `${file}: robots blocks ${value}`);
     if (url.hash && documents.has(target)) {
       assert.ok(documents.get(target).getElementById(decodeURIComponent(url.hash.slice(1))), `${file}: broken fragment ${value}`);
     }
     links++;
+  }
+}
+
+if (requireAssetVersions) {
+  assert.equal(assetVersions.size, 1, 'Deployment assets must use one consistent version');
+  const version = [...assetVersions][0];
+  for (const name of (await readdir(resolve(root, 'assets/css'))).filter(name => name.endsWith('.css'))) {
+    const css = await read('assets/css/' + name);
+    for (const match of css.matchAll(/url\(['"]?(\.\.\/[^'")]+)['"]?\)/g)) {
+      assert.equal(new URL(match[1], origin + '/assets/css/' + name).searchParams.get('v'), version, `CSS dependency missing deployment version: ${name}`);
+    }
   }
 }
 
