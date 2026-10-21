@@ -20,9 +20,6 @@
   --md-sys-color-primary-container: #eaddff;
   --md-sys-color-on-primary-container: #21005d;
   --md-sys-color-secondary: #625b71;
-  --md-sys-color-on-secondary: #ffffff;
-  --md-sys-color-secondary-container: #e8def8;
-  --md-sys-color-on-secondary-container: #1d192b;
   --md-sys-color-tertiary: #7d5260;
   --md-sys-color-on-tertiary: #ffffff;
   --md-sys-color-tertiary-container: #ffd8e4;
@@ -35,7 +32,9 @@
   --md-sys-color-outline: #79747e;
   --md-sys-color-outline-variant: #cac4d0;
   --md-sys-color-shadow: rgba(0, 0, 0, 0.2);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.32);
+  /* Contextual illustration roles; navigation and actions retain primary purple. */
+  --portfolio-color-engineering: #27675e;
+  --portfolio-color-engineering-container: #bcece0;
   /* IntelliJ IDEA Light: light code block, dark text (distinct from card) */
   --code-bg: #e5dfed;
   --code-fg: #000000;
@@ -63,9 +62,6 @@
   --md-sys-color-primary-container: #4f378b;
   --md-sys-color-on-primary-container: #eaddff;
   --md-sys-color-secondary: #ccc2dc;
-  --md-sys-color-on-secondary: #332d41;
-  --md-sys-color-secondary-container: #4a4458;
-  --md-sys-color-on-secondary-container: #e8def8;
   --md-sys-color-tertiary: #efb8c8;
   --md-sys-color-on-tertiary: #492532;
   --md-sys-color-tertiary-container: #633b48;
@@ -78,7 +74,8 @@
   --md-sys-color-outline: #938f99;
   --md-sys-color-outline-variant: #49454f;
   --md-sys-color-shadow: rgba(0, 0, 0, 0.4);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
+  --portfolio-color-engineering: #91d5c6;
+  --portfolio-color-engineering-container: #144f47;
   --code-bg: #211f26;
   --code-fg: #a9b7c6;
   /* Syntax: IntelliJ Darcula */
@@ -101,19 +98,6 @@
 /* Legacy aliases for compatibility */
 /* stylelint-disable-next-line no-duplicate-selectors -- Keep shared tokens grouped separately from color roles. */
 :root {
-  --color-bg: var(--md-sys-color-surface);
-  --color-surface: var(--md-sys-color-surface-container);
-  --color-surface-2: var(--md-sys-color-surface-container-high);
-  --color-surface-3: var(--md-sys-color-surface-container-high);
-  --color-text: var(--md-sys-color-on-surface);
-  --color-text-muted: var(--md-sys-color-on-surface-variant);
-  --color-primary: var(--md-sys-color-primary);
-  --color-primary-container: var(--md-sys-color-primary-container);
-  --color-accent: var(--md-sys-color-tertiary);
-  --color-outline: var(--md-sys-color-outline-variant);
-  --color-border: var(--md-sys-color-outline-variant);
-  --color-shadow: var(--md-sys-color-shadow);
-  --color-shadow-elevated: var(--md-sys-color-shadow);
   --font-heading: var(--md-sys-font-family);
   --font-body: var(--md-sys-font-family);
   --space-xs: 0.25rem;
@@ -530,6 +514,17 @@ main {
 
 .hero-content {
   max-width: 672px;
+}
+
+.art-primary { fill: var(--md-sys-color-primary); }
+.art-primary-container { fill: var(--md-sys-color-primary-container); }
+.art-engineering { fill: var(--portfolio-color-engineering); }
+.art-tertiary { fill: var(--md-sys-color-tertiary); }
+.art-flow {
+  fill: none;
+  stroke: var(--md-sys-color-primary-container);
+  stroke-width: 32;
+  stroke-linecap: round;
 }
 
 .hero-overline {
@@ -994,13 +989,49 @@ main {
   margin-bottom: var(--space-lg);
 }
 
-.work-item {
-  padding: 24px 0;
+.work-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.work-item { min-width: 0; }
+
+.work-item:not(:first-child) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.work-item:not(:first-child) > p:not(.work-meta) { margin-bottom: 12px; }
+.work-item:not(:first-child) > .evidence-link { margin-top: auto; }
+
+.project-art {
+  flex-shrink: 0;
+  width: 100%;
+  margin-bottom: 24px;
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-md) var(--radius-xl);
+  overflow: hidden;
+}
+
+.project-art svg { display: block; width: 100%; height: auto; }
+.project-art-discovery {
+  background: color-mix(in srgb, var(--md-sys-color-tertiary-container) 20%, var(--md-sys-color-surface-container));
+}
+
+.project-art-connection {
+  background: color-mix(in srgb, var(--portfolio-color-engineering-container) 20%, var(--md-sys-color-surface-container));
+}
+
+.work-item:first-child {
+  grid-column: 1 / -1;
+  padding-bottom: 32px;
   border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
-.work-item:first-child { padding-top: 0; }
-.work-item:last-child { border-bottom: 0; padding-bottom: 0; }
+@media (max-width: 700px) {
+  .work-list { grid-template-columns: 1fr; gap: 40px; }
+}
 
 .work-meta {
   font-size: 0.8rem;
@@ -1411,14 +1442,13 @@ main {
 /* Follow the system theme when JavaScript is disabled or unavailable. */
 @media (prefers-color-scheme: dark) {
 :root:not([data-theme]) {
+  --portfolio-color-engineering: #91d5c6;
+  --portfolio-color-engineering-container: #144f47;
   --md-sys-color-primary: #d0bcff;
   --md-sys-color-on-primary: #381e72;
   --md-sys-color-primary-container: #4f378b;
   --md-sys-color-on-primary-container: #eaddff;
   --md-sys-color-secondary: #ccc2dc;
-  --md-sys-color-on-secondary: #332d41;
-  --md-sys-color-secondary-container: #4a4458;
-  --md-sys-color-on-secondary-container: #e8def8;
   --md-sys-color-tertiary: #efb8c8;
   --md-sys-color-on-tertiary: #492532;
   --md-sys-color-tertiary-container: #633b48;
@@ -1431,7 +1461,6 @@ main {
   --md-sys-color-outline: #938f99;
   --md-sys-color-outline-variant: #49454f;
   --md-sys-color-shadow: rgba(0, 0, 0, 0.4);
-  --md-sys-color-scrim: rgba(0, 0, 0, 0.6);
   --code-bg: #211f26;
   --code-fg: #a9b7c6;
   /* Syntax: IntelliJ Darcula */
