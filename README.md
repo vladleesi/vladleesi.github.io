@@ -57,8 +57,6 @@ Cloudflare must include query strings in its cache key (Standard caching). Keep 
 - New posts need homepage links, RSS, sitemap, and article metadata. Preserve publication dates; update `lastmod` only for significant changes.
 - See [AGENTS.md](AGENTS.md) for coding and pre-commit rules.
 
-Known tool issue: Stylelint has an unpatched development-only [glob-parser advisory](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm). Use only fixed, repository-owned lint patterns.
-
 ## License
 
 Website source code (HTML structure, CSS, JavaScript, configuration, and development tooling) is licensed under the [MIT License](LICENSE).

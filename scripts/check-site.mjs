@@ -3,7 +3,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, sep } from 'node:path';
 import { DOMParser } from 'linkedom';
 import { XMLParser, XMLValidator } from 'fast-xml-parser';
-import robotsParser from 'robots-parser';
+import { checkRobots } from './check-robots.mjs';
 import { root as siteRoot } from './serve.mjs';
 
 const root = resolve(process.argv[2] || siteRoot);
@@ -19,7 +19,7 @@ const publicationDates = new Map();
 const read = file => readFile(resolve(root, file), 'utf8');
 const meta = (document, name) => document.querySelector(`meta[name="${name}"], meta[property="${name}"]`)?.getAttribute('content');
 const asArray = value => value === undefined ? [] : Array.isArray(value) ? value : [value];
-const robots = robotsParser(origin + '/robots.txt', await read('robots.txt'));
+checkRobots(await read('robots.txt'), origin);
 const sourcePath = url => {
   assert.equal(url.origin, origin, `Unexpected site origin: ${url}`);
   const path = decodeURIComponent(url.pathname);
@@ -35,7 +35,6 @@ for (const file of files) {
   assert.equal(document.querySelectorAll('link[rel="canonical"]').length, 1, `${file}: exactly one canonical required`);
   assert.equal(document.querySelector('link[rel="canonical"]').getAttribute('href'), canonical, `${file}: canonical mismatch`);
   canonicals.add(canonical);
-  assert.ok(robots.isAllowed(canonical, 'Googlebot'), `${file}: robots blocks crawling`);
   assert.equal(document.documentElement.getAttribute('lang'), 'en', `${file}: missing English language`);
   assert.equal(document.querySelectorAll('h1').length, 1, `${file}: exactly one H1 required`);
   assert.ok(document.querySelector('main')?.textContent.trim(), `${file}: static main content required`);
@@ -95,7 +94,6 @@ for (const [file, document] of documents) {
       assert.match(url.searchParams.get('v') || '', /^[a-f0-9]{16}$/, `${file}: missing deployment asset version on ${value}`);
       assetVersions.add(url.searchParams.get('v'));
     }
-    assert.ok(robots.isAllowed(url.href, 'Googlebot'), `${file}: robots blocks ${value}`);
     if (url.hash && documents.has(target)) {
       assert.ok(documents.get(target).getElementById(decodeURIComponent(url.hash.slice(1))), `${file}: broken fragment ${value}`);
     }
@@ -127,7 +125,6 @@ for (const entry of sitemap) {
   assert.ok(Date.parse(entry.lastmod) <= Date.now(), 'Future sitemap lastmod');
   if (publicationDates.has(entry.loc)) assert.ok(entry.lastmod >= publicationDates.get(entry.loc), 'lastmod precedes publication');
 }
-assert.ok(robots.getSitemaps().includes(origin + '/sitemap.xml'), 'robots.txt must advertise the canonical sitemap');
 const feed = asArray((await parseXml('feed.xml')).rss?.channel?.item);
 assert.equal(feed.length, publicationDates.size, 'RSS must list every article once');
 assert.deepEqual(new Set(feed.map(item => item.link)), new Set(publicationDates.keys()), 'RSS article URLs mismatch');
