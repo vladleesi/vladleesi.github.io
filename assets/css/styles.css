@@ -1005,6 +1005,9 @@ main {
 
 .work-item:not(:first-child) > p:not(.work-meta) { margin-bottom: 12px; }
 .work-item:not(:first-child) > .evidence-link { margin-top: auto; }
+.work-item:not(:first-child) > .work-links { display: flex; flex-wrap: wrap; column-gap: 4px; margin-top: auto; }
+.work-links > .evidence-link { margin-top: 12px; }
+.work-links > .evidence-link + .evidence-link { margin-inline-start: 0; }
 
 .project-art {
   flex-shrink: 0;
