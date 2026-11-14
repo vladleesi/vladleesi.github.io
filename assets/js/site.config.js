@@ -2,7 +2,7 @@
 // Used by layout.js to render header + footer consistently across all pages.
 window.SITE = {
   name: '@vladleesi',
-  title: 'Vladislav Kochetov | Senior Mobile Software Engineer',
+  title: 'Vladislav Kochetov | Senior Software Engineer (Android)',
   nav: {
     aboutLabel: 'About',
   },
