@@ -10,12 +10,15 @@ const root = resolve(process.argv[2] || siteRoot);
 const requireAssetVersions = process.argv.includes('--versioned');
 const assetVersions = new Set();
 const origin = 'https://vladleesi.dev';
-const files = ['index.html', ...(await readdir(resolve(root, 'posts'))).filter(file => file.endsWith('.html')).map(file => 'posts/' + file)];
+const files = ['index.html', 'blog/index.html', ...(await readdir(resolve(root, 'posts'))).filter(file => file.endsWith('.html')).map(file => 'posts/' + file)];
+// A directory's index.html is served at the directory's URL, e.g. blog/index.html at /blog/.
+const pageUrl = file => origin + '/' + file.replace(/(^|\/)index\.html$/, '$1');
 const documents = new Map();
 const canonicals = new Set();
 const titles = new Set();
 const descriptions = new Set();
 const publicationDates = new Map();
+let blogSchema;
 const read = file => readFile(resolve(root, file), 'utf8');
 const meta = (document, name) => document.querySelector(`meta[name="${name}"], meta[property="${name}"]`)?.getAttribute('content');
 const asArray = value => value === undefined ? [] : Array.isArray(value) ? value : [value];
@@ -31,7 +34,7 @@ const sourcePath = url => {
 for (const file of files) {
   const document = new DOMParser().parseFromString(await read(file), 'text/html');
   documents.set(resolve(root, file), document);
-  const canonical = origin + (file === 'index.html' ? '/' : '/' + file);
+  const canonical = pageUrl(file);
   assert.equal(document.querySelectorAll('link[rel="canonical"]').length, 1, `${file}: exactly one canonical required`);
   assert.equal(document.querySelector('link[rel="canonical"]').getAttribute('href'), canonical, `${file}: canonical mismatch`);
   canonicals.add(canonical);
@@ -69,6 +72,11 @@ for (const file of files) {
     assert.equal(article.author?.name, 'Vladislav Kochetov', `${file}: article author mismatch`);
     assert.equal(article.author?.url, origin + '/', `${file}: author profile mismatch`);
     assert.equal(article.image, meta(document, 'og:image'), `${file}: schema/social image mismatch`);
+  } else if (file === 'blog/index.html') {
+    blogSchema = schemas.find(schema => schema['@type'] === 'Blog');
+    assert.ok(blogSchema, `${file}: missing Blog schema`);
+    assert.equal(blogSchema.url, canonical, `${file}: schema page mismatch`);
+    assert.equal(blogSchema.description, meta(document, 'description'), `${file}: schema description mismatch`);
   } else {
     assert.ok(schemas.some(schema => schema['@type'] === 'Person'), 'Homepage: missing Person schema');
     assert.ok(schemas.some(schema => schema['@type'] === 'WebSite'), 'Homepage: missing WebSite schema');
@@ -77,7 +85,7 @@ for (const file of files) {
 
 let links = 0;
 for (const [file, document] of documents) {
-  const canonical = origin + (file === resolve(root, 'index.html') ? '/' : '/' + file.slice(root.length + 1));
+  const canonical = pageUrl(file.slice(root.length + 1));
   for (const element of document.querySelectorAll('[href], [src]')) {
     const value = element.getAttribute('href') ?? element.getAttribute('src');
     if (element.tagName === 'A') {
@@ -125,19 +133,29 @@ for (const entry of sitemap) {
   assert.ok(Date.parse(entry.lastmod) <= Date.now(), 'Future sitemap lastmod');
   if (publicationDates.has(entry.loc)) assert.ok(entry.lastmod >= publicationDates.get(entry.loc), 'lastmod precedes publication');
 }
-const feed = asArray((await parseXml('feed.xml')).rss?.channel?.item);
+const channel = (await parseXml('feed.xml')).rss?.channel;
+const feed = asArray(channel?.item);
 assert.equal(feed.length, publicationDates.size, 'RSS must list every article once');
+assert.equal(channel.link, origin + '/blog/', 'RSS channel must link to the blog');
 assert.deepEqual(new Set(feed.map(item => item.link)), new Set(publicationDates.keys()), 'RSS article URLs mismatch');
 for (const item of feed) {
   assert.equal(new Date(item.pubDate).toISOString().slice(0, 10), publicationDates.get(item.link), 'RSS publication date mismatch');
+  assert.equal(item['dc:creator'], 'Vladislav Kochetov', 'RSS item author missing');
+  assert.ok(asArray(item.category).length, 'RSS item needs at least one category');
 }
-const home = documents.get(resolve(root, 'index.html'));
-const writing = [...home.querySelectorAll('#posts .post-card')];
-assert.deepEqual(new Set(writing.map(card => new URL(card.querySelector('a').getAttribute('href'), origin).href)), new Set(publicationDates.keys()), 'Homepage must link every article');
-const dates = writing.map(card => card.querySelector('time').getAttribute('datetime'));
-for (const card of writing) {
-  const url = new URL(card.querySelector('a').getAttribute('href'), origin).href;
-  assert.equal(card.querySelector('time').getAttribute('datetime'), publicationDates.get(url), 'Homepage publication date mismatch');
+const newestPublication = [...publicationDates.values()].sort().at(-1);
+assert.equal(new Date(channel.lastBuildDate).toISOString().slice(0, 10), newestPublication, 'RSS lastBuildDate must match the newest article');
+const newestFirst = [...publicationDates].sort((a, b) => b[1].localeCompare(a[1])).map(([url]) => url);
+for (const [file, selector, expected, label] of [
+  ['index.html', '#posts .post-card', newestFirst.slice(0, 3), 'Homepage must show the three newest articles'],
+  ['blog/index.html', '.post-card', newestFirst, 'Blog must list every article'],
+]) {
+  const cards = [...documents.get(resolve(root, file)).querySelectorAll(selector)];
+  const urls = cards.map(card => new URL(card.querySelector('a').getAttribute('href'), pageUrl(file)).href);
+  assert.deepEqual(urls, expected, `${label}, newest first`);
+  for (const [index, card] of cards.entries()) {
+    assert.equal(card.querySelector('time').getAttribute('datetime'), publicationDates.get(urls[index]), `${file}: publication date mismatch`);
+  }
 }
-assert.deepEqual(dates, [...dates].sort().reverse(), 'Writing must be newest first');
+assert.deepEqual(asArray(blogSchema.blogPost).map(post => post.url), newestFirst, 'Blog schema must list every article, newest first');
 console.log(`Site checks passed: ${files.length} pages, ${links} local links/assets, structured data, robots, sitemap, and RSS.`);

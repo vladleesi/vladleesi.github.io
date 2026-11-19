@@ -54,7 +54,7 @@ export async function buildSite(source = projectRoot, destination = resolve(sour
     }
     await writeFile(target, content);
   }
-  const pages = ['index.html', ...(await readdir(resolve(root, 'posts'))).filter(file => file.endsWith('.html')).sort().map(file => 'posts/' + file)];
+  const pages = ['index.html', 'blog/index.html', ...(await readdir(resolve(root, 'posts'))).filter(file => file.endsWith('.html')).sort().map(file => 'posts/' + file)];
   for (const file of pages) {
     const sourceHtml = await readFile(resolve(root, file), 'utf8');
     // Only resource tags change; article, resume, canonical and social URLs stay stable.

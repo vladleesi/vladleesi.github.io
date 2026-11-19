@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" href="../assets/fonts/open-sans-common.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="../assets/js/theme.js"></script>
+  <title>Writing | Vladislav Kochetov</title>
+  <meta name="description" content="Articles by Vladislav Kochetov on Android, Kotlin Multiplatform, Jetpack Compose, and the tools around them.">
+  <meta name="author" content="Vladislav Kochetov">
+  <link rel="canonical" href="https://vladleesi.dev/blog/">
+  <meta property="og:title" content="Writing | Vladislav Kochetov">
+  <meta property="og:description" content="Articles by Vladislav Kochetov on Android, Kotlin Multiplatform, Jetpack Compose, and the tools around them.">
+  <meta property="og:url" content="https://vladleesi.dev/blog/">
+  <meta property="og:site_name" content="Vladislav Kochetov">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://vladleesi.dev/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vladislav Kochetov, Senior Software Engineer (Android). Android engineering, architecture, and production delivery. Kotlin, Jetpack Compose, and Kotlin Multiplatform.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@vladleesi">
+  <meta name="twitter:creator" content="@vladleesi">
+  <meta name="twitter:image" content="https://vladleesi.dev/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Vladislav Kochetov, Senior Software Engineer (Android). Android engineering, architecture, and production delivery. Kotlin, Jetpack Compose, and Kotlin Multiplatform.">
+  <meta name="twitter:title" content="Writing | Vladislav Kochetov">
+  <meta name="twitter:description" content="Articles by Vladislav Kochetov on Android, Kotlin Multiplatform, Jetpack Compose, and the tools around them.">
+  <meta name="theme-color" content="#6750a4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#d0bcff" media="(prefers-color-scheme: dark)">
+  <noscript>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32-dark.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../assets/favicon.svg">
+  </noscript>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "https://vladleesi.dev/blog/#blog",
+    "name": "Vladislav Kochetov — Writing",
+    "description": "Articles by Vladislav Kochetov on Android, Kotlin Multiplatform, Jetpack Compose, and the tools around them.",
+    "url": "https://vladleesi.dev/blog/",
+    "inLanguage": "en",
+    "author": {
+      "@type": "Person",
+      "@id": "https://vladleesi.dev/#person",
+      "name": "Vladislav Kochetov",
+      "url": "https://vladleesi.dev/"
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Teaching a Compose Multiplatform App to Be a Website",
+        "url": "https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html",
+        "datePublished": "2026-11-19"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Vertical text in Jetpack Compose (without rotation width problems)",
+        "url": "https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html",
+        "datePublished": "2026-01-26"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform",
+        "url": "https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html",
+        "datePublished": "2023-07-28"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Accessibility Guidelines for Android Apps",
+        "url": "https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html",
+        "datePublished": "2023-07-23"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How to set up publication signature with the Gradle plugin",
+        "url": "https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html",
+        "datePublished": "2023-06-11"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "How to Link a Custom Domain to GitHub Pages",
+        "url": "https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html",
+        "datePublished": "2023-05-24"
+      }
+    ]
+  }
+  </script>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet"></noscript>
+  <link rel="alternate" type="application/rss+xml" title="Vladislav Kochetov — Blog" href="https://vladleesi.dev/feed.xml">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="site-header">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo">@vladleesi</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/#work" class="nav-link">Work</a>
+          <a href="/#skills" class="nav-link">Expertise</a>
+          <a href="/blog/" class="nav-link" aria-current="page">Writing</a>
+          <a href="/#about" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+    <section class="posts-section" aria-labelledby="blog-title">
+      <div class="container">
+        <h1 class="section-title" id="blog-title">Writing</h1>
+        <p class="blog-intro">Notes on Android, Kotlin Multiplatform, Jetpack Compose, and the tools around them, newest first.</p>
+        <ul class="posts-list">
+          <li class="post-card">
+            <a href="../posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">Teaching a Compose Multiplatform App to Be a Website</h2>
+                <p class="post-card-excerpt">Notes from an Android developer on making a Compose Multiplatform web app behave like a website, with the measurements and the mistakes.</p>
+                <span class="post-card-date"><time datetime="2026-11-19">Nov 19, 2026</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card">
+            <a href="../posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">Vertical text in Jetpack Compose (without rotation width problems)</h2>
+                <p class="post-card-excerpt">Render text vertically by rotating each character and adjusting layout bounds so width behaves correctly.</p>
+                <span class="post-card-date"><time datetime="2026-01-26">Jan 26, 2026</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card">
+            <a href="../posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform</h2>
+                <p class="post-card-excerpt">A simple app with Kotlin multiplatform, Compose multiplatform, Coroutines, Serialization, and Ktor — Android and iOS.</p>
+                <span class="post-card-date"><time datetime="2023-07-28">Jul 28, 2023</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card">
+            <a href="../posts/2023-07-23-accessibility-guidelines-for-android-apps.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">Accessibility Guidelines for Android Apps</h2>
+                <p class="post-card-excerpt">Guidelines and best practices for making your Android app accessible to users with disabilities.</p>
+                <span class="post-card-date"><time datetime="2023-07-23">Jul 23, 2023</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card">
+            <a href="../posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">How to set up publication signature with the Gradle plugin</h2>
+                <p class="post-card-excerpt">Setting up GPG, generating keys, and using the Signing Plugin to sign artifacts before publishing to Nexus.</p>
+                <span class="post-card-date"><time datetime="2023-06-11">Jun 11, 2023</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li class="post-card">
+            <a href="../posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html" class="post-card-link">
+              <div class="post-card-content">
+                <h2 class="post-card-title">How to Link a Custom Domain to GitHub Pages</h2>
+                <p class="post-card-excerpt">Guide to linking a custom domain to your GitHub Pages site, from DNS to the CNAME file and settings.</p>
+                <span class="post-card-date"><time datetime="2023-05-24">May 24, 2023</time><span class="post-card-date-line" aria-hidden="true"></span></span>
+              </div>
+              <span class="post-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+        <div class="writing-links">
+          <a class="evidence-link" href="/feed.xml">Subscribe via RSS <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4 10 14M10 4H4v16h16v-6"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer">
+    <footer class="footer">
+      <div class="footer-inner">
+        <a href="mailto:hello@vladleesi.dev" class="footer-email">hello@vladleesi.dev</a>
+        <div class="footer-social">
+          <a href="https://github.com/vladleesi" class="footer-link">GitHub</a>
+          <a href="https://www.linkedin.com/in/vladkochetov" class="footer-link">LinkedIn</a>
+          <a href="/feed.xml" class="footer-link">Subscribe via RSS</a>
+        </div>
+        <p class="footer-copy">© Vladislav Kochetov</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/site.config.js" defer></script>
+  <script src="../assets/js/layout.js" defer></script>
+  <script src="../assets/js/script.js" defer></script>
+</body>
+</html>

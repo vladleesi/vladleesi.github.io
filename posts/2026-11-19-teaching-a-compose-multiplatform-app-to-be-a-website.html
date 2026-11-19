@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" href="../assets/fonts/open-sans-common.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="../assets/js/theme.js"></script>
+  <title>Teaching a Compose App to Be a Website | Vladislav Kochetov</title>
+  <meta name="description" content="An Android developer's notes on making a Compose Multiplatform web app behave like a website: caching, URLs, startup, scrolling, and mouse conventions.">
+  <link rel="canonical" href="https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html">
+  <meta property="og:title" content="Teaching a Compose Multiplatform App to Be a Website | Vladislav Kochetov">
+  <meta property="og:description" content="Notes from an Android developer on making a Compose Multiplatform web app behave like a website, with the measurements and the mistakes.">
+  <meta property="og:url" content="https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Vladislav Kochetov">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://vladleesi.dev/assets/og-image.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1774">
+  <meta property="og:image:height" content="887">
+  <meta property="og:image:alt" content="Vladislav Kochetov (@vladleesi), Mobile Software Engineer specializing in Android, Kotlin, Jetpack Compose, and Kotlin Multiplatform.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@vladleesi">
+  <meta name="twitter:creator" content="@vladleesi">
+  <meta name="twitter:image" content="https://vladleesi.dev/assets/og-image.jpg">
+  <meta name="twitter:image:alt" content="Vladislav Kochetov (@vladleesi), Mobile Software Engineer specializing in Android, Kotlin, Jetpack Compose, and Kotlin Multiplatform.">
+  <meta name="twitter:title" content="Teaching a Compose App to Be a Website | Vladislav Kochetov">
+  <meta name="twitter:description" content="Notes from an Android developer on making a Compose Multiplatform web app behave like a website, with the measurements and the mistakes.">
+  <noscript>
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" href="../assets/favicon-dark.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32-dark.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="../assets/favicon.svg">
+  </noscript>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400..700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/article.css">
+  <link rel="stylesheet" href="../assets/vendor/prism/prism-tomorrow.min.css">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="author" content="Vladislav Kochetov">
+  <meta property="article:published_time" content="2026-11-19">
+  <link rel="alternate" type="application/rss+xml" title="Vladislav Kochetov — Blog" href="https://vladleesi.dev/feed.xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": "https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html#article",
+    "headline": "Teaching a Compose Multiplatform App to Be a Website",
+    "description": "An Android developer's notes on making a Compose Multiplatform web app behave like a website: caching, URLs, startup, scrolling, and mouse conventions.",
+    "datePublished": "2026-11-19",
+    "author": {
+      "@type": "Person",
+      "@id": "https://vladleesi.dev/#person",
+      "name": "Vladislav Kochetov",
+      "url": "https://vladleesi.dev/"
+    },
+    "mainEntityOfPage": "https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html",
+    "image": "https://vladleesi.dev/assets/og-image.jpg",
+    "inLanguage": "en"
+  }
+  </script>
+</head>
+<body class="article-page" data-post-id="post6">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div id="site-header">
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="logo">@vladleesi</a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/#work" class="nav-link">Work</a>
+          <a href="/#skills" class="nav-link">Expertise</a>
+          <a href="/blog/" class="nav-link">Writing</a>
+          <a href="/#about" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+    <article class="article-container">
+      <a href="../" class="article-back">Back to home</a>
+      <header class="article-title-wrap">
+        <h1 class="article-title">Teaching a Compose Multiplatform App to Be a Website</h1>
+        <p class="article-meta"><time datetime="2026-11-19">Nov 19, 2026</time></p>
+      </header>
+
+      <div class="article-body">
+        <p class="reveal-item"><em>Notes from an Android developer. Still a work in progress.</em></p>
+
+        <p class="reveal-item">I'm an Android developer, and most of my work has been Kotlin and Jetpack Compose. On the side, I'm building <a href="https://braindancegg.com" target="_blank" rel="noopener noreferrer">Braindance</a>, an app that helps you pick your next game. It shows what people are playing right now and what's coming out soon, finds games like the ones you already love, and keeps a list of free game giveaways.</p>
+
+        <p class="reveal-item">The web app is live at <a href="https://app.braindancegg.com/" target="_blank" rel="noopener noreferrer">app.braindancegg.com</a>. Android alpha testing comes next, then iOS, and all three apps are <a href="https://github.com/vladleesi/braindance" target="_blank" rel="noopener noreferrer">open source</a>. If you like games, give it a try and tell me what you think on <a href="https://discord.gg/XawnYAVdzj" target="_blank" rel="noopener noreferrer">Discord</a> or <a href="https://www.reddit.com/r/BraindanceGG/" target="_blank" rel="noopener noreferrer">r/BraindanceGG</a>.</p>
+
+        <p class="reveal-item">For the web version, I didn't write a separate JavaScript frontend. I used Compose Multiplatform, which compiles the same Kotlin UI to WebAssembly and draws it into a <code>&lt;canvas&gt;</code>. Running it in a browser took one commit. Making it behave like a website has taken two months, 37 commits, and about 2,300 lines of browser-only code so far.</p>
+
+        <p class="reveal-item">This post covers what broke along the way, what I changed, and what I measured. Version numbers link to their release notes where a release exists, and the commits are listed at the end.</p>
+
+        <blockquote class="reveal-item"><p>Stack: Compose Multiplatform 1.12.2, Kotlin 2.4.21 (Kotlin/Wasm), Coil 3.6.3.</p></blockquote>
+
+        <h2 class="reveal-item">What I've done so far</h2>
+
+        <ul class="reveal-item">
+          <li><strong>Caching that survives deploys:</strong> content-hashed bundles and fingerprinted Compose resources. A repeat visit downloads only the 4.6 KB page.</li>
+          <li><strong>Real website navigation:</strong> URLs, Back and Forward, reloads that keep your place, page titles, and link previews for games and giveaways.</li>
+          <li><strong>Text on the first frame:</strong> a replacement for Compose's web resource reader, plus fonts cut from about 212 KB to 37 KB.</li>
+          <li><strong>Smoother scrolling:</strong> list prefetching moved out of the wheel event, which halved Chrome's time in wheel handlers.</li>
+          <li><strong>Fewer dead ends:</strong> a Retry message instead of endless loading when offline, and a workaround for Safari 27.2's white page.</li>
+          <li><strong>Desktop habits:</strong> middle-click and Ctrl-click to open links in a new tab, draggable scrollbars, and Windows-style autoscroll.</li>
+        </ul>
+
+        <h2 class="reveal-item">The easy part</h2>
+
+        <p class="reveal-item">The web app started on September 20, 2026, in version 0.3.0. Screens, view models, repositories, and navigation were already shared by the Android and iOS apps, so the first browser build needed only 91 lines of web code:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 1"><code class="language-kotlin">// webApp/.../Main.kt, first version
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() {
+    initKoin(debugHttpLogging = true)
+    ComposeViewport(document.body!!) {
+        BraindanceApp()
+    }
+}</code></pre>
+        </div>
+
+        <p class="reveal-item">For Android, that's a fine start. For a website, it was just a canvas in a page:</p>
+
+        <ul class="reveal-item">
+          <li>Images loaded through Ktor with no disk cache.</li>
+          <li>The layout read <code>window.innerWidth</code> once and ignored window resizes.</li>
+          <li>Debug HTTP logging was still on.</li>
+        </ul>
+
+        <h2 class="reveal-item">Caching: a website doesn't update all at once</h2>
+
+        <p class="reveal-item">The Play Store swaps the whole APK in one go. A browser happily mixes a cached page from one deploy with Wasm files from the next.</p>
+
+        <p class="reveal-item"><strong>Bundles.</strong> My first fix put the version into the bundle's file name (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.3.5" target="_blank" rel="noopener noreferrer">0.3.5</a>). Nine days later I moved from GitHub Pages to Cloudflare Pages, which can set headers per path (0.11.2). Now bundles get content-hashed names and <code>Cache-Control: public, max-age=31536000, immutable</code>. Only the HTML is checked again, and the build fails unless there's exactly one hashed bundle.</p>
+
+        <p class="reveal-item"><strong>Compose resources.</strong> Strings compile into a binary <code>.cvr</code> file, read at byte offsets baked into the Wasm module. Mix last week's strings with this week's code, and the text comes out garbled.</p>
+
+        <ul class="reveal-item">
+          <li>Adding the app version to resource URLs (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.10.1" target="_blank" rel="noopener noreferrer">0.10.1</a>) fixed that, but made every release re-download the fonts and strings.</li>
+          <li>A content fingerprint works better (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.19.2" target="_blank" rel="noopener noreferrer">0.19.2</a>). A Gradle <code>ValueSource</code> computes it, so the configuration cache notices changes, and <code>composeResources/</code> is cached as immutable too.</li>
+        </ul>
+
+        <p class="reveal-item">When I checked production on November 19, a second visit sent just one request over the network: the 4.6 KB HTML.</p>
+
+        <p class="reveal-item">One catch: the page's preload tags must use the same fingerprint as the app's own requests. If the URLs differ even in the query string, the browser downloads the file twice. So the project's instructions now require a browser check after every Compose or Coil upgrade.</p>
+
+        <h2 class="reveal-item">Navigation: the address bar is part of the app</h2>
+
+        <p class="reveal-item">On a phone, the app owns navigation. In a browser, people expect URLs, Back and Forward, reloads, and pasted links to just work.</p>
+
+        <p class="reveal-item"><strong>Reloads.</strong> At first, a reload sent you back to Home. The fix (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.4.2" target="_blank" rel="noopener noreferrer">0.4.2</a>) saves tabs and back stacks in <code>sessionStorage</code>, treated as optional because private windows can refuse it.</p>
+
+        <p class="reveal-item"><strong>Real addresses.</strong> These took two tries. Hash routes like <code>#/game/42</code> went out in 0.8.0, because GitHub Pages couldn't route unknown paths, and plain paths replaced them the same day. That change also fixed Back going somewhere unexpected after switching tabs, and it brought a new model: each history entry stores a snapshot of every tab and back stack. The <code>HistoryMirror</code> KDoc keeps the rule I had to learn the hard way:</p>
+
+        <blockquote class="reveal-item"><p>Browsers skip entries a page adds without a user action, so adding one while handling Back would desynchronize the two histories.</p></blockquote>
+
+        <p class="reveal-item"><code>HistoryMirror</code> is common Kotlin with unit tests, and only a small <code>BrowserLocation</code> adapter touches <code>window.history</code>. It's the same separation that keeps an Android view model testable.</p>
+
+        <p class="reveal-item">That paid off when game pages got chips for switching editions in place. A new <code>Navigator.replace()</code> (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.25.0" target="_blank" rel="noopener noreferrer">0.25.0</a>) maps to <code>replaceState</code>, so the URL and shared links keep the edition, while Back leaves the game, just like on Android.</p>
+
+        <p class="reveal-item"><strong>Link previews.</strong> Crawlers and chat apps only read the HTML <code>&lt;head&gt;</code>, so every address used to look the same. Since <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.24.0" target="_blank" rel="noopener noreferrer">0.24.0</a>, the build writes a copy of the page for each fixed address with its own title and description, plus a sitemap and a real 404. A Cloudflare Pages Function rewrites the <code>&lt;head&gt;</code> for game and giveaway pages using the API's edge cache. It never caches the HTML itself, because the HTML names the current bundle.</p>
+
+        <p class="reveal-item"><strong>Security policy.</strong> The content security policy (0.8.0) has to allow <code>'wasm-unsafe-eval'</code> for Kotlin/Wasm, a <code>blob:</code> worker, and <code>fonts.gstatic.com</code>, where Compose fetches fallback fonts. It also blocked webpack's <code>eval()</code>-based development source maps, so the dev server's app silently never started until I switched to separate <code>.map</code> files. A CI check now fails if the policy gets looser.</p>
+
+        <p class="reveal-item"><strong>Accessibility</strong> relies on the hidden DOM mirror of the canvas in Compose Multiplatform 1.12. I haven't tested it properly with a screen reader yet.</p>
+
+        <h2 class="reveal-item">Startup: getting text on the first frame</h2>
+
+        <p class="reveal-item">On Android, startup means a cold start of an app that's already installed. On the web, every first visit downloads the whole app before anything appears.</p>
+
+        <p class="reveal-item">The loading screen improved in steps: a dark background instead of a white page (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.3.6" target="_blank" rel="noopener noreferrer">0.3.6</a>), then a spinner (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.1" target="_blank" rel="noopener noreferrer">0.11.1</a>), then the logo inlined as a data URI (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.4" target="_blank" rel="noopener noreferrer">0.11.4</a>). As a real <code>&lt;img&gt;</code>, the logo also gives Lighthouse a contentful paint. Before that, Lighthouse found no Largest Contentful Paint element at all, because nothing inside a canvas counts.</p>
+
+        <h3 class="reveal-item">Text that showed up late</h3>
+
+        <p class="reveal-item">I assumed fonts made text appear late. So in <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.1" target="_blank" rel="noopener noreferrer">0.11.1</a> I preloaded the fonts and strings, which the app only requests after the Wasm module starts, and dropped two unused font weights (783,828 → 469,992 bytes). The release note promised text in the app's font from the first frame.</p>
+
+        <p class="reveal-item">It didn't deliver. Tracing a reload frame by frame showed the full layout drawn with no text at all. I rebuilt older versions from Git and captured them the same way, with the API switched off.</p>
+
+        <p class="reveal-item">Here are both side by side. On the left, the first web build shows titles one at a time in a fallback font. On the right, after the preloads, a redesign, and the caching work, the fallback font is gone, but labels still appear one by one, down to a button with no label yet.</p>
+
+        <div class="article-table frame-table reveal-item">
+          <table>
+            <caption>Startup frames, timed from the start of the page load</caption>
+            <thead><tr><th scope="col">First web build</th><th scope="col">After preloads and caching</th></tr></thead>
+            <tbody>
+              <tr><td><span class="frame-time">266 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-a117aba-0266ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: No section titles yet"><img src="../assets/img/teaching-compose-web/startup-a117aba-0266ms.png" alt="No section titles yet" width="360" height="300" loading="lazy" decoding="async"></a><span class="frame-note">No section titles yet</span></td><td><span class="frame-time">166 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-78acb79-0166ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: An unlabeled button"><img src="../assets/img/teaching-compose-web/startup-78acb79-0166ms.png" alt="An unlabeled button" width="470" height="260" loading="lazy" decoding="async"></a><span class="frame-note">An unlabeled button</span></td></tr>
+              <tr><td><span class="frame-time">294 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-a117aba-0294ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: One title, fallback font"><img src="../assets/img/teaching-compose-web/startup-a117aba-0294ms.png" alt="One title, fallback font" width="360" height="300" loading="lazy" decoding="async"></a><span class="frame-note">One title, fallback font</span></td><td><span class="frame-time">241 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-78acb79-0241ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: Some sidebar labels"><img src="../assets/img/teaching-compose-web/startup-78acb79-0241ms.png" alt="Some sidebar labels" width="470" height="260" loading="lazy" decoding="async"></a><span class="frame-note">Some sidebar labels</span></td></tr>
+              <tr><td><span class="frame-time">305 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-a117aba-0305ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: Still the fallback font"><img src="../assets/img/teaching-compose-web/startup-a117aba-0305ms.png" alt="Still the fallback font" width="360" height="300" loading="lazy" decoding="async"></a><span class="frame-note">Still the fallback font</span></td><td><span class="frame-time">277 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-78acb79-0277ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: Headline appears"><img src="../assets/img/teaching-compose-web/startup-78acb79-0277ms.png" alt="Headline appears" width="470" height="260" loading="lazy" decoding="async"></a><span class="frame-note">Headline appears</span></td></tr>
+              <tr><td><span class="frame-time">424 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-a117aba-0424ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: Every title, in Poppins"><img src="../assets/img/teaching-compose-web/startup-a117aba-0424ms.png" alt="Every title, in Poppins" width="360" height="300" loading="lazy" decoding="async"></a><span class="frame-note">Every title, in Poppins</span></td><td><span class="frame-time">320 ms</span><a class="image-link" href="../assets/img/teaching-compose-web/startup-78acb79-0320ms.png" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: Complete"><img src="../assets/img/teaching-compose-web/startup-78acb79-0320ms.png" alt="Complete" width="470" height="260" loading="lazy" decoding="async"></a><span class="frame-note">Complete</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="reveal-item">The <code>components-resources</code> 1.12.2 sources explained why:</p>
+
+        <ul class="reveal-item">
+          <li><code>stringResource()</code> starts empty and <code>Font()</code> starts with a fallback, so the first composition never has the right text.</li>
+          <li>Every read goes through a Cache Storage copy that Compose deletes on each page load. That took about 107 ms in my trace.</li>
+          <li>Reads are serialized behind a mutex. Replayed in JavaScript, they cost about 1.95 ms per string, or 340 ms for all 174 strings.</li>
+        </ul>
+
+        <p class="reveal-item">The preloaded files were already in the HTTP cache. The app just couldn't get them out quickly.</p>
+
+        <h3 class="reveal-item">Reading resources once</h3>
+
+        <p class="reveal-item">In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.26.0" target="_blank" rel="noopener noreferrer">0.26.0</a> I replaced the resource reader through the documented <code>LocalResourceReader</code> hook. <code>WebResourceReader</code> fetches each file once at its fingerprinted URL and keeps the strings in memory. Then <code>WebAppHost</code> keeps the HTML loading screen up until every string and font is cached:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 2"><code class="language-kotlin">// shared/src/wasmJsMain/.../WebAppHost.kt (trimmed)
+CompositionLocalProvider(
+    LocalResourceReader provides WebResourceReader,
+    LocalPlatformPrefetchScheduler provides prefetchScheduler,
+    LocalUriHandler provides WebUriHandler,
+) {
+    if (rememberStartupResourcesLoaded()) {
+        PageAutoscrollHost(content)
+        // Compose draws this composition in the same animation frame, before the browser paints.
+        SideEffect(::removeLoadingScreen)
+    }
+}</code></pre>
+        </div>
+
+        <p class="reveal-item">Two details mattered:</p>
+
+        <ul class="reveal-item">
+          <li>The loading screen had to move outside the app's container, because <code>ComposeViewport</code> empties that container when it starts.</li>
+          <li>Removing it from a <code>SideEffect</code>, instead of waiting an extra frame, saved about 85 ms.</li>
+        </ul>
+
+        <p class="reveal-item">If a resource fails to load, the gate opens anyway.</p>
+
+        <figure class="reveal-item">
+          <a class="image-link" href="../assets/img/teaching-compose-web/startup-58a2c53-first-screen-full.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open full-size image: The first screen of 0.26.0, complete on its first visible frame"><img src="../assets/img/teaching-compose-web/startup-58a2c53-first-screen.jpg" alt="The first screen of 0.26.0, complete on its first visible frame" width="1512" height="687" loading="lazy" decoding="async"></a>
+        </figure>
+
+        <p class="reveal-item"><strong>Is it faster?</strong> Honestly, I can't say. A first comparison (259 ms before, 214 ms after) didn't reproduce. Every probe that can see the old build's text also slows the new one, and reading the canvas each frame roughly doubled the new build's time to first screen. With only a mutation observer watching, the new build removes its loading screen at a median of about 283 ms in Chrome 157 and 320 ms in Firefox 160. What I'm sure of is in the screenshots: no more frames with missing labels or the wrong font.</p>
+
+        <h3 class="reveal-item">Smaller fonts</h3>
+
+        <p class="reveal-item">Most of Poppins' 1,059 glyphs per weight are Devanagari, which the app never shows. In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.27.0" target="_blank" rel="noopener noreferrer">0.27.0</a> I used <code>pyftsubset</code> to keep only English and Spanish (Basic Latin, Latin-1 Supplement, common punctuation, €, ™), with every layout feature intact. HarfBuzz shaped sample text identically in the old and new fonts.</p>
+
+        <div class="article-table reveal-item" role="region" aria-label="Font size and startup time before and after the subset" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Measure</th><th scope="col">Before</th><th scope="col">After</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Font files</th><td>469,992 bytes (~212 KB compressed)</td><td>57,812 bytes (~37 KB compressed)</td></tr>
+              <tr><th scope="row">Loading screen gone, slow 4G (3 cold loads each)</th><td>28.44–28.47 s</td><td>27.58–27.60 s</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="reveal-item">That's about 0.86 s sooner on Lighthouse's slow 4G profile (150 ms latency, 1.6 Mbps), and the Android and iOS apps got smaller too. The trade-off: other characters, like a Polish ł or a Japanese title, now use a fallback font. For game titles that's a real cost, and I accepted it.</p>
+
+        <p class="reveal-item">Those 28 seconds are almost entirely the Wasm download. A server-rendered page or a typical JavaScript framework would show readable text long before that. It's the main price of drawing everything with Skia in WebAssembly.</p>
+
+        <h2 class="reveal-item">Network: a sleepy API and endless loading</h2>
+
+        <p class="reveal-item"><strong>A cold API.</strong> On production, the slowest request wasn't a Wasm module. It was the app's first <code>/health</code> call to its own API, which started at 541 ms and finished at 4,734 ms in one observation. The API is a small deployment that can take seconds to wake up. That <code>/health</code> call is a best-effort warm-up the app has sent at startup since <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.3.2" target="_blank" rel="noopener noreferrer">0.3.2</a>, so the API starts waking before Home asks for data. The same release made game reads cacheable <code>GET</code>s instead of <code>POST</code>s. Timeouts, bounded retries, and cancelling overlapping loads (0.7.1) came straight over from Android practice.</p>
+
+        <p class="reveal-item"><strong>Offline that loaded forever.</strong> With the API blocked, web Home stayed in its loading state forever, and the console showed four uncaught <code>Error: Fail to fetch</code> messages.</p>
+
+        <p class="reveal-item">The repositories use a <code>safeCall</code> helper that maps <code>Exception</code>s to typed failures. But Ktor 3.6.1's browser engine reports a rejected <code>fetch</code> as <code>kotlin.Error("Fail to fetch", JsError(reason))</code>, and <code>Error</code> isn't an <code>Exception</code>. OkHttp and the Darwin engine throw exceptions, so only the web was affected.</p>
+
+        <p class="reveal-item">In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.27.0" target="_blank" rel="noopener noreferrer">0.27.0</a>, a small check recognizes exactly that shape. Any other <code>Error</code> is still rethrown:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 3"><code class="language-kotlin">// shared/src/wasmJsMain/.../EngineFetchFailure.wasmJs.kt
+internal actual fun Throwable.isEngineFetchFailure(): Boolean = this is Error &amp;&amp; cause is JsError</code></pre>
+        </div>
+
+        <p class="reveal-item">A browser test fetches a closed local port through the real engine, so a future Ktor change to the wrapper will break it. Now each section shows "Can't reach the server" with a Retry button, in Chrome and WebKit.</p>
+
+        <p class="reveal-item"><strong>A preconnect that didn't help.</strong> I also tried <code>&lt;link rel="preconnect"&gt;</code> for the API and image hosts. In six cold loads, no request reused the early connection. On slow 4G the 20-second gap outlives Chrome's idle connection, and on fast connections the warm-up request already opens it. I didn't ship it.</p>
+
+        <h2 class="reveal-item">Download size and two Safari surprises</h2>
+
+        <p class="reveal-item">Here's what a first visit downloads, rebuilt from Git and compressed with <code>brotli -q 11</code>:</p>
+
+        <div class="article-table reveal-item" role="region" aria-label="First-visit download sizes by build" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Build</th><th scope="col">Skia module</th><th scope="col">App module</th><th scope="col">JS loader</th><th scope="col">Total</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">First web build</th><td>8.64 MB → 2.62 MB</td><td>4.45 MB → 1.10 MB</td><td>0.54 MB → 83 KB</td><td>3.80 MB</td></tr>
+              <tr><th scope="row">Font preloads (0.11.1)</th><td>8.65 MB → 2.62 MB</td><td>5.60 MB → 1.25 MB</td><td>0.55 MB → 83 KB</td><td>3.96 MB</td></tr>
+              <tr><th scope="row">0.26.0</th><td>same</td><td>6.09 MB → 1.35 MB</td><td>0.58 MB → 84 KB</td><td>4.06 MB</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="reveal-item">
+          <li>The Skia module never changed.</li>
+          <li>The app module grew by about a quarter as features landed. All of 0.26.0 added only 11,735 compressed bytes.</li>
+          <li>Material 2 turned out to be about 1% of the app module (~20 KB compressed), so it isn't worth a migration for size.</li>
+        </ul>
+
+        <p class="reveal-item"><strong>The Brotli detour.</strong> In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.4" target="_blank" rel="noopener noreferrer">0.11.4</a> I served maximum-quality <code>.wasm.br</code> files through a Pages Function and preloaded the modules. <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.5" target="_blank" rel="noopener noreferrer">The next release</a> took both out, because Safari hung on the loading screen: its module preload failed with a lost connection. It only reproduced against the live site, which points at the CDN's HTTP/3, though I haven't confirmed that. I also preferred standard hosting behavior over custom serving code, so compression went back to the host's default. That leaves about 20% on the table: production serves the Skia module at 3,291,897 bytes, and <code>brotli -q 11</code> makes it 2,621,262.</p>
+
+        <p class="reveal-item"><strong>The white page in Safari 27.2.</strong> Later, Safari 27.2 and every browser on iOS 27.2 showed a white page with no error. WebKit can corrupt float arguments in JavaScript tail calls into WebAssembly (<a href="https://bugs.webkit.org/show_bug.cgi?id=329421" target="_blank" rel="noopener noreferrer">WebKit bug 329421</a>), and every Skiko export wrapper is such a call (<a href="https://youtrack.jetbrains.com/issue/CMP-10986" target="_blank" rel="noopener noreferrer">CMP-10986</a>). The fix in <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.15.0" target="_blank" rel="noopener noreferrer">0.15.0</a> is a small webpack loader:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 4"><code class="language-javascript">// webApp/webpack/skiko-no-tail-call-loader.cjs
+// Before: export let name = (...a) =&gt; (name = loadedWasm._["name"])(...a);
+// After:  export let name = (...a) =&gt; { try { return (name = loadedWasm._["name"])(...a); } catch (e) { throw e; } };</code></pre>
+        </div>
+
+        <p class="reveal-item">A call inside <code>try</code> is never a tail call. A webpack plugin fails the build if any tail-call wrapper reaches a bundle, and a comment says to delete the whole thing once supported Safari versions have the fix.</p>
+
+        <h2 class="reveal-item">Scrolling: measuring the probe instead of the app</h2>
+
+        <p class="reveal-item"><strong>Habits that carried over from Android:</strong></p>
+
+        <ul class="reveal-item">
+          <li>The shimmer reads its animated offset in <code>drawBehind</code> instead of during composition (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.3.6" target="_blank" rel="noopener noreferrer">0.3.6</a>).</li>
+          <li><code>AsyncImage</code> replaced a painter, so Coil decodes covers at display size (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.7" target="_blank" rel="noopener noreferrer">0.11.7</a>).</li>
+          <li>Covers load at the smallest IGDB size that fills the card, as WebP (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.15.1" target="_blank" rel="noopener noreferrer">0.15.1</a>).</li>
+        </ul>
+
+        <p class="reveal-item">A code comment claimed WebP was "about a quarter smaller". When I re-measured five covers at 540×720, it was 3.6% smaller, and one cover was actually bigger. Choosing the right size was the real win: 264×352 covers are 67% smaller than 720p JPEGs.</p>
+
+        <p class="reveal-item"><strong>My first numbers were wrong.</strong> They showed 150 ms frames, and most of that was my own probe calling <code>getImageData</code> every frame. Without it, the 95th-percentile frame at 120 Hz was 9.3 ms.</p>
+
+        <p class="reveal-item">Profiling a development build with synthetic wheel input found the real cost. Of 391 busy samples, 223 were inside <code>ComposeWindow.onWheelEvent</code>, where <code>LazyGridState.onScroll</code> remeasured the grid and ran <code>Recomposer.composeInitial</code>. New rows were being composed inside the DOM wheel event.</p>
+
+        <p class="reveal-item"><strong>Prefetching did nothing.</strong> On Android, the platform schedules lazy-layout prefetching between frames. On the web, Compose UI 1.12.2 falls back to <code>NoOpPlatformPrefetchScheduler</code>. So prefetching did nothing, and neither did the "ahead" half of a cache window (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.6" target="_blank" rel="noopener noreferrer">0.11.6</a>) whose KDoc said it worked everywhere.</p>
+
+        <p class="reveal-item">In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.26.0" target="_blank" rel="noopener noreferrer">0.26.0</a>, <code>WebPrefetchScheduler</code> runs prefetch requests in whatever time is left in each animation frame:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 5"><code class="language-kotlin">// shared/src/wasmJsMain/.../WebPrefetchScheduler.kt
+private fun runUntil(frameDeadline: Double) {
+    deadline = frameDeadline
+    while (scope.availableTimeNanos() &gt; 0) {
+        val queue = highPriority.ifEmpty { lowPriority }
+        val request = queue.firstOrNull() ?: break
+        val hasMoreWork = with(request) { scope.execute() }
+        // A request with more work ran out of time; it continues after the next frame.
+        if (hasMoreWork) break
+        queue.removeFirst()
+    }
+    requestFrameIfNeeded()
+}</code></pre>
+        </div>
+
+        <p class="reveal-item">It relies on <code>PlatformPrefetchScheduler</code>, which is marked <code>@InternalComposeUiApi</code>. I chose that over composing rows inside input events. The project docs say to recheck it on every Compose upgrade and delete it once Compose does this itself.</p>
+
+        <div class="article-table reveal-item" role="region" aria-label="Scrolling measurements" tabindex="0">
+          <table>
+            <thead><tr><th scope="col">Scrolling check</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Chrome, time in wheel handlers over 40 wheel events</th><td>78–104 ms before, 40–57 ms after</td></tr>
+              <tr><th scope="row">Firefox, same test</th><td>No measurable difference</td></tr>
+              <tr><th scope="row">Headless Chrome at 4× and 6× CPU slowdown</th><td>Frames held at 16.7 ms, with one 33 ms frame</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="reveal-item">Jank has been reported on a Windows laptop, and I haven't reproduced it yet.</p>
+
+        <h2 class="reveal-item">Mouse and links: desktop habits a phone never needed</h2>
+
+        <p class="reveal-item">A touchscreen has one kind of tap. A desktop browser has hover, a middle button, modifier keys, and years of user habits.</p>
+
+        <p class="reveal-item"><strong>Small fixes:</strong></p>
+
+        <ul class="reveal-item">
+          <li>Cards show a hand cursor (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.1" target="_blank" rel="noopener noreferrer">0.11.1</a>).</li>
+          <li>Focus highlights appear only in keyboard mode (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.13.0" target="_blank" rel="noopener noreferrer">0.13.0</a>).</li>
+          <li>Pull-to-refresh is touch-only, because a wheel overscroll never "releases" (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.1" target="_blank" rel="noopener noreferrer">0.11.1</a>).</li>
+          <li>Carousels have previous and next buttons (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.3.1" target="_blank" rel="noopener noreferrer">0.3.1</a>), hidden on touchscreens (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.11.3" target="_blank" rel="noopener noreferrer">0.11.3</a>).</li>
+          <li>The web host enables a desktop layout with a sidebar (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.12.0" target="_blank" rel="noopener noreferrer">0.12.0</a>).</li>
+          <li>Sharing uses the Web Share API, or copies the link where there's no share sheet (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.22.0" target="_blank" rel="noopener noreferrer">0.22.0</a>).</li>
+          <li>Desktop pages get Compose's <code>VerticalScrollbar</code> when a media query reports a precise pointer (<a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.26.1" target="_blank" rel="noopener noreferrer">0.26.1</a>). It hides half a second after scrolling stops, without the fade under reduced motion.</li>
+        </ul>
+
+        <h3 class="reveal-item">Links you can open in a new tab</h3>
+
+        <p class="reveal-item">A canvas has no <code>&lt;a&gt;</code> elements, and <code>clickable</code> only reacts to the primary button. In <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.26.0" target="_blank" rel="noopener noreferrer">0.26.0</a> I added <code>Modifier.routeLink(route)</code>, a common modifier that builds the address with the same <code>toWebPath()</code> the history code uses. It's a no-op on Android and iOS, so shared components can use it without platform checks. On the web, it classifies each press before the element's click handler sees it:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 6"><code class="language-kotlin">// shared/src/wasmJsMain/.../RouteLink.wasmJs.kt
+internal fun linkPress(primary: Boolean, middle: Boolean, ctrl: Boolean, meta: Boolean, shift: Boolean,
+                       isApplePlatform: Boolean): LinkPress =
+    when {
+        middle -&gt; LinkPress.OpenInNewTab
+        !primary -&gt; LinkPress.Activate
+        ctrl &amp;&amp; isApplePlatform -&gt; LinkPress.Ignore // a Ctrl-click is a secondary click on Apple systems
+        shift || (if (isApplePlatform) meta else ctrl) -&gt; LinkPress.OpenInNewTab
+        else -&gt; LinkPress.Activate
+    }</code></pre>
+        </div>
+
+        <p class="reveal-item">For a new-tab press, it consumes the release and calls <code>window.open(url, "_blank", "noopener")</code> while the browser still has user activation. The browser then places the tab just as it would for a real link.</p>
+
+        <p class="reveal-item"><a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.27.0" target="_blank" rel="noopener noreferrer">0.27.0</a> extended it to more places:</p>
+
+        <ul class="reveal-item">
+          <li>The profile and search buttons, "Explore games", "Open Releases", "Open News", and version chips.</li>
+          <li>The inline link in "Expansion for <em>The Witcher 3</em>". A new <code>routeTextLink</code> asks the text layout whether a press hit the link's characters.</li>
+          <li>External links. They already open a new tab on a normal click, so they only needed the middle button.</li>
+        </ul>
+
+        <p class="reveal-item"><strong>Right-click didn't work out.</strong> The browser only shows its link menu over a real link, and Compose cancels <code>contextmenu</code> anyway. I built a prototype that slipped an invisible <code>&lt;a&gt;</code> under the pointer. But it inserted DOM on every right-press, stole the next pointer-up, needed cleanup timers, and would have required declaring every route by hand. I never committed it.</p>
+
+        <h3 class="reveal-item">Autoscroll, which I'd written off</h3>
+
+        <p class="reveal-item">Windows browsers autoscroll a page when you middle-click it, but only for scrollable page elements, and a Compose list isn't one. <a href="https://github.com/vladleesi/braindance/releases/tag/app-v0.27.0" target="_blank" rel="noopener noreferrer">0.27.0</a> builds it anyway. <code>WebAppHost</code> watches for middle presses in the main pointer pass, which reaches the root after everything under the pointer has seen the event:</p>
+
+        <div class="code-block-wrap reveal-item">
+          <button type="button" class="code-copy" aria-label="Copy code" hidden>Copy</button>
+          <pre tabindex="0" role="region" aria-label="Code example 7"><code class="language-kotlin">// shared/src/wasmJsMain/.../PageAutoscroll.kt
+// The main pass reaches this root after everything under the pointer, so a link that took the press is known.
+val press = awaitPointerEvent(PointerEventPass.Main)
+val change = press.changes.first()
+val autoscrollPress =
+    press.type == PointerEventType.Press &amp;&amp;
+        change.type == PointerType.Mouse &amp;&amp;
+        press.buttons.isTertiaryPressed &amp;&amp;
+        !change.isConsumed</code></pre>
+        </div>
+
+        <p class="reveal-item">Links consume their middle press, so autoscroll only starts when nothing else claimed it. Pages register through the scrollbar call they already make, so new screens need no extra wiring. The root scrolls the innermost page under the pointer on each animation frame through <code>ScrollableState.scroll</code>. That counts as user input, so the scrollbar shows and a wheel scroll takes over.</p>
+
+        <p class="reveal-item">How it behaves:</p>
+
+        <ul class="reveal-item">
+          <li>After a click, it keeps scrolling until the next click or Esc.</li>
+          <li>If you hold the middle button while moving, it stops when you let go.</li>
+          <li>It's Windows-only. macOS has no such convention, and Linux pastes on middle click.</li>
+          <li>It moves only the page, not the horizontal rows inside it.</li>
+        </ul>
+
+        <p class="reveal-item">I tested it in headless Chrome told it was running on Windows, not on an actual Windows machine.</p>
+
+        <h2 class="reveal-item">What's still missing</h2>
+
+        <ul class="reveal-item">
+          <li><strong>Right-click menus:</strong> none.</li>
+          <li><strong>Link address on hover:</strong> browsers only show it for real link elements. I could draw a look-alike, but I haven't decided whether it's worth it.</li>
+          <li><strong>Text selection:</strong> works only inside a <code>SelectionContainer</code>. Giveaway descriptions use one, and most other text doesn't.</li>
+          <li><strong>Wheel distance:</strong> Compose 1.12.2 converts wheel deltas with no app setting, so a notch can scroll less than a normal page. Firefox on Windows is probably the worst case. I won't ship a guessed multiplier.</li>
+          <li><strong>Testing coverage:</strong> most measurements come from one Mac, in Chrome and Firefox. Safari, Edge, Windows, and phones are next.</li>
+          <li><strong>Download size:</strong> better Brotli could still cut the first visit by about a fifth.</li>
+        </ul>
+
+        <h2 class="reveal-item">Advice for other Android developers</h2>
+
+        <ul class="reveal-item">
+          <li><strong>The web target is the cheap part.</strong> Treat the browser as its own platform, with its own history, caching, deployment, HTML metadata, and pointer conventions. For me, that was 37 commits and about 2,300 lines on top of a shared UI.</li>
+          <li><strong>Content-hash everything you cache,</strong> Compose resources included.</li>
+          <li><strong>Read your framework's web code.</strong> My two biggest wins came from reading Compose sources, not from error messages.</li>
+          <li><strong>Check what each platform throws.</strong> A failed request that's an <code>IOException</code> on Android is a <code>kotlin.Error</code> from the browser engine.</li>
+          <li><strong>Doubt your own claims.</strong> "Text from the first frame", "WebP is a quarter smaller", and "the cache window works on every target" all turned out to be at least partly wrong.</li>
+          <li><strong>Measure production builds,</strong> and make sure your probe isn't what you're timing.</li>
+          <li><strong>Guard every workaround</strong> with a build check and a note on when to remove it.</li>
+        </ul>
+
+        <h2 class="reveal-item">Try it</h2>
+
+        <p class="reveal-item">Compose Multiplatform gave Braindance a web app with the same screens and logic as the phone apps. Much of the rest has been building, one commit at a time, what a regular website gets for free. Some gaps won't close from inside the app, and some I still have to go and find.</p>
+
+        <figure class="reveal-item">
+          <a href="https://braindancegg.com" aria-label="Braindance website" target="_blank" rel="noopener noreferrer"><img src="../assets/img/braindance-lockup.png" alt="Braindance logo" width="1440" height="400" loading="lazy" decoding="async"></a>
+        </figure>
+
+        <p class="reveal-item">Braindance helps you find what to play next: popular and upcoming games, games like the ones you already love, and free game giveaways.</p>
+
+        <ul class="reveal-item">
+          <li><strong>Web:</strong> live now at <a href="https://app.braindancegg.com/" target="_blank" rel="noopener noreferrer">app.braindancegg.com</a>.</li>
+          <li><strong>Android:</strong> alpha testing comes next. Join the <a href="https://discord.gg/XawnYAVdzj" target="_blank" rel="noopener noreferrer">Discord</a> to try early versions.</li>
+          <li><strong>iOS:</strong> after Android.</li>
+          <li><strong>Ideas and bugs:</strong> <a href="https://www.reddit.com/r/BraindanceGG/" target="_blank" rel="noopener noreferrer">r/BraindanceGG</a> or <a href="https://github.com/vladleesi/braindance" target="_blank" rel="noopener noreferrer">GitHub</a>, where all the code is open source.</li>
+          <li><strong>News:</strong> @braindancegg on <a href="https://x.com/braindancegg" target="_blank" rel="noopener noreferrer">X</a>, <a href="https://bsky.app/profile/braindancegg.com" target="_blank" rel="noopener noreferrer">Bluesky</a>, and <a href="https://www.threads.com/@braindancegg" target="_blank" rel="noopener noreferrer">Threads</a>.</li>
+        </ul>
+
+        <p class="reveal-item">If something feels wrong in your browser, I'd like to hear about it.</p>
+
+        <h2 class="reveal-item">Where to find the code</h2>
+
+        <p class="reveal-item">The full source is on <a href="https://github.com/vladleesi/braindance" target="_blank" rel="noopener noreferrer">GitHub</a>. These are the changes this post describes:</p>
+
+        <ul class="reveal-item">
+          <li><strong>The first web build:</strong> <a href="https://github.com/vladleesi/braindance/commit/a117aba04f74d9a274fd0b8d421a5dca8f92afa8" target="_blank" rel="noopener noreferrer">the <code>webApp</code> module</a></li>
+          <li><strong>Caching:</strong> <a href="https://github.com/vladleesi/braindance/commit/cac2640ca4f01f7c71941a3aaf76bc0dd7979423" target="_blank" rel="noopener noreferrer">versioned bundle name</a>, <a href="https://github.com/vladleesi/braindance/commit/da361e2cc88b8917c09b1269637399fb02d20559" target="_blank" rel="noopener noreferrer">Cloudflare Pages and hashed files</a>, <a href="https://github.com/vladleesi/braindance/commit/86b9d60a2b67c9a267e9fc7267e5bfed60c43d93" target="_blank" rel="noopener noreferrer">versioned resource URLs</a>, <a href="https://github.com/vladleesi/braindance/commit/78acb79960b79b71ccf21b20ab807abdb0760b7a" target="_blank" rel="noopener noreferrer">content fingerprint</a></li>
+          <li><strong>Navigation:</strong> <a href="https://github.com/vladleesi/braindance/commit/e98c1bf6248d7a12c80c91512857b6b4393377a9" target="_blank" rel="noopener noreferrer">restore after reload</a>, <a href="https://github.com/vladleesi/braindance/commit/e73a207c92dda9a327f71e4bc8ab998d0e8435f3" target="_blank" rel="noopener noreferrer">hash routes</a>, <a href="https://github.com/vladleesi/braindance/commit/b26e2202d6da41f10da76a1d70dc3c236e065e4c" target="_blank" rel="noopener noreferrer">plain paths and history snapshots</a>, <a href="https://github.com/vladleesi/braindance/commit/6807aeb5dc9b3ca6ccabade511be68aee82f5dfc" target="_blank" rel="noopener noreferrer">editions with <code>replaceState</code></a></li>
+          <li><strong>Page metadata and security:</strong> <a href="https://github.com/vladleesi/braindance/commit/b02fa38865c52e8cd1408a180aa3a6869e9cde6a" target="_blank" rel="noopener noreferrer">per-page titles and link previews</a>, <a href="https://github.com/vladleesi/braindance/commit/f150a3f99fcff6b1ede2da8d1222945058ee3b6a" target="_blank" rel="noopener noreferrer">content security policy</a>, <a href="https://github.com/vladleesi/braindance/commit/9389448394c68d915b4b8cd07f201afe27fb63ec" target="_blank" rel="noopener noreferrer">CI policy check</a></li>
+          <li><strong>Startup:</strong> <a href="https://github.com/vladleesi/braindance/commit/d8ece3b6dfcd7c566612e406a3bc7586bd8ff2b5" target="_blank" rel="noopener noreferrer">dark background</a>, <a href="https://github.com/vladleesi/braindance/commit/c6d5df0c0b918ca081642ca42cfde727b671151b" target="_blank" rel="noopener noreferrer">spinner and font preloads</a>, <a href="https://github.com/vladleesi/braindance/commit/58a2c53edc227a6a8583f737895b647d77698467" target="_blank" rel="noopener noreferrer">resource reader and startup gate</a>, <a href="https://github.com/vladleesi/braindance/commit/0aebd6f5e50af62bb40c57de84acfc183e2d7223" target="_blank" rel="noopener noreferrer">font subset and offline fix</a></li>
+          <li><strong>Network:</strong> <a href="https://github.com/vladleesi/braindance/commit/02a2f977df5ad53e7977d5c1966f93e37daafa10" target="_blank" rel="noopener noreferrer">warm-up and cacheable reads</a>, <a href="https://github.com/vladleesi/braindance/commit/346089560ade1543296756600aa3cf9119014e65" target="_blank" rel="noopener noreferrer">timeouts and retries</a>, <a href="https://github.com/vladleesi/braindance/commit/d758cbe737ba1333f5d570f2c7e21dd9b968604c" target="_blank" rel="noopener noreferrer">cancelling overlapping loads</a></li>
+          <li><strong>Download size and Safari:</strong> <a href="https://github.com/vladleesi/braindance/commit/0c56566ff2f68b68c46342e905f67c74530de7d6" target="_blank" rel="noopener noreferrer">Brotli and module preloads</a>, <a href="https://github.com/vladleesi/braindance/commit/776462425ad02e2d613eb697e8abd56d5fdcd729" target="_blank" rel="noopener noreferrer">the Safari fix that removed them</a>, <a href="https://github.com/vladleesi/braindance/commit/78ee24fbb69821cd28fd5bed23910d7e6eab60b2" target="_blank" rel="noopener noreferrer">the tail-call workaround</a></li>
+          <li><strong>Scrolling:</strong> <a href="https://github.com/vladleesi/braindance/commit/c692db7fc50629256049f026cda4c65f2adc7e84" target="_blank" rel="noopener noreferrer">images at display size</a>, <a href="https://github.com/vladleesi/braindance/commit/2911fde47134f6c58b0efd848da8723870611bda" target="_blank" rel="noopener noreferrer">smallest covers as WebP</a>, <a href="https://github.com/vladleesi/braindance/commit/f81a7fe6e26ec9a2b0dd75d6771b3ae020376dd1" target="_blank" rel="noopener noreferrer">the cache window</a>, <a href="https://github.com/vladleesi/braindance/commit/58a2c53edc227a6a8583f737895b647d77698467" target="_blank" rel="noopener noreferrer">the prefetch scheduler</a></li>
+          <li><strong>Mouse and links:</strong> <a href="https://github.com/vladleesi/braindance/commit/b28c46a5dea18175c469ed79d0a64fd382e2bb96" target="_blank" rel="noopener noreferrer">keyboard-only focus</a>, <a href="https://github.com/vladleesi/braindance/commit/24ec4b2695ee4a0016ea8f571d54d0aab03b193e" target="_blank" rel="noopener noreferrer">carousel buttons</a>, <a href="https://github.com/vladleesi/braindance/commit/0eb57c0ec68bb70d601ddbe052a916c4c168c1be" target="_blank" rel="noopener noreferrer">desktop layout</a>, <a href="https://github.com/vladleesi/braindance/commit/4b91525ad152444265b3cf11a9cbd6716cc5642d" target="_blank" rel="noopener noreferrer">sharing</a>, <a href="https://github.com/vladleesi/braindance/commit/d9b84c9ac372c5489180236a10c19aaa47e74c8c" target="_blank" rel="noopener noreferrer">scrollbars</a>, <a href="https://github.com/vladleesi/braindance/commit/58a2c53edc227a6a8583f737895b647d77698467" target="_blank" rel="noopener noreferrer">new-tab links</a>, <a href="https://github.com/vladleesi/braindance/commit/0aebd6f5e50af62bb40c57de84acfc183e2d7223" target="_blank" rel="noopener noreferrer">more links and autoscroll</a></li>
+        </ul>
+
+        <h2 class="reveal-item">How I measured</h2>
+
+        <ul class="reveal-item">
+          <li><strong>Machine:</strong> a MacBook Pro with Apple silicon and a 120 Hz display, running Chrome 157 and Firefox 160.</li>
+          <li><strong>Builds:</strong> production builds, except for function-level profiling. Older versions were rebuilt in Git worktrees with their own toolchains.</li>
+          <li><strong>First frames:</strong> a script read the canvas after each animation frame, with every API request failing.</li>
+          <li><strong>Startup:</strong> a <code>MutationObserver</code> waited for the loading screen to disappear.</li>
+          <li><strong>Fonts and preconnect:</strong> headless Chrome over DevTools, with fresh profiles, a local gzip server, and the production API. DevTools throttling adds latency per request but not per connection.</li>
+          <li><strong>Scrolling:</strong> 40 synthetic wheel events of 100 px, 40 ms apart, three runs per build.</li>
+          <li><strong>Resource reads:</strong> the default reader's steps replayed 174 times in JavaScript.</li>
+          <li><strong>Sizes:</strong> <code>brotli</code>, <code>gzip</code>, and <code>curl</code>.</li>
+        </ul>
+
+        <p class="reveal-item">The limits are real: one fast machine, mostly localhost, synthetic input, and small samples. None of this tells you how the app behaves on Windows, Safari, phones, or slower hardware.</p>
+      </div>
+    </article>
+  </main>
+
+  <div id="site-footer">
+    <footer class="footer">
+      <div class="footer-inner">
+        <a href="mailto:hello@vladleesi.dev" class="footer-email">hello@vladleesi.dev</a>
+        <div class="footer-social">
+          <a href="https://github.com/vladleesi" class="footer-link">GitHub</a>
+          <a href="https://www.linkedin.com/in/vladkochetov" class="footer-link">LinkedIn</a>
+          <a href="/feed.xml" class="footer-link">Subscribe via RSS</a>
+        </div>
+        <p class="footer-copy">© Vladislav Kochetov</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../assets/js/site.config.js" defer></script>
+  <script src="../assets/js/layout.js" defer></script>
+  <script src="../assets/js/script.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/prism.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.30.0/components/prism-kotlin.min.js" defer></script>
+  <script src="../assets/js/article.js" defer></script>
+</body>
+</html>

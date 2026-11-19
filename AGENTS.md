@@ -22,7 +22,7 @@ Development tools use Node 24 LTS (`npm ci --ignore-scripts`). Deployment packag
 - Keep article URLs and the resume PDF URL stable. Sort writing newest first. Preserve RSS, original publication dates, and article return-scroll behavior.
 - Use semantic HTML, descriptive links, one H1, unique IDs, accessible names, and decorative SVGs with `aria-hidden="true"`. Reserve image dimensions; lazy-load images below the fold.
 - Optimize measured bottlenecks. Avoid unnecessary animation work, duplicate listeners, third-party requests, and large images. Lighthouse is lab data, not proof of production Core Web Vitals.
-- Keep unique titles/descriptions, absolute HTTPS canonicals, social images, and factual JSON-LD aligned with visible content. New posts need homepage links, RSS, sitemap entries, and article metadata.
+- Keep unique titles/descriptions, absolute HTTPS canonicals, social images, and factual JSON-LD aligned with visible content. New posts need a `/blog/` card, a homepage card while among the three newest, an RSS item with an updated `lastBuildDate`, sitemap entries, and article metadata.
 - Keep robots crawlable, including CSS/JS. Update sitemap `lastmod` only for real significant content/metadata changes. Do not add fake freshness, keyword stuffing, or crawler-specific content.
 
 ## Before preparing a commit

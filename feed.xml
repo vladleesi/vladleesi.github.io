@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>Vladislav Kochetov — Blog</title>
-    <link>https://vladleesi.dev/</link>
+    <link>https://vladleesi.dev/blog/</link>
     <description>Android, Kotlin Multiplatform, and mobile architecture. Code quality and developer experience.</description>
     <language>en</language>
+    <copyright>© Vladislav Kochetov</copyright>
+    <lastBuildDate>Thu, 19 Nov 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://vladleesi.dev/feed.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://vladleesi.dev/assets/android-chrome-192x192.png</url>
+      <title>Vladislav Kochetov — Blog</title>
+      <link>https://vladleesi.dev/blog/</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+    <item>
+      <title>Teaching a Compose Multiplatform App to Be a Website</title>
+      <link>https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html</link>
+      <description>Notes from an Android developer on making a Compose Multiplatform web app behave like a website, with the measurements and the mistakes.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>Kotlin Multiplatform</category>
+      <category>Compose Multiplatform</category>
+      <category>Web</category>
+      <category>Performance</category>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://vladleesi.dev/posts/2026-11-19-teaching-a-compose-multiplatform-app-to-be-a-website.html</guid>
+    </item>
     <item>
       <title>Vertical text in Jetpack Compose (without rotation width problems)</title>
       <link>https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html</link>
       <description>Render text vertically by rotating each character and adjusting layout bounds so width behaves correctly.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>Android</category>
+      <category>Jetpack Compose</category>
       <pubDate>Mon, 26 Jan 2026 00:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://vladleesi.dev/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html</guid>
     </item>
@@ -17,6 +41,11 @@
       <title>Write Once, Run Everywhere: Building with Kotlin and Compose Multiplatform</title>
       <link>https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html</link>
       <description>A simple app with Kotlin multiplatform, Compose multiplatform, Coroutines, Serialization, and Ktor — Android and iOS.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>Kotlin Multiplatform</category>
+      <category>Compose Multiplatform</category>
+      <category>Android</category>
+      <category>iOS</category>
       <pubDate>Fri, 28 Jul 2023 00:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://vladleesi.dev/posts/2023-07-28-write-once-run-everywhere-building-with-kotlin-and-compose-multiplatform.html</guid>
     </item>
@@ -24,6 +53,9 @@
       <title>Accessibility Guidelines for Android Apps</title>
       <link>https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html</link>
       <description>Guidelines and best practices for making your Android app accessible to users with disabilities.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>Android</category>
+      <category>Accessibility</category>
       <pubDate>Sun, 23 Jul 2023 00:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://vladleesi.dev/posts/2023-07-23-accessibility-guidelines-for-android-apps.html</guid>
     </item>
@@ -31,6 +63,9 @@
       <title>How to set up publication signature with the Gradle plugin</title>
       <link>https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html</link>
       <description>Setting up GPG, generating keys, and using the Signing Plugin to sign artifacts before publishing to Nexus.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>Gradle</category>
+      <category>Publishing</category>
       <pubDate>Sun, 11 Jun 2023 00:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://vladleesi.dev/posts/2023-06-11-how-to-set-up-publication-signature-with-the-gradle-plugin.html</guid>
     </item>
@@ -38,6 +73,8 @@
       <title>How to Link a Custom Domain to GitHub Pages</title>
       <link>https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html</link>
       <description>Guide to linking a custom domain to your GitHub Pages site, from DNS to the CNAME file and settings.</description>
+      <dc:creator>Vladislav Kochetov</dc:creator>
+      <category>GitHub Pages</category>
       <pubDate>Wed, 24 May 2023 00:00:00 GMT</pubDate>
       <guid isPermaLink="true">https://vladleesi.dev/posts/2023-05-24-how-to-link-a-custom-domain-to-github-pages.html</guid>
     </item>

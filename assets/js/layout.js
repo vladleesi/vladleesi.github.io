@@ -42,15 +42,19 @@
     (window.location && window.location.pathname)
       ? window.location.pathname.toLowerCase()
       : '';
+  const isBlog = path === '/blog/' || path === '/blog/index.html';
   const isHome =
-    path === '' ||
-    path === '/' ||
-    path.endsWith('/index.html') ||
-    path.endsWith('\\index.html');
+    !isBlog && (
+      path === '' ||
+      path === '/' ||
+      path.endsWith('/index.html') ||
+      path.endsWith('\\index.html'));
 
   const aboutHref = isHome ? '#about' : rootHref + '#about';
   const skillsHref = isHome ? '#skills' : rootHref + '#skills';
-  const postsHref = isHome ? '#posts' : rootHref + '#posts';
+  // On the homepage Writing scrolls to its section; elsewhere it opens the full list.
+  const postsHref = isHome ? '#posts' : rootHref + 'blog/';
+  const postsCurrent = isBlog ? ' aria-current="page"' : '';
   const workHref = isHome ? '#work' : rootHref + '#work';
 
   const headerHtml = `
@@ -65,7 +69,7 @@
           <nav class="nav" id="main-nav" aria-label="Main navigation">
             <a href="${workHref}" class="nav-link">Work</a>
             <a href="${skillsHref}" class="nav-link">Expertise</a>
-            <a href="${postsHref}" class="nav-link">Writing</a>
+            <a href="${postsHref}" class="nav-link"${postsCurrent}>Writing</a>
             <a href="${aboutHref}" class="nav-link">Contact</a>
           </nav>
           <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" hidden>

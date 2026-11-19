@@ -73,9 +73,10 @@
     if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
-  // Preserve the reading position for browser Back and the article's home link.
+  // Preserve the reading position of the homepage and the blog for browser Back and the article's back link.
   function initReadingReturn() {
-    const isHome = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    const listPaths = ['/', '/index.html', '/blog/', '/blog/index.html'];
+    const isList = listPaths.includes(window.location.pathname);
     const returnKey = 'portfolio-article-return';
     const pendingKey = 'portfolio-pending-return';
 
@@ -88,14 +89,11 @@
     }
 
     function snapshot() {
-      const archive = document.querySelector('.writing-archive');
-      return { y: window.scrollY, archiveOpen: Boolean(archive && archive.open) };
+      return { y: window.scrollY };
     }
 
     function restore(position) {
       if (!position || !Number.isFinite(position.y) || position.y < 0) return;
-      const archive = document.querySelector('.writing-archive');
-      if (archive) archive.open = Boolean(position.archiveOpen);
       const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
       fontsReady.then(function () {
         requestAnimationFrame(function () {
@@ -104,14 +102,14 @@
       });
     }
 
-    if (isHome) {
+    if (isList) {
       function savePosition() {
         const position = snapshot();
         try { history.replaceState(Object.assign({}, history.state, { portfolioReading: position }), ''); } catch (_) { /* optional enhancement */ }
         return position;
       }
 
-      document.querySelectorAll('a[href^="posts/"]').forEach(function (link) {
+      document.querySelectorAll('a.post-card-link').forEach(function (link) {
         link.addEventListener('click', function (event) {
           if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
           save(returnKey, { article: new URL(link.href).pathname, home: window.location.href, position: savePosition() });
@@ -138,8 +136,9 @@
     if (!link || !saved || saved.article !== window.location.pathname) return;
     let home;
     try { home = new URL(saved.home); } catch (_) { return; }
-    if (home.origin !== window.location.origin || !['/', '/index.html'].includes(home.pathname)) return;
+    if (home.origin !== window.location.origin || !listPaths.includes(home.pathname)) return;
     link.href = home.href;
+    if (home.pathname.startsWith('/blog/')) link.textContent = 'Back to all writing';
     link.addEventListener('click', function (event) {
       if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       save(pendingKey, saved);

@@ -8,11 +8,12 @@ import { buildSite } from './build.mjs';
 test('deployment versions cover asset changes and dependencies without changing source or publishing development files', async () => {
   const root = await mkdtemp(resolve(tmpdir(), 'portfolio-build-'));
   try {
-    for (const path of ['assets/css', 'assets/js', 'assets/fonts', 'assets/.private', 'posts', 'reports', 'node_modules']) await mkdir(resolve(root, path), { recursive: true });
+    for (const path of ['assets/css', 'assets/js', 'assets/fonts', 'assets/.private', 'blog', 'posts', 'reports', 'node_modules']) await mkdir(resolve(root, path), { recursive: true });
     const html = `<link rel="stylesheet" href="assets/css/styles.css?v=old"><link rel="preload" href="assets/fonts/font.woff2"><script src="assets/js/theme.js" defer></script><noscript><link rel="icon" href="assets/icon.svg"></noscript><img src="assets/icon.svg" alt=""><a href="assets/resume.pdf">Resume</a><link rel="canonical" href="https://vladleesi.dev/"><script src="https://example.com/external.js"></script>`;
     const css = `@font-face { src: url('../fonts/font.woff2'); } body { background: url(https://example.com/image.png); filter: url(#filter); }`;
     const files = {
       'index.html': html, 'posts/article.html': '<link rel="stylesheet" href="../assets/css/styles.css"><a href="../">Home</a>',
+      'blog/index.html': '<link rel="stylesheet" href="../assets/css/styles.css"><a href="../posts/article.html">Article</a>',
       'assets/css/styles.css': css, 'assets/js/theme.js': 'console.log("theme");',
       'assets/fonts/font.woff2': 'font one', 'assets/icon.svg': '<svg></svg>', 'assets/resume.pdf': 'resume',
       'assets/.private/secret': 'excluded', 'assets/.DS_Store': 'excluded',
@@ -35,9 +36,11 @@ test('deployment versions cover asset changes and dependencies without changing 
     assert.ok((await read('assets/css/styles.css')).includes('url(https://example.com/image.png)'));
     assert.ok((await read('assets/css/styles.css')).includes('url(#filter)'));
     assert.ok((await read('posts/article.html')).includes(`../assets/css/styles.css?v=${first.version}`));
+    assert.ok((await read('blog/index.html')).includes(`../assets/css/styles.css?v=${first.version}`));
+    assert.ok((await read('blog/index.html')).includes('<a href="../posts/article.html">'));
     assert.equal(await readFile(resolve(root, 'index.html'), 'utf8'), html);
     assert.equal(await readFile(resolve(root, 'assets/css/styles.css'), 'utf8'), css);
-    assert.deepEqual((await readdir(first.output)).sort(), ['.nojekyll', 'CNAME', 'assets', 'feed.xml', 'index.html', 'posts', 'robots.txt', 'sitemap.xml']);
+    assert.deepEqual((await readdir(first.output)).sort(), ['.nojekyll', 'CNAME', 'assets', 'blog', 'feed.xml', 'index.html', 'posts', 'robots.txt', 'sitemap.xml']);
     assert.ok(!(await readdir(resolve(first.output, 'assets'))).some(name => name.startsWith('.')));
     await writeFile(resolve(first.output, 'obsolete.txt'), 'old build');
     const second = await buildSite(root);

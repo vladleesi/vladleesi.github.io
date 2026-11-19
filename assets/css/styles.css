@@ -304,6 +304,10 @@ ul {
   transition: background var(--duration-fast), color var(--duration-fast);
 }
 
+.nav-link[aria-current="page"] {
+  color: var(--md-sys-color-primary);
+}
+
 .nav-link:hover {
   background: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
@@ -733,6 +737,21 @@ main {
   color: var(--md-sys-color-on-surface);
 }
 
+.post-card-excerpt {
+  margin-bottom: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.blog-intro {
+  max-width: 40rem;
+  margin-bottom: var(--space-xl);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
 .post-card-date {
   display: inline-flex;
   align-items: center;
@@ -1061,8 +1080,7 @@ main {
 }
 
 /* Supporting actions use low-emphasis Material text buttons and state layers. */
-.evidence-link,
-.writing-archive summary {
+.evidence-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1080,28 +1098,21 @@ main {
   text-decoration: none;
   cursor: pointer;
   transition: background var(--duration-fast);
+  margin-top: 12px;
+  margin-inline-start: -12px;
 }
-
-.evidence-link { margin-top: 12px; margin-inline-start: -12px; }
 
 .evidence-link:hover {
   background: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
   text-decoration: none;
 }
 
-.writing-archive summary:hover {
-  color: var(--md-sys-color-secondary);
-}
-
 .evidence-link:focus-visible,
-.writing-archive summary:focus-visible,
-.evidence-link:active,
-.writing-archive summary:active {
+.evidence-link:active {
   background: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
 }
 
-.evidence-link svg,
-.archive-chevron {
+.evidence-link svg {
   flex-shrink: 0;
   width: 18px;
   height: 18px;
@@ -1119,24 +1130,8 @@ main {
   font-size: 0.95rem;
 }
 
-.writing-archive {
-  margin-top: 12px;
-}
-
-.writing-archive summary {
-  width: fit-content;
-  margin-inline-start: -12px;
-  list-style: none;
-}
-
-.writing-archive summary::-webkit-details-marker { display: none; }
-
-.archive-chevron {
-  transition: transform var(--duration-fast);
-}
-
-.writing-archive[open] .archive-chevron { transform: rotate(180deg); }
-.archive-list { margin-top: 12px; }
+.writing-links { display: flex; flex-wrap: wrap; column-gap: 4px; }
+.writing-links > .evidence-link + .evidence-link { margin-inline-start: 0; }
 
 .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
 

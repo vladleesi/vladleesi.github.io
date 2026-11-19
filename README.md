@@ -12,6 +12,7 @@ Personal portfolio and blog focused on Android and Kotlin.
 
 - `index.html` — homepage.
 - `posts/` — article pages.
+- `blog/` — the full writing list at `/blog/`.
 - `assets/` — styles, scripts, images, and resume.
 - `scripts/` — static packaging, local server, and quality/performance checks.
 - `.github/workflows/` — deployment, CI checks, and Lighthouse profiles.
@@ -54,7 +55,7 @@ Cloudflare must include query strings in its cache key (Standard caching). Keep 
 
 - Edit `index.html`, `posts/*.html`, and `assets/` directly.
 - Keep static header/footer fallbacks aligned with `assets/js/site.config.js` and `layout.js`.
-- New posts need homepage links, RSS, sitemap, and article metadata. Preserve publication dates; update `lastmod` only for significant changes.
+- New posts need a card on `blog/index.html`, a homepage card while among the three newest (drop the oldest of the three), an RSS item with an updated `lastBuildDate`, a sitemap entry, and article metadata. Preserve publication dates; update `lastmod` only for significant changes.
 - See [AGENTS.md](AGENTS.md) for coding and pre-commit rules.
 
 ## License

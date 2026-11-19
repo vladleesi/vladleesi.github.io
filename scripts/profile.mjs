@@ -6,7 +6,11 @@ import { startServer } from './serve.mjs';
 import { buildSite } from './build.mjs';
 
 const mode = process.argv.includes('--desktop') ? 'desktop' : 'mobile';
-const pages = ['/', '/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html'];
+const pages = [
+  ['home', '/'],
+  ['blog', '/blog/'],
+  ['article', '/posts/2026-01-26-vertical-text-in-jetpack-compose-without-rotation-width-problems.html'],
+];
 const directory = `reports/lighthouse/${mode}`;
 const runs = 3;
 const median = values => [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)];
@@ -20,18 +24,18 @@ try {
   await mkdir(directory, { recursive: true });
   // Use the installed Chrome; no browser download or public report upload.
   chrome = await launch({ chromeFlags: ['--headless', '--disable-dev-shm-usage'] });
-  for (const [index, path] of pages.entries()) {
+  for (const [name, path] of pages) {
     const results = [];
     for (let run = 1; run <= runs; run++) {
-      console.log(`${mode}: ${index ? 'article' : 'home'}, run ${run}/${runs}`);
+      console.log(`${mode}: ${name}, run ${run}/${runs}`);
       const result = await lighthouse(origin + path, {
         port: chrome.port, logLevel: 'error', output: ['html', 'json'],
         onlyCategories: ['performance', 'accessibility', 'best-practices', 'seo']
       }, mode === 'desktop' ? desktopConfig : undefined);
       if (!result || result.lhr.runtimeError) throw new Error(result?.lhr.runtimeError?.message || 'No Lighthouse result');
-      const name = `${directory}/${index ? 'article' : 'home'}-${run}`;
-      await writeFile(name + '.html', result.report[0]);
-      await writeFile(name + '.json', result.report[1]);
+      const report = `${directory}/${name}-${run}`;
+      await writeFile(report + '.html', result.report[0]);
+      await writeFile(report + '.json', result.report[1]);
       results.push(result.lhr);
     }
     const scores = Object.fromEntries(Object.keys(results[0].categories).map(key => [key,

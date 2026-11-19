@@ -10,7 +10,7 @@
     "build": "node scripts/build.mjs",
     "test:build": "node --test scripts/build.test.mjs",
     "test:site": "node --test scripts/check-robots.test.mjs",
-    "lint:html": "html-validate index.html 'posts/*.html'",
+    "lint:html": "html-validate index.html blog/index.html 'posts/*.html'",
     "lint:css": "stylelint 'assets/css/*.css' --max-warnings 0",
     "lint:js": "eslint assets/js scripts *.mjs --max-warnings 0",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",

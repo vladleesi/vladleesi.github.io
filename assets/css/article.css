@@ -277,6 +277,107 @@
   margin: 0;
 }
 
+.article-table {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: var(--radius-md);
+}
+
+.article-table table {
+  width: 100%;
+  min-width: 34rem; /* narrow screens scroll the table instead of breaking words */
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  overflow-wrap: normal;
+}
+
+.article-table th,
+.article-table td {
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.article-table thead th {
+  background: var(--md-sys-color-surface-container);
+  font-weight: 600;
+}
+
+.article-table tbody th {
+  font-weight: 600;
+}
+
+.article-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* Images that open their full-size file. */
+.article-body a.image-link {
+  display: block;
+  padding: 0;
+  background: none;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+}
+
+.article-body a.image-link:hover {
+  background: none;
+}
+
+.article-body a.image-link img {
+  transition: opacity var(--duration-fast);
+}
+
+.article-body a.image-link:hover img {
+  opacity: 0.88;
+}
+
+.article-body a.image-link:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 3px;
+}
+
+/* Screenshot comparisons: two equal columns that fit the page, with the frame time above each image. */
+.frame-table table {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.frame-table caption {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--md-sys-color-on-surface-variant);
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.frame-table img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.frame-time {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--md-sys-color-primary);
+}
+
+.frame-note {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
 @media (max-width: 640px) {
   .article-body-table {
     grid-template-columns: 1fr;

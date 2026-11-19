@@ -21,8 +21,13 @@ export async function startServer(port = 0, { cacheControl = 'no-store', directo
         return;
       }
       const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
-      const path = pathname === '/' ? '/index.html' : pathname;
-      const allowed = /^\/(?:index\.html|robots\.txt|sitemap\.xml|feed\.xml)$/.test(path)
+      // Like GitHub Pages, a directory requested without its trailing slash redirects to it.
+      if (pathname === '/blog') {
+        response.writeHead(301, { Location: '/blog/' }).end();
+        return;
+      }
+      const path = pathname.endsWith('/') ? pathname + 'index.html' : pathname;
+      const allowed = /^\/(?:index\.html|blog\/index\.html|robots\.txt|sitemap\.xml|feed\.xml)$/.test(path)
         || /^\/posts\/[^/]+\.html$/.test(path) || path.startsWith('/assets/');
       const file = resolve(siteRoot, '.' + path);
       if (!allowed || !file.startsWith(siteRoot + sep) || path.split('/').some(part => part.startsWith('.'))) {
