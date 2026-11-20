@@ -1,0 +1,9 @@
+# Vladislav Kochetov
+
+> Mobile engineering portfolio and personal blog.
+
+## Site links
+
+- [Portfolio](https://vladleesi.dev/): App architecture, production delivery, Kotlin Multiplatform, and developer experience.
+- [Blog](https://vladleesi.dev/blog/): Tutorials, project write-ups, and notes, newest first.
+- [RSS feed](https://vladleesi.dev/feed.xml): Subscribe to new articles.

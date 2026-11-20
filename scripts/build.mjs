@@ -66,7 +66,7 @@ export async function buildSite(source = projectRoot, destination = resolve(sour
     await mkdir(dirname(target), { recursive: true });
     await writeFile(target, html);
   }
-  for (const file of ['CNAME', 'robots.txt', 'sitemap.xml', 'feed.xml']) await cp(resolve(root, file), resolve(output, file));
+  for (const file of ['CNAME', 'robots.txt', 'sitemap.xml', 'feed.xml', 'llms.txt']) await cp(resolve(root, file), resolve(output, file));
   await writeFile(resolve(output, '.nojekyll'), '');
   return { output, version, pages: pages.length, assets: assets.size };
 }

@@ -18,6 +18,7 @@ test('deployment versions cover asset changes and dependencies without changing 
       'assets/fonts/font.woff2': 'font one', 'assets/icon.svg': '<svg></svg>', 'assets/resume.pdf': 'resume',
       'assets/.private/secret': 'excluded', 'assets/.DS_Store': 'excluded',
       'CNAME': 'vladleesi.dev', 'robots.txt': 'User-agent: *', 'feed.xml': '<rss/>', 'sitemap.xml': '<urlset/>',
+      'llms.txt': '# Vladislav Kochetov\n\n- [Blog](https://vladleesi.dev/blog/)\n',
       'AGENTS.md': 'private instructions', 'package.json': '{}', 'reports/private.txt': 'excluded'
     };
     for (const [file, contents] of Object.entries(files)) await writeFile(resolve(root, file), contents);
@@ -40,7 +41,8 @@ test('deployment versions cover asset changes and dependencies without changing 
     assert.ok((await read('blog/index.html')).includes('<a href="../posts/article.html">'));
     assert.equal(await readFile(resolve(root, 'index.html'), 'utf8'), html);
     assert.equal(await readFile(resolve(root, 'assets/css/styles.css'), 'utf8'), css);
-    assert.deepEqual((await readdir(first.output)).sort(), ['.nojekyll', 'CNAME', 'assets', 'blog', 'feed.xml', 'index.html', 'posts', 'robots.txt', 'sitemap.xml']);
+    assert.equal(await read('llms.txt'), files['llms.txt']);
+    assert.deepEqual((await readdir(first.output)).sort(), ['.nojekyll', 'CNAME', 'assets', 'blog', 'feed.xml', 'index.html', 'llms.txt', 'posts', 'robots.txt', 'sitemap.xml']);
     assert.ok(!(await readdir(resolve(first.output, 'assets'))).some(name => name.startsWith('.')));
     await writeFile(resolve(first.output, 'obsolete.txt'), 'old build');
     const second = await buildSite(root);

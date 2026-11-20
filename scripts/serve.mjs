@@ -27,7 +27,7 @@ export async function startServer(port = 0, { cacheControl = 'no-store', directo
         return;
       }
       const path = pathname.endsWith('/') ? pathname + 'index.html' : pathname;
-      const allowed = /^\/(?:index\.html|blog\/index\.html|robots\.txt|sitemap\.xml|feed\.xml)$/.test(path)
+      const allowed = /^\/(?:index\.html|blog\/index\.html|robots\.txt|sitemap\.xml|feed\.xml|llms\.txt)$/.test(path)
         || /^\/posts\/[^/]+\.html$/.test(path) || path.startsWith('/assets/');
       const file = resolve(siteRoot, '.' + path);
       if (!allowed || !file.startsWith(siteRoot + sep) || path.split('/').some(part => part.startsWith('.'))) {

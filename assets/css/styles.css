@@ -1139,7 +1139,7 @@ main {
 }
 
 .workflow-note {
-  margin-top: 24px;
+  margin-bottom: 24px;
   padding-left: 20px;
   border-left: 3px solid var(--md-sys-color-primary);
   font-size: 0.95rem;

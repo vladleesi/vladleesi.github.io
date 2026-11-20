@@ -1,6 +1,6 @@
 # vladleesi.dev
 
-Personal portfolio and blog focused on Android and Kotlin.
+Mobile engineering portfolio and personal blog by Vladislav Kochetov.
 
 ## Tech stack
 
@@ -17,6 +17,7 @@ Personal portfolio and blog focused on Android and Kotlin.
 - `scripts/` — static packaging, local server, and quality/performance checks.
 - `.github/workflows/` — deployment, CI checks, and Lighthouse profiles.
 - `feed.xml`, `sitemap.xml`, `robots.txt` — RSS and crawler metadata.
+- `llms.txt` — plain-text guide to the portfolio and blog.
 
 ## Local development
 
